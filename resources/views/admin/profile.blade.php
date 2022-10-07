@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title',config('app.name').'-Profile')
+@section('title','Profile')
 
 @section('content')
 
@@ -27,7 +27,7 @@
         <div class="form-group row">
             <label for="password" class="col-sm-2 col-form-label">Change Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-coontrol" name="password" placeholder="***">
+                <input type="password" class="form-coontrol" name="pass" placeholder="***">
                 <small class="form-text text-danger">Kosongkan jika tidak ingin diubah.</small>
             </div>
         </div>

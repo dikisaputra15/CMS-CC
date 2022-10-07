@@ -296,11 +296,20 @@ return [
             'url' => 'admin/dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
-        ['header' => 'account_settings'],
         [
             'text' => 'Profile',
             'url' => 'admin/profile',
             'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'User Management',
+            'url' => 'admin/user',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Concord Services',
+            'url' => 'admin/services',
+            'icon' => 'fas fa-fw fa-file',
         ],
     ],
 
