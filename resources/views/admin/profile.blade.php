@@ -10,25 +10,21 @@
         <h3>Profile & Change Password</h3>
     </div>
     <div class="card-body">
+    <div class="form-group row">
+        <a href="{{ url('admin/changepassword') }}" class="btn btn-primary">Change Password</a>
+    </div>
     <form action="{{ url('admin/profile') }}" method="POST">
         @csrf
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-coontrol" name="name" value="{{ Auth::user()->name }}">
+                <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-                <input type="text" class="form-coontrol" name="email" value="{{ Auth::user()->email }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="password" class="col-sm-2 col-form-label">Change Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-coontrol" name="pass" placeholder="***">
-                <small class="form-text text-danger">Kosongkan jika tidak ingin diubah.</small>
+                <input type="text" class="form-control" name="email" value="{{ Auth::user()->email }}">
             </div>
         </div>
         <div class="form-group row">

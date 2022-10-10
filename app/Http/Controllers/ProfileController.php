@@ -24,18 +24,10 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::user()->id);
 
-        if(empty($request->pass)){
-            $user->update([
+        $user->update([
                 'name' => Str::title($request->name),
                 'email' => $request->email
-            ]);
-        }else{
-            $user->update([
-                'name' => Str::title($request->name),
-                'email' => $request->email,
-                'password' => Hash::make($request->pass)
-            ]);
-        }
+        ]);
 
         if($user->hasRole('admin')){
             return redirect('admin/profile')->with('alert-primary','selamat, profile anda berhasil diubah');
@@ -44,4 +36,5 @@ class ProfileController extends Controller
         }
 
     }
+
 }
