@@ -21,28 +21,28 @@ class AuthController extends Controller
       // echo "$request->email.$request->password "; die;
     	if(Auth::attempt($request->only('email','password'))){
             $akun = DB::table('users')->where('email', $request->email)->first();
-            //dd($akun);
-            if($akun->role =='administrator'){
-                Auth::guard('administrator')->LoginUsingId($akun->id);
-                return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
-            }else if($akun->role =='user1'){
-                Auth::guard('user1')->LoginUsingId($akun->id);
-                return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
-            }elseif ($akun->role =='user2') {
-                Auth::guard('user2')->LoginUsingId($akun->id);
-                return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
-            }elseif ($akun->role =='user3') {
-                Auth::guard('user3')->LoginUsingId($akun->id);
-                return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
-            }elseif ($akun->role =='user4') {
-                Auth::guard('user4')->LoginUsingId($akun->id);
-                return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
-            }elseif ($akun->role =='user5') {
-                Auth::guard('user5')->LoginUsingId($akun->id);
-                return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
-            }
+            dd($akun);
+            // if($akun->role =='administrator'){
+            //     Auth::guard('administrator')->LoginUsingId($akun->id);
+            //     return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
+            // }else if($akun->role =='user1'){
+            //     Auth::guard('user1')->LoginUsingId($akun->id);
+            //     return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
+            // }elseif ($akun->role =='user2') {
+            //     Auth::guard('user2')->LoginUsingId($akun->id);
+            //     return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
+            // }elseif ($akun->role =='user3') {
+            //     Auth::guard('user3')->LoginUsingId($akun->id);
+            //     return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
+            // }elseif ($akun->role =='user4') {
+            //     Auth::guard('user4')->LoginUsingId($akun->id);
+            //     return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
+            // }elseif ($akun->role =='user5') {
+            //     Auth::guard('user5')->LoginUsingId($akun->id);
+            //     return redirect('/admin/dashboard')->with('alert-success','selamat, Anda Berhasil Login');
+            // }
     	}
-    	return redirect('/login')->with('alert-warning','akun belum terdaftar');
+    	// return redirect('/login')->with('alert-warning','akun belum terdaftar');
     }
 
     public function logout()

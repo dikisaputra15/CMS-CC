@@ -40,73 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
-        ],
-
-        'administrator' => [
-            'driver' => 'session',
-            'provider' => 'administrator',
-        ],
-
-        'apiadmininistrator' => [
-            'driver' => 'token',
-            'provider' => 'admin',
-        ],
-
-        'user1' => [
-            'driver' => 'session',
-            'provider' => 'user1',
-        ],
-
-        'apiuser1' => [
-            'driver' => 'token',
-            'provider' => 'user1',
-        ],
-
-        'user2' => [
-            'driver' => 'session',
-            'provider' => 'user2',
-        ],
-
-        'apiuser2' => [
-            'driver' => 'token',
-            'provider' => 'user2',
-        ],
-
-        'user3' => [
-            'driver' => 'session',
-            'provider' => 'user3',
-        ],  
-
-        'apiuser3' => [
-            'driver' => 'token',
-            'provider' => 'user3',
-          ],
-
-          'user4' => [
-            'driver' => 'session',
-            'provider' => 'user4',
-          ],
-
-          'apiuser4' => [
-            'driver' => 'token',
-            'provider' => 'user4',
-          ],
-
-          'user5' => [
-            'driver' => 'session',
-            'provider' => 'user5',
-          ],
-
-          'apiuser5' => [
-            'driver' => 'token',
-            'provider' => 'user5',
-          ],
-
     ],
 
     /*
@@ -128,36 +61,6 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'administrator' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'user1' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'user2' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'user3' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'user4' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'user5' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],

@@ -25,18 +25,16 @@ class UserController extends Controller
 
     public function storeregister(Request $request)
     {
-        $users = User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->new_password)
+            'password' => Hash::make($request->new_password),
+            'type' => $request->role
         ]);
 
-        $user->assignRole('user');
-        return $user;
-
-        if($users->hasRole('admin')){
+        if($user->type == 'admin'){
             return redirect('admin/user')->with('alert-primary','selamat, user berhasil dibuat');
         }else{
             return redirect('user/user')->with('alert-primary','selamat, user berhasil dibuat');

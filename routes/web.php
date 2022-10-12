@@ -14,15 +14,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login2');
+    return view('auth.login');
 });
 
-Route::get('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
-Route::post('/login2', [App\Http\Controllers\AuthController::class, 'postlogin'])->name('login2');
-Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
-Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Auth::routes();
 
-// Auth::routes();
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'index']);
+    Route::post('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'changepassword']);
+    Route::get('/admin/profile', [App\Http\Controllers\ProfileController::class, 'index']);
+    Route::post('/admin/profile', [App\Http\Controllers\ProfileController::class, 'changeprofile']);
+    Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index']);
+    Route::get('/admin/adduser', [App\Http\Controllers\UserController::class, 'adduser']);
+    Route::post('/admin/storeregister', [App\Http\Controllers\UserController::class, 'storeregister']);
+});
+
+Route::middleware(['auth', 'user-access:user'])->group(function () {
+    Route::get('/user/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
+Route::middleware(['auth', 'user-access:manager'])->group(function () {
+    Route::get('/user/manager', [App\Http\Controllers\HomeController::class, 'manager'])->name('manager');
+});
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -35,11 +49,11 @@ Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class,
 // Route::group(['middleware' => ['role:admin']], function(){
 //     Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 //     Route::get('/admin/profile', [App\Http\Controllers\ProfileController::class, 'index']);
-//     Route::get('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'index']);
-//     Route::post('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'changepassword']);
-//     Route::post('/admin/profile', [App\Http\Controllers\ProfileController::class, 'changeprofile']);
-//     Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index']);
-//     Route::get('/admin/adduser', [App\Http\Controllers\UserController::class, 'adduser']);
-//     Route::post('/admin/storeregister', [App\Http\Controllers\UserController::class, 'storeregister']);
+    // Route::get('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'index']);
+    // Route::post('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'changepassword']);
+    // Route::post('/admin/profile', [App\Http\Controllers\ProfileController::class, 'changeprofile']);
+    // Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index']);
+    // Route::get('/admin/adduser', [App\Http\Controllers\UserController::class, 'adduser']);
+    // Route::post('/admin/storeregister', [App\Http\Controllers\UserController::class, 'storeregister']);
 // });
 
