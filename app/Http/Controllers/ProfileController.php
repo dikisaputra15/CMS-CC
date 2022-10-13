@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = User::find(Auth::user()->id);
-        if($user->type == 'admin'){
+        if($user->type == 'Admin'){
             return view('admin.profile');
         }else{
             return view('user.profile');

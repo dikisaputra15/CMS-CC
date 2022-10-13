@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
@@ -61,8 +61,9 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="role">
                                     <option value="0">admin</option>
-                                    <option value="1">user</option>
-                                    <option value="2">manager</option>
+                                    <option value="1">finance</option>
+                                    <option value="2">HR</option>
+                                    <option value="3">Data Entry</option>
                                 </select>
                             </div>
                         </div>

@@ -13,7 +13,7 @@ class ChangepassController extends Controller
     public function index()
     {
         $user = User::find(Auth::user()->id);
-        if($user->type == 'admin'){
+        if($user->type == 'Admin'){
             return view('admin.changepassword');
         }else{
             return view('user.changepassword');

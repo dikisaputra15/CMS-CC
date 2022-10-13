@@ -7,5 +7,5 @@
 @stop
 
 @section('content')
-    <p>welcome to user panel</p>
+    <p>welcome to data entry panel</p>
 @stop

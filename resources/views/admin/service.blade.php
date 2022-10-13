@@ -1,39 +1,37 @@
 @extends('adminlte::page')
 
-@section('title','User Management')
+@section('title','Concord Service')
 
 @section('content')
 
 <x-alert></x-alert>
 <div class="card">
     <div class="card-header bg-white">
-        <h3>User Management</h3>
+        <h3>Service</h3>
     </div>
     <div class="card-body">
         <div class="form-group row">
-            <a href="{{ url('admin/adduser') }}" class="btn btn-primary">Add User</a>
+            <a href="{{ url('admin/addservice') }}" class="btn btn-primary">Add Service</a>
         </div>
             <table id="example" class="table table-striped" style="width:100%">
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Role</th>
+                      <th>Kode Service</th>
+                      <th>Service Name</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     @php $no = 1 @endphp
-                    @foreach($user as $usr)
+                    @foreach($service as $srv)
                     <tr data-widget="expandable-table" aria-expanded="false">
                         <td>{{ $no++ }}</td>
-                        <td>{{ $usr->name }}</td>
-                        <td>{{ $usr->email }}</td>
-                        <td>{{ $usr->type }}</td>
+                        <td>{{ $srv->kode_services }}</td>
+                        <td>{{ $srv->nama_services }}</td>
                         <td>
-                              <a href="/admin/{{$usr->id}}/edituser" class="btn btn-sm btn-warning">Edit</a>
-                              <form action="/admin/{{$usr->id}}" method="POST">
+                              <a href="/admin/{{$srv->id}}/editsrv" class="btn btn-sm btn-warning">Edit</a>
+                              <form action="/admin/delsrv/{{$srv->id}}" method="POST">
                                   @csrf
                                   @method('delete')
                                   <input type="submit" class="btn btn-sm btn-danger d-inline" value="Delete">

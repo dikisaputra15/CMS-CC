@@ -18,23 +18,29 @@ class CreateUsersSeeder extends Seeder
     {
         $users = [
             [
-               'name'=>'admin',
+               'name'=>'Admin',
                'email'=>'admin@admin.com',
                'type'=>0,
                'password'=> hash::make('admin12345'),
             ],
             [
-               'name'=>'user',
-               'email'=>'user@user.com',
+               'name'=>'Finance',
+               'email'=>'finance@finance.com',
                'type'=> 1,
-               'password'=> hash::make('user12345'),
+               'password'=> hash::make('finance12345'),
             ],
             [
-               'name'=>'manager',
-               'email'=>'manager@manager.com',
+               'name'=>'HR',
+               'email'=>'hr@hr.com',
                'type'=>2,
-               'password'=> hash::make('manager12345'),
+               'password'=> hash::make('hr12345'),
             ],
+            [
+                'name'=>'Data Entry',
+                'email'=>'dataentry@dataentry.com',
+                'type'=>3,
+                'password'=> hash::make('dataentry12345'),
+             ],
         ];
 
         foreach ($users as $key => $user) {

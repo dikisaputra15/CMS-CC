@@ -23,11 +23,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.home');
+        return view('user.finance');
     }
 
-    public function manager()
+    public function hr()
     {
-        return view('user.manager');
+        return view('user.hr');
+    }
+
+    public function dataentry()
+    {
+        return view('user.dataentry');
     }
 }

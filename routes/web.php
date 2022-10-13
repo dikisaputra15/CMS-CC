@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'index']);
     Route::post('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'changepassword']);
@@ -28,32 +28,34 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index']);
     Route::get('/admin/adduser', [App\Http\Controllers\UserController::class, 'adduser']);
     Route::post('/admin/storeregister', [App\Http\Controllers\UserController::class, 'storeregister']);
+    Route::get('/admin/{id}/edituser', [App\Http\Controllers\UserController::class, 'edituser']);
+    Route::put('/admin/edituser/{id}', [App\Http\Controllers\UserController::class, 'updateuser']);
+    Route::delete('/admin/{id}', [App\Http\Controllers\UserController::class, 'destroyuser']);
+    Route::get('/admin/{id}/changeuserpass', [App\Http\Controllers\UserController::class, 'changeuserpass']);
+    Route::post('/admin/updatepass', [App\Http\Controllers\UserController::class, 'updatepass']);
+    Route::get('/admin/services', [App\Http\Controllers\ServiceController::class, 'index']);
+    Route::get('/admin/{id}/editsrv', [App\Http\Controllers\ServiceController::class, 'editsrv']);
+    Route::put('/admin/editsrv/{id}', [App\Http\Controllers\ServiceController::class, 'updatesrv']);
+    Route::get('/admin/addservice', [App\Http\Controllers\ServiceController::class, 'addservice']);
+    Route::post('/admin/storesrv', [App\Http\Controllers\ServiceController::class, 'storesrv']);
+    Route::delete('/admin/delsrv/{id}', [App\Http\Controllers\ServiceController::class, 'destroysrv']);
 });
 
-Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/user/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth', 'user-access:Finance'])->group(function () {
+    Route::get('/user/finance', [App\Http\Controllers\HomeController::class, 'index'])->name('finance');
 });
 
-Route::middleware(['auth', 'user-access:manager'])->group(function () {
-    Route::get('/user/manager', [App\Http\Controllers\HomeController::class, 'manager'])->name('manager');
+Route::middleware(['auth', 'user-access:HR'])->group(function () {
+    Route::get('/user/hr', [App\Http\Controllers\HomeController::class, 'hr'])->name('hr');
 });
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth', 'user-access:Data Entry'])->group(function () {
+    Route::get('/user/dataentry', [App\Http\Controllers\HomeController::class, 'dataentry'])->name('dataentry');
+});
 
 // Route::group(['middleware' => ['role:user']], function(){
 //     Route::get('/user/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //     Route::get('/user/profile', [App\Http\Controllers\ProfileController::class, 'index']);
 //     Route::post('/user/profile', [App\Http\Controllers\ProfileController::class, 'changeprofile']);
-// });
-
-// Route::group(['middleware' => ['role:admin']], function(){
-//     Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-//     Route::get('/admin/profile', [App\Http\Controllers\ProfileController::class, 'index']);
-    // Route::get('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'index']);
-    // Route::post('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'changepassword']);
-    // Route::post('/admin/profile', [App\Http\Controllers\ProfileController::class, 'changeprofile']);
-    // Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index']);
-    // Route::get('/admin/adduser', [App\Http\Controllers\UserController::class, 'adduser']);
-    // Route::post('/admin/storeregister', [App\Http\Controllers\UserController::class, 'storeregister']);
 // });
 

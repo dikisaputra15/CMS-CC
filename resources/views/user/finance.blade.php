@@ -7,5 +7,5 @@
 @stop
 
 @section('content')
-    <p>welcome to manager panel</p>
+    <p>welcome to finance panel</p>
 @stop
