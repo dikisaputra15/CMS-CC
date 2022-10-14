@@ -39,6 +39,7 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/admin/addservice', [App\Http\Controllers\ServiceController::class, 'addservice']);
     Route::post('/admin/storesrv', [App\Http\Controllers\ServiceController::class, 'storesrv']);
     Route::delete('/admin/delsrv/{id}', [App\Http\Controllers\ServiceController::class, 'destroysrv']);
+    Route::get('/admin/prospective', [App\Http\Controllers\ProspecController::class, 'index']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {

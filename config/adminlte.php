@@ -311,6 +311,11 @@ return [
             'url' => 'admin/services',
             'icon' => 'fas fa-fw fa-file',
         ],
+        [
+            'text' => 'Prospective Clients',
+            'url' => 'admin/prospective',
+            'icon' => 'fas fa-fw fa-table',
+        ],
     ],
 
     /*
