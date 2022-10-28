@@ -40,6 +40,14 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::post('/admin/storesrv', [App\Http\Controllers\ServiceController::class, 'storesrv']);
     Route::delete('/admin/delsrv/{id}', [App\Http\Controllers\ServiceController::class, 'destroysrv']);
     Route::get('/admin/prospective', [App\Http\Controllers\ProspecController::class, 'index']);
+    Route::get('/admin/addprospec', [App\Http\Controllers\ProspecController::class, 'addprospec']);
+    Route::post('/admin/storeprospec', [App\Http\Controllers\ProspecController::class, 'storeprospec']);
+    Route::get('/admin/{id}/updatepros', [App\Http\Controllers\ProspecController::class, 'addupdate']);
+    Route::post('/admin/saveupdatepros', [App\Http\Controllers\ProspecController::class, 'updatepros']);
+    Route::get('/admin/{id}/detailpros', [App\Http\Controllers\ProspecController::class, 'detailpros']);
+    Route::delete('/admin/delpros/{id}', [App\Http\Controllers\ProspecController::class, 'destroypros']);
+    Route::get('/admin/clients', [App\Http\Controllers\ClientController::class, 'index']);
+    Route::get('/admin/addclient', [App\Http\Controllers\ClientController::class, 'addclient']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {

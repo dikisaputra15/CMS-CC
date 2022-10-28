@@ -316,6 +316,11 @@ return [
             'url' => 'admin/prospective',
             'icon' => 'fas fa-fw fa-table',
         ],
+        [
+            'text' => 'Clients',
+            'url' => 'admin/clients',
+            'icon' => 'fas fa-fw fa-edit',
+        ],
     ],
 
     /*

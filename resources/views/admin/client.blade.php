@@ -1,43 +1,28 @@
 @extends('adminlte::page')
 
-@section('title','Prospective Client')
+@section('title','Clients List')
 
 @section('content')
 
 <x-alert></x-alert>
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Prospective Client</h3>
+        <h3>Client List</h3>
     </div>
     <div class="card-body">
         <div class="form-group row">
-            <a href="{{ url('admin/addprospec') }}" class="btn btn-primary">Add Prospective Client</a>
+            <a href="{{ url('admin/addclient') }}" class="btn btn-primary">Add Client</a>
         </div>
             <table id="example" class="table table-striped" style="width:100%">
                   <thead>
                     <tr>
+                      <th>No</th>
                       <th>Client Name</th>
-                      <th>Client POC</th>
-                      <th>POC CC</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach($prospec as $pro)
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                        <td>{{ $pro->nama_client }}</td>
-                        <td>{{ $pro->client_poc }}</td>
-                        <td>{{ $pro->poc_cc }}</td>
-                        <td>
-                            <a href="/admin/{{$pro->id}}/detailpros" class="btn btn-sm btn-primary">Detail</a>
-                            <form action="/admin/delpros/{{$pro->id}}" method="POST">
-                                  @csrf
-                                  @method('delete')
-                                  <input type="submit" class="btn btn-sm btn-danger d-inline" value="Delete">
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                    
                   </tbody>
             </table>
     </div>
