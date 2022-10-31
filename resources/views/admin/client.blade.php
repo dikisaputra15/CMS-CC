@@ -22,7 +22,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                    
+                  @php $no = 1 @endphp
+                    @foreach($client as $cli)
+                    <tr data-widget="expandable-table" aria-expanded="false">
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $cli->nama_client }}</td>
+                        <td>
+                              <a href="/admin/{{$cli->id}}/editcli" class="btn btn-sm btn-warning">Edit</a>
+                              <a href="/admin/delcli/{{$cli->id}}" onclick="return confirm('Are you sure to delete this ?');" class="btn btn-sm btn-danger">Delete</a>
+                              <a href="/admin/{{$cli->id}}/detailcli" class="btn btn-sm btn-primary">View</a>
+                        </td>
+                    </tr>
+                    @endforeach
                   </tbody>
             </table>
     </div>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -26,7 +27,6 @@ class UserController extends Controller
 
     public function storeregister(Request $request)
     {
-        $user = User::find(Auth::user()->id);
 
         User::create([
             'name' => $request->name,
@@ -35,11 +35,8 @@ class UserController extends Controller
             'type' => $request->role
         ]);
 
-        if($user->type == 'admin'){
-            return redirect('admin/user')->with('alert-primary','selamat, user berhasil dibuat');
-        }else{
-            return redirect('user/user')->with('alert-primary','selamat, user berhasil dibuat');
-        }
+        return redirect('admin/user')->with('alert-primary','selamat, user berhasil dibuat');
+       
     }
 
     public function edituser($id)
@@ -57,8 +54,7 @@ class UserController extends Controller
 
     public function destroyuser($id)
     {
-        $user = User::find($id);
-        $user->delete();
+        DB::table('users')->where('id',$id)->delete();
         return redirect('admin/user')->with('alert-danger','selamat, user berhasil dihapus');
     }
 

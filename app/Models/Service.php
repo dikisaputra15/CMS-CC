@@ -19,4 +19,9 @@ class Service extends Model
         'kode_services',
         'nama_services',
     ];
+
+    public function client()
+    {
+        return $this->hasMany(Client::class);
+    }
 }

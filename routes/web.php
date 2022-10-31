@@ -30,7 +30,7 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::post('/admin/storeregister', [App\Http\Controllers\UserController::class, 'storeregister']);
     Route::get('/admin/{id}/edituser', [App\Http\Controllers\UserController::class, 'edituser']);
     Route::put('/admin/edituser/{id}', [App\Http\Controllers\UserController::class, 'updateuser']);
-    Route::delete('/admin/{id}', [App\Http\Controllers\UserController::class, 'destroyuser']);
+    Route::get('/admin/hapususr/{id}', [App\Http\Controllers\UserController::class, 'destroyuser']);
     Route::get('/admin/{id}/changeuserpass', [App\Http\Controllers\UserController::class, 'changeuserpass']);
     Route::post('/admin/updatepass', [App\Http\Controllers\UserController::class, 'updatepass']);
     Route::get('/admin/services', [App\Http\Controllers\ServiceController::class, 'index']);
@@ -38,16 +38,21 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::put('/admin/editsrv/{id}', [App\Http\Controllers\ServiceController::class, 'updatesrv']);
     Route::get('/admin/addservice', [App\Http\Controllers\ServiceController::class, 'addservice']);
     Route::post('/admin/storesrv', [App\Http\Controllers\ServiceController::class, 'storesrv']);
-    Route::delete('/admin/delsrv/{id}', [App\Http\Controllers\ServiceController::class, 'destroysrv']);
+    Route::get('/admin/delsrv/{id}', [App\Http\Controllers\ServiceController::class, 'destroysrv']);
     Route::get('/admin/prospective', [App\Http\Controllers\ProspecController::class, 'index']);
     Route::get('/admin/addprospec', [App\Http\Controllers\ProspecController::class, 'addprospec']);
     Route::post('/admin/storeprospec', [App\Http\Controllers\ProspecController::class, 'storeprospec']);
     Route::get('/admin/{id}/updatepros', [App\Http\Controllers\ProspecController::class, 'addupdate']);
     Route::post('/admin/saveupdatepros', [App\Http\Controllers\ProspecController::class, 'updatepros']);
     Route::get('/admin/{id}/detailpros', [App\Http\Controllers\ProspecController::class, 'detailpros']);
-    Route::delete('/admin/delpros/{id}', [App\Http\Controllers\ProspecController::class, 'destroypros']);
+    Route::get('/admin/delpros/{id}', [App\Http\Controllers\ProspecController::class, 'destroypros']);
     Route::get('/admin/clients', [App\Http\Controllers\ClientController::class, 'index']);
     Route::get('/admin/addclient', [App\Http\Controllers\ClientController::class, 'addclient']);
+    Route::post('/admin/storeclient', [App\Http\Controllers\ClientController::class, 'storeclient']); 
+    Route::get('/admin/delcli/{id}', [App\Http\Controllers\ClientController::class, 'destroycli']); 
+    Route::get('/admin/{id}/editcli', [App\Http\Controllers\ClientController::class, 'editcli']);
+    Route::put('/admin/updatecli/{id}', [App\Http\Controllers\ClientController::class, 'updatecli']);
+    Route::get('/admin/{id}/detailcli', [App\Http\Controllers\ClientController::class, 'detailcli']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {

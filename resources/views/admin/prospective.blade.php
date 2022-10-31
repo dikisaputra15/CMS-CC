@@ -29,12 +29,8 @@
                         <td>{{ $pro->client_poc }}</td>
                         <td>{{ $pro->poc_cc }}</td>
                         <td>
-                            <a href="/admin/{{$pro->id}}/detailpros" class="btn btn-sm btn-primary">Detail</a>
-                            <form action="/admin/delpros/{{$pro->id}}" method="POST">
-                                  @csrf
-                                  @method('delete')
-                                  <input type="submit" class="btn btn-sm btn-danger d-inline" value="Delete">
-                            </form>
+                            <a href="/admin/{{$pro->id}}/detailpros" class="btn btn-sm btn-primary">View</a>
+                            <a href="/admin/delpros/{{$pro->id}}" onclick="return confirm('Are you sure to delete this ?');" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                     @endforeach

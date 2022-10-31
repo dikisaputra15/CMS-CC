@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title','Add Clients')
+@section('title','Edit Clients')
 
 @section('content')
 <div class="container">
@@ -8,19 +8,24 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-white">
-                    <h3>Add Clients</h3>
+                    <h3>Edit Clients</h3>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url('admin/storeclient') }}">
+                    <form method="POST" action="/admin/updatecli/{{ $client->id }}">
+                        @method('put')
                         @csrf
                         <div class="row mb-3">
                             <label for="client" class="col-md-4 col-form-label text-md-end">Services</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="service_id">
-                                    <option value="0">-Choose Service-</option>
-                                @foreach ($service as $srv)
-                                    <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
-                                @endforeach
+                                            <option value="0">-Choose Service-</option>
+                                    @foreach ($service as $srv)
+                                        @if ($client->service_id == $srv->id)
+                                            <option value="{{ $srv->id }}" selected>{{ $srv->nama_services }}</option>
+                                        @else
+                                            <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -28,70 +33,70 @@
                         <div class="row mb-3">
                             <label for="nama_client" class="col-md-4 col-form-label text-md-end">Nama Client</label>
                             <div class="col-md-6">
-                                <input id="nama_client" type="text" class="form-control" name="nama_client" required autocomplete="nama_client">
+                                <input id="nama_client" type="text" class="form-control" name="nama_client" required autocomplete="nama_client" value="{{ $client->nama_client }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="client_poc" class="col-md-4 col-form-label text-md-end">Address</label>
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address" required autocomplete="address">
+                                <input id="address" type="text" class="form-control" name="address" required autocomplete="address" value="{{ $client->address }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="poc_cc" class="col-md-4 col-form-label text-md-end">Start Date</label>
                             <div class="col-md-6">
-                                <input id="start_date" type="date" class="form-control" name="start_date" required autocomplete="start_date">
+                                <input id="start_date" type="date" class="form-control" name="start_date" required autocomplete="start_date" value="{{ $client->start_date }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">Duration</label>
                             <div class="col-md-6">
-                                <input id="duration" type="number" class="form-control" name="duration" required autocomplete="duration">
+                                <input id="duration" type="number" class="form-control" name="duration" required autocomplete="duration" value="{{ $client->duration }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="remark" class="col-md-4 col-form-label text-md-end">Client Since</label>
                             <div class="col-md-6">
-                                <input id="client_since" type="date" class="form-control" name="client_since" required autocomplete="client_since">
+                                <input id="client_since" type="date" class="form-control" name="client_since" required autocomplete="client_since" value="{{ $client->client_since }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">Client POC</label>
                             <div class="col-md-6">
-                                <input id="client_poc" type="text" class="form-control" name="client_poc" required autocomplete="client_poc">
+                                <input id="client_poc" type="text" class="form-control" name="client_poc" required autocomplete="client_poc" value="{{ $client->client_poc }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">Concord POC</label>
                             <div class="col-md-6">
-                                <input id="concord_poc" type="text" class="form-control" name="concord_poc" required autocomplete="concord_poc">
+                                <input id="concord_poc" type="text" class="form-control" name="concord_poc" required autocomplete="concord_poc" value="{{ $client->concord_poc }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">End User POC</label>
                             <div class="col-md-6">
-                                <input id="enduser_poc" type="text" class="form-control" name="enduser_poc" required autocomplete="enduser_poc">
+                                <input id="enduser_poc" type="text" class="form-control" name="enduser_poc" required autocomplete="enduser_poc" value="{{ $client->end_user_poc }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">No Of Subscribe</label>
                             <div class="col-md-6">
-                                <input id="no_of_subscribe" type="number" class="form-control" name="no_of_subscribe" required autocomplete="no_of_subscribe">
+                                <input id="no_of_subscribe" type="number" class="form-control" name="no_of_subscribe" required autocomplete="no_of_subscribe" value="{{ $client->no_of_subs }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">List Of Subscribe</label>
                             <div class="col-md-6">
-                                <textarea name="list_of_subscribe" style="height:150px; width:500px;"></textarea>
+                                <textarea name="list_of_subscribe" style="height:150px; width:500px;">{{ $client->list_of_subs }}</textarea>
                             </div>
                         </div>
  

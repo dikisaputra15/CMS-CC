@@ -31,11 +31,7 @@
                         <td>{{ $srv->nama_services }}</td>
                         <td>
                               <a href="/admin/{{$srv->id}}/editsrv" class="btn btn-sm btn-warning">Edit</a>
-                              <form action="/admin/delsrv/{{$srv->id}}" method="POST">
-                                  @csrf
-                                  @method('delete')
-                                  <input type="submit" class="btn btn-sm btn-danger d-inline" value="Delete">
-                              </form>
+                              <a href="/admin/delsrv/{{$srv->id}}" onclick="return confirm('Are you sure to delete this ?');" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                     @endforeach

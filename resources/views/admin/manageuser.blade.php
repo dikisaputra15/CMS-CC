@@ -33,11 +33,7 @@
                         <td>{{ $usr->type }}</td>
                         <td>
                               <a href="/admin/{{$usr->id}}/edituser" class="btn btn-sm btn-warning">Edit</a>
-                              <form action="/admin/{{$usr->id}}" method="POST">
-                                  @csrf
-                                  @method('delete')
-                                  <input type="submit" class="btn btn-sm btn-danger d-inline" value="Delete">
-                              </form>
+                              <a href="/admin/hapususr/{{$usr->id}}" onclick="return confirm('Are you sure to delete this ?');" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                     @endforeach

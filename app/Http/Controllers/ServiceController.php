@@ -53,8 +53,7 @@ class ServiceController extends Controller
 
     public function destroysrv($id)
     {
-        $service = service::find($id);
-        $service->delete();
+        DB::table('services')->where('id',$id)->delete();
         return redirect('admin/services')->with('alert-danger','selamat, Data berhasil dihapus');
     }
 }

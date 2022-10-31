@@ -72,8 +72,8 @@ class ProspecController extends Controller
 
     public function destroypros($id)
     {
-        $prospec = Prospective_client::find($id);
-        $prospec->delete();
+        DB::table('prospective_clients')->where('id',$id)->delete();
+        DB::table('detail_propective_clients')->where('id_pros_client',$id)->delete();
         return redirect('admin/prospective')->with('alert-danger','selamat, Data berhasil dihapus');
     }
 
