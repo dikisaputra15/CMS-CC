@@ -53,6 +53,14 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/admin/{id}/editcli', [App\Http\Controllers\ClientController::class, 'editcli']);
     Route::put('/admin/updatecli/{id}', [App\Http\Controllers\ClientController::class, 'updatecli']);
     Route::get('/admin/{id}/detailcli', [App\Http\Controllers\ClientController::class, 'detailcli']);
+    Route::get('/admin/{id}/addsrvcli', [App\Http\Controllers\ClientController::class, 'addsrvcli']);
+    Route::post('/admin/storesrvcli', [App\Http\Controllers\ClientController::class, 'storesrvcli']);
+    Route::get('/admin/{id}/editsrvcli', [App\Http\Controllers\ClientController::class, 'editsrvcli']);
+    Route::put('/admin/updatesrvcli/{id}', [App\Http\Controllers\ClientController::class, 'updatesrvcli']);
+    Route::get('/admin/{id}/addsumcli', [App\Http\Controllers\ClientlogController::class, 'addsumcli']);
+    Route::post('/admin/storesumcli', [App\Http\Controllers\ClientlogController::class, 'storesumcli']);
+    Route::get('/admin/{id}/editsumcli', [App\Http\Controllers\ClientlogController::class, 'editsumcli']);
+    Route::put('/admin/updatesumcli/{id}', [App\Http\Controllers\ClientlogController::class, 'updatesumcli']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {

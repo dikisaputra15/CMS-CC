@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Models\Client;
+use App\Models\Detail_client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -29,21 +30,28 @@ class ClientController extends Controller
     {
         $tgl1 = $request->start_date;
         $dur = $request->duration;
+        $serviceid = $request->service_id;
         $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
 
-        Client::create([
-            'service_id' => $request->service_id,
+        $client = Client::create([
             'nama_client' => $request->nama_client,
             'address' => $request->address,
-            'start_date' => $request->start_date,
-            'end_date' => $tgl2,
             'client_since' => $request->client_since,
             'client_poc' => $request->client_poc,
             'concord_poc' => $request->concord_poc,
             'end_user_poc' => $request->enduser_poc,
             'no_of_subs' => $request->no_of_subscribe,
-            'list_of_subs' => $request->list_of_subscribe,
-            'duration' => $request->duration
+            'list_of_subs' => $request->list_of_subscribe
+        ]);
+
+        $clientid = $client->id;
+
+        Detail_client::create([
+            'id_client' => $clientid,
+            'id_service' => $serviceid,
+            'start_date' => $tgl1,
+            'duration' => $dur,
+            'end_date' => $tgl2
         ]);
 
         return redirect('admin/clients')->with('alert-primary','selamat, Data berhasil ditambah');
@@ -52,35 +60,27 @@ class ClientController extends Controller
     public function destroycli($id)
     {
         DB::table('clients')->where('id',$id)->delete();
+        DB::table('detail_clients')->where('id_client',$id)->delete();
         return redirect('admin/clients')->with('alert-danger','selamat, Data berhasil dihapus');
     }
 
     public function editcli($id)
     {
         $client = Client::find($id);
-        $service = service::all();
-        return view('admin.editcli', compact(['client','service']));
+        return view('admin.editcli', compact(['client']));
     }
 
     public function updatecli($id, Request $request)
     {
-        $tgl1 = $request->start_date;
-        $dur = $request->duration;
-        $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
-
         DB::table('clients')->where('id',$id)->update([
-			'service_id' => $request->service_id,
             'nama_client' => $request->nama_client,
             'address' => $request->address,
-            'start_date' => $request->start_date,
-            'end_date' => $tgl2,
             'client_since' => $request->client_since,
             'client_poc' => $request->client_poc,
             'concord_poc' => $request->concord_poc,
             'end_user_poc' => $request->enduser_poc,
             'no_of_subs' => $request->no_of_subscribe,
-            'list_of_subs' => $request->list_of_subscribe,
-            'duration' => $request->duration
+            'list_of_subs' => $request->list_of_subscribe
 		]);
 
         return redirect('admin/clients')->with('alert-primary','selamat, Data berhasil diupdate');
@@ -88,6 +88,68 @@ class ClientController extends Controller
 
     public function detailcli($id)
     {
-        return view('admin.detailcli');
+        $detail = DB::table('detail_clients')
+        ->join('clients', 'detail_clients.id_client', '=', 'clients.id')
+        ->join('services', 'detail_clients.id_service', '=', 'services.id')
+        ->select('clients.*', 'detail_clients.start_date', 'detail_clients.duration', 'detail_clients.end_date', 'detail_clients.id_client', 'detail_clients.id', 'services.kode_services', 'services.nama_services')
+        ->where('detail_clients.id_client', $id)
+        ->get();
+
+        $detail2 = DB::table('log_service_clients')
+        ->join('clients', 'log_service_clients.id_client', '=', 'clients.id')
+        ->join('services', 'log_service_clients.id_service', '=', 'services.id')
+        ->select('log_service_clients.*', 'clients.nama_client', 'services.nama_services')
+        ->where('log_service_clients.id_client', $id)
+        ->get();
+
+        return view('admin.detailcli', compact(['detail','detail2']));
+    }
+
+    public function addsrvcli($id)
+    {
+        $dt = Client::find($id);
+        $service = service::all();
+        return view('admin.addsrvcli', compact(['dt','service']));
+    }
+
+    public function storesrvcli(Request $request)
+    {
+        $tgl1 = $request->start_date;
+        $dur = $request->duration;
+        $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+
+        Detail_client::create([
+            'id_client' => $request->id_client,
+            'id_service' => $request->service_id,
+            'start_date' => $tgl1,
+            'duration' => $dur,
+            'end_date' => $tgl2
+        ]);
+
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','selamat, Data berhasil ditambah');
+    }
+
+    public function editsrvcli($id)
+    {
+        $dt = Detail_client::find($id);
+        $service = service::all();
+        return view('admin.editsrvcli', compact(['dt','service']));
+    }
+
+    public function updatesrvcli($id, Request $request)
+    {
+        $tgl1 = $request->start_date;
+        $dur = $request->duration;
+        $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+
+        DB::table('detail_clients')->where('id',$id)->update([
+            'id_client' => $request->id_client,
+            'id_service' => $request->service_id,
+            'start_date' => $tgl1,
+            'duration' => $dur,
+            'end_date' => $tgl2
+		]);
+
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','selamat, Data berhasil diupdate');
     }
 }

@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label text-md-end">Duration</label>
+                            <label for="date" class="col-md-4 col-form-label text-md-end">Duration <small>(per month)</small></label>
                             <div class="col-md-6">
                                 <input id="duration" type="number" class="form-control" name="duration" required autocomplete="duration">
                             </div>

@@ -14,21 +14,6 @@
                     <form method="POST" action="/admin/updatecli/{{ $client->id }}">
                         @method('put')
                         @csrf
-                        <div class="row mb-3">
-                            <label for="client" class="col-md-4 col-form-label text-md-end">Services</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="service_id">
-                                            <option value="0">-Choose Service-</option>
-                                    @foreach ($service as $srv)
-                                        @if ($client->service_id == $srv->id)
-                                            <option value="{{ $srv->id }}" selected>{{ $srv->nama_services }}</option>
-                                        @else
-                                            <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="row mb-3">
                             <label for="nama_client" class="col-md-4 col-form-label text-md-end">Nama Client</label>
@@ -41,20 +26,6 @@
                             <label for="client_poc" class="col-md-4 col-form-label text-md-end">Address</label>
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control" name="address" required autocomplete="address" value="{{ $client->address }}">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="poc_cc" class="col-md-4 col-form-label text-md-end">Start Date</label>
-                            <div class="col-md-6">
-                                <input id="start_date" type="date" class="form-control" name="start_date" required autocomplete="start_date" value="{{ $client->start_date }}">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label text-md-end">Duration</label>
-                            <div class="col-md-6">
-                                <input id="duration" type="number" class="form-control" name="duration" required autocomplete="duration" value="{{ $client->duration }}">
                             </div>
                         </div>
 

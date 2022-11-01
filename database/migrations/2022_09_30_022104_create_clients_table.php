@@ -17,15 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('nama_client');
             $table->string('address');
-            $table->date('start_date');
-            $table->date('end_date');
             $table->date('client_since');
             $table->string('client_poc');
             $table->string('concord_poc');
             $table->string('end_user_poc');
             $table->integer('no_of_subs');
             $table->string('list_of_subs');
-            $table->integer('duration');
         });
     }
 
