@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_client');
+            $table->integer('id_dclient');
             $table->string('notes');
         });
     }

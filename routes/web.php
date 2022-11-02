@@ -61,6 +61,10 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::post('/admin/storesumcli', [App\Http\Controllers\ClientlogController::class, 'storesumcli']);
     Route::get('/admin/{id}/editsumcli', [App\Http\Controllers\ClientlogController::class, 'editsumcli']);
     Route::put('/admin/updatesumcli/{id}', [App\Http\Controllers\ClientlogController::class, 'updatesumcli']);
+    Route::get('/admin/{id}/addnote', [App\Http\Controllers\NoteController::class, 'addnote']);
+    Route::post('/admin/storenote', [App\Http\Controllers\NoteController::class, 'storenote']);
+    Route::get('/admin/{id}/editnote', [App\Http\Controllers\NoteController::class, 'editnote']);
+    Route::put('/admin/updatenote/{id}', [App\Http\Controllers\NoteController::class, 'updatenote']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {
