@@ -33,7 +33,7 @@
                     <th>No</th>
                     <th>Services</th>
                     <th>Start Date</th>
-                    <th>Duration</th>
+                    <th>Duration <small>(Month)</small></th>
                     <th>End Date</th>
                     <th>Action</th>
                 </tr>
@@ -43,7 +43,7 @@
             @foreach($detail as $dt)
                 <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $dt->nama_services }}</td>
+                    <td>{{ $dt->kode_services }}</td>
                     <td>{{ $dt->start_date }}</td>
                     <td>{{ $dt->duration }}</td>
                     <td>{{ $dt->end_date }}</td>
@@ -107,7 +107,7 @@
                     <tbody>
                     @foreach($detail2 as $dt2)
                         <tr>
-                            <td>{{ $dt2->nama_services }}</td>
+                            <td>{{ $dt2->kode_services }}</td>
                             <td>{{ $dt2->date }}</td>
                             <td>{{ $dt2->remarks }}</td>
                             <td>

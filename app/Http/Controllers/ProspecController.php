@@ -27,9 +27,7 @@ class ProspecController extends Controller
     public function storeprospec(Request $request)
     {
        $prospective = prospective_client::create([
-            'nama_client' => $request->client_name,
-            'client_poc' => $request->client_poc,
-            'poc_cc' => $request->poc_cc
+            'nama_client' => $request->client_name
         ]);
 
         $prospectiveid = $prospective->id;
@@ -37,10 +35,12 @@ class ProspecController extends Controller
         detail_propective_client::create([
             'id_pros_client' => $prospectiveid,
             'date' => $request->tgl,
-            'remarks' => $request->remark
+            'remarks' => $request->remark,
+            'client_poc' => $request->client_poc,
+            'poc_cc' => $request->poc_cc
         ]);
 
-        return redirect('admin/prospective')->with('alert-primary','selamat, Data berhasil ditambah');
+        return redirect('admin/prospective')->with('alert-primary','Data berhasil ditambah');
     }
 
     public function addupdate($id)
@@ -54,17 +54,19 @@ class ProspecController extends Controller
         detail_propective_client::create([
             'id_pros_client' => $request->id_prospective,
             'date' => $request->tgl,
-            'remarks' => $request->remark
+            'remarks' => $request->remark,
+            'client_poc' => $request->client_poc,
+            'poc_cc' => $request->poc_cc
         ]);
 
-        return redirect('admin/'."{$request->id_prospective}".'/detailpros')->with('alert-primary','selamat, Data berhasil diupdate');
+        return redirect('admin/'."{$request->id_prospective}".'/detailpros')->with('alert-primary','Data berhasil diupdate');
     }
 
     public function detailpros($id)
     {
         $detail = DB::table('prospective_clients')
                     ->join('detail_propective_clients', 'prospective_clients.id', '=', 'detail_propective_clients.id_pros_client')
-                    ->select('prospective_clients.*', 'detail_propective_clients.date', 'detail_propective_clients.remarks')
+                    ->select('detail_propective_clients.*', 'prospective_clients.*')
                     ->where('prospective_clients.id', $id)
                     ->get();
         return view('admin.detailpros', compact(['detail']));

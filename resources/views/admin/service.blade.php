@@ -17,7 +17,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Kode Service</th>
+                      <th>Service Code</th>
                       <th>Service Name</th>
                       <th>Action</th>
                     </tr>

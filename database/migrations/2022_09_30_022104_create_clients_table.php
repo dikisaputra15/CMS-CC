@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('concord_poc');
             $table->string('end_user_poc');
             $table->integer('no_of_subs');
-            $table->string('list_of_subs');
+            $table->text('list_of_subs');
         });
     }
 

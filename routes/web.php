@@ -65,6 +65,7 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::post('/admin/storenote', [App\Http\Controllers\NoteController::class, 'storenote']);
     Route::get('/admin/{id}/editnote', [App\Http\Controllers\NoteController::class, 'editnote']);
     Route::put('/admin/updatenote/{id}', [App\Http\Controllers\NoteController::class, 'updatenote']);
+    Route::get('/admin/deldash/{id}', [App\Http\Controllers\NoteController::class, 'destroydash']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {

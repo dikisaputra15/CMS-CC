@@ -15,7 +15,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="kode" class="col-md-4 col-form-label text-md-end">Kode Services</label>
+                            <label for="kode" class="col-md-4 col-form-label text-md-end">Services Code</label>
                             <div class="col-md-6">
                                 <input id="kode" type="text" class="form-control" name="kode_services" required autocomplete="kode_services" autofocus>
                             </div>

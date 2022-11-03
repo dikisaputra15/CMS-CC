@@ -39,4 +39,10 @@ class NoteController extends Controller
 
         return redirect('admin/dashboard')->with('alert-primary','Note berhasil diupdate');
     }
+
+    public function destroydash($id)
+    {
+        DB::table('detail_clients')->where('id',$id)->delete();
+        return redirect('admin/dashboard')->with('alert-danger','Data berhasil dihapus');
+    }
 }

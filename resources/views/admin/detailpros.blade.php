@@ -26,16 +26,8 @@
         <a href="/admin/<?php echo $id; ?>/updatepros" class="btn btn-primary">Update</a></br></br>
             <table>
                 <tr>
-                    <td style="width:150px">Client Name</td>
-                    <td><?php echo $name; ?></td>
-                </tr>
-                <tr>
-                    <td style="width:150px">Client POC</td>
-                    <td><?php echo $client_poc; ?></td>
-                </tr>
-                <tr>
-                    <td style="width:150px">POC CC</td>
-                    <td><?php echo $poc_cc; ?></td>
+                    <td style="width:170px"><h5>Prospective Client</h5></td>
+                    <td><h5><?php echo $name; ?></h5></td>
                 </tr>
             </table></br>
         
@@ -44,6 +36,8 @@
                     <tr>
                       <th>Date</th>
                       <th>Remarks</th>
+                      <th>Client POC</th>
+                      <th>POC</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -51,6 +45,8 @@
                     <tr data-widget="expandable-table" aria-expanded="false">
                         <td>{{ $dt->date }}</td>
                         <td>{{ $dt->remarks }}</td>
+                        <td>{{ $dt->client_poc }}</td>
+                        <td>{{ $dt->poc_cc }}</td>
                     </tr>
                     @endforeach
                   </tbody>

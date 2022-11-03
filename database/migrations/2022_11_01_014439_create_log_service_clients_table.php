@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_client');
             $table->integer('id_service');
             $table->date('date');
-            $table->string('remarks');
+            $table->text('remarks');
         });
     }
 

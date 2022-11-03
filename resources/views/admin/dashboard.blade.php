@@ -9,7 +9,7 @@
         <h3>Client Summary</h3>
     </div>
     <div class="card-body">
-            <table class="table table-striped" style="width:100%">
+            <table class="table table-striped table-bordered" cellspacing="0" width="150%">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -36,8 +36,8 @@
                   ?>       
                         <tr data-widget="expandable-table" aria-expanded="false">
                             <td><?php echo $no++ ?></td>
-                            <td><a href="/admin/<?php $dt->id_client ?>/detailcli"><?php echo $dt->nama_client ?></a></td>
-                            <td><?php echo $dt->nama_services ?></td>
+                            <td><a href="/admin/<?php echo $dt->id_client ?>/detailcli"><?php echo $dt->nama_client ?></a></td>
+                            <td><?php echo $dt->kode_services ?></td>
                             <td><?php echo $dt->start_date ?></td>
                             <td><?php echo $dt->end_date ?></td>
                             <td>
@@ -70,6 +70,7 @@
                                 <?php
                                     }    
                                 ?>
+                                <a href="/admin/deldash/<?php echo $dt->id ?>" onclick="return confirm('Are you sure to delete this ?');" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -78,3 +79,4 @@
     </div>
 </div>
 @stop
+

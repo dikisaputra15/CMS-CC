@@ -16,9 +16,7 @@
             <table id="example" class="table table-striped" style="width:100%">
                   <thead>
                     <tr>
-                      <th>Client Name</th>
-                      <th>Client POC</th>
-                      <th>POC CC</th>
+                      <th>Prospective Client</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -26,8 +24,6 @@
                   @foreach($prospec as $pro)
                     <tr data-widget="expandable-table" aria-expanded="false">
                         <td>{{ $pro->nama_client }}</td>
-                        <td>{{ $pro->client_poc }}</td>
-                        <td>{{ $pro->poc_cc }}</td>
                         <td>
                             <a href="/admin/{{$pro->id}}/detailpros" class="btn btn-sm btn-primary">View</a>
                             <a href="/admin/delpros/{{$pro->id}}" onclick="return confirm('Are you sure to delete this ?');" class="btn btn-sm btn-danger">Delete</a>

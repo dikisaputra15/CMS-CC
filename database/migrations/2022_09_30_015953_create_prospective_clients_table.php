@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('prospective_clients', function (Blueprint $table) {
             $table->id();
             $table->string('nama_client');
-            $table->string('client_poc');
-            $table->string('poc_cc');
         });
     }
 

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->integer('id_pros_client');
             $table->date('date');
-            $table->string('remarks');
+            $table->text('remarks');
+            $table->string('client_poc');
+            $table->string('poc_cc');
         });
     }
 

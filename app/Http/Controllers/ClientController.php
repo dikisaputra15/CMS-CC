@@ -16,7 +16,7 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $client = Client::all();
+        $client = Client::all()->sortDesc();
         return view('admin.client', compact(['client']));
     }
 
@@ -54,14 +54,14 @@ class ClientController extends Controller
             'end_date' => $tgl2
         ]);
 
-        return redirect('admin/clients')->with('alert-primary','selamat, Data berhasil ditambah');
+        return redirect('admin/clients')->with('alert-primary','Data berhasil ditambah');
     }
 
     public function destroycli($id)
     {
         DB::table('clients')->where('id',$id)->delete();
         DB::table('detail_clients')->where('id_client',$id)->delete();
-        return redirect('admin/clients')->with('alert-danger','selamat, Data berhasil dihapus');
+        return redirect('admin/clients')->with('alert-danger','Data berhasil dihapus');
     }
 
     public function editcli($id)
@@ -83,7 +83,7 @@ class ClientController extends Controller
             'list_of_subs' => $request->list_of_subscribe
 		]);
 
-        return redirect('admin/clients')->with('alert-primary','selamat, Data berhasil diupdate');
+        return redirect('admin/clients')->with('alert-primary','Data berhasil diupdate');
     }
 
     public function detailcli($id)
@@ -98,7 +98,7 @@ class ClientController extends Controller
         $detail2 = DB::table('log_service_clients')
         ->join('clients', 'log_service_clients.id_client', '=', 'clients.id')
         ->join('services', 'log_service_clients.id_service', '=', 'services.id')
-        ->select('log_service_clients.*', 'clients.nama_client', 'services.nama_services')
+        ->select('log_service_clients.*', 'clients.nama_client', 'services.kode_services', 'services.nama_services')
         ->where('log_service_clients.id_client', $id)
         ->get();
 
@@ -126,7 +126,7 @@ class ClientController extends Controller
             'end_date' => $tgl2
         ]);
 
-        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','selamat, Data berhasil ditambah');
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil ditambah');
     }
 
     public function editsrvcli($id)
@@ -150,6 +150,6 @@ class ClientController extends Controller
             'end_date' => $tgl2
 		]);
 
-        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','selamat, Data berhasil diupdate');
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil diupdate');
     }
 }

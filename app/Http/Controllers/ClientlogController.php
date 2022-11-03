@@ -25,7 +25,7 @@ class ClientlogController extends Controller
             'date' => $request->date,
             'remarks' => $request->remarks
         ]);
-        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','selamat, Data berhasil ditambah');
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil ditambah');
     }
 
     public function editsumcli($id)
@@ -44,6 +44,6 @@ class ClientlogController extends Controller
             'remarks' => $request->remarks
 		]);
 
-        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','selamat, Data berhasil diupdate');
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil diupdate');
     }
 }

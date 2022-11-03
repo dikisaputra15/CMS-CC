@@ -17,6 +17,7 @@ class DashboardController extends Controller
         ->leftjoin('services', 'detail_clients.id_service', '=', 'services.id')
         ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
         ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
+        ->orderBy('detail_clients.id', 'desc')
         ->get();
 
         return view('admin.dashboard', compact(['detail']));
