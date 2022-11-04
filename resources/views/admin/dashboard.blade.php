@@ -63,10 +63,10 @@
                             <td>
                                 <?php 
                                     if(empty($dt->notes)){?>
-                                        <a href="/admin/<?php echo $dt->id ?>/addnote" class="btn btn-success btn-sm">Notes</a>
+                                        <button data-id="<?php echo $dt->id ?>" data-toggle="modal" data-target="#myModal" class="btn btn-success btn-sm passingID">Notes</button>
                                 <?php
                                     }else{?>
-                                        <a href="/admin/<?php echo $dt->id ?>/editnote" class="btn btn-primary btn-sm">Update</a>
+                                        <a href="/admin/<?php echo $dt->id ?>/editnote" class="btn btn-success btn-sm">Notes</a>
                                 <?php
                                     }    
                                 ?>
@@ -74,9 +74,68 @@
                             </td>
                         </tr>
                     <?php } ?>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Notes</h4>
+                                </div>
+                                <div class="modal-body">
+                                <form method="post" action="{{ url('admin/storenote') }}">
+                                    @csrf
+                                    <input type="text" class="form-control" name="id_detail" id="idkl" value="" hidden>
+                                    <label for="note" class="col-md-4 col-form-label text-md-end">Notes</label>
+                                    <textarea name="notes" style="height:150px; width:470px;" required></textarea>
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                                </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+
+
+                    <!-- Modal Update Barang-->
+                    <div class="modal fade" id="modalUpdateBarang" tabindex="-1" aria-labelledby="modalUpdateBarang" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header"><h5 class="modal-title">Update Notes</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                <!--FORM UPDATE BARANG-->
+                                <form method="post" action="">
+                                    @csrf
+                                    <label for="note" class="col-md-4 col-form-label text-md-end">Notes</label>
+                                    <textarea name="notes" style="height:150px; width:470px;" required></textarea>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                                <!--END FORM UPDATE BARANG-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Modal UPDATE Barang-->
+
                   </tbody>
             </table>
     </div>
 </div>
 @stop
 
+@section('js')
+<script type="text/javascript">
+    $(".passingID").click(function () {
+        var ids = $(this).attr('data-id');
+        $("#idkl").val( ids );
+        $('#myModal').modal('show');
+    });
+</script>
+@endsection
