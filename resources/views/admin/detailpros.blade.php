@@ -4,6 +4,8 @@
 
 @section('content')
 
+<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+
 <x-alert></x-alert>
 
 <?php
@@ -23,7 +25,7 @@
         <h3>List Prospective Client</h3>
     </div>
     <div class="card-body">
-        <a href="/admin/<?php echo $id; ?>/updatepros" class="btn btn-primary">Update</a></br></br>
+        <a href="/admin/<?php echo $id; ?>/updatepros" class="btn btn-primary" title="Update"><i class="fa fa-edit"></i></a></br></br>
             <table>
                 <tr>
                     <td style="width:170px"><h5>Prospective Client</h5></td>

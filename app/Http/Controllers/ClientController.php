@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\Client;
 use App\Models\Detail_client;
+use App\Models\Archive_service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -41,12 +42,22 @@ class ClientController extends Controller
             'concord_poc' => $request->concord_poc,
             'end_user_poc' => $request->enduser_poc,
             'no_of_subs' => $request->no_of_subscribe,
-            'list_of_subs' => $request->list_of_subscribe
+            'list_of_subs' => $request->list_of_subscribe,
+            'contract_no' => $request->c_number,
+            'contract_value' => $request->c_value
         ]);
 
         $clientid = $client->id;
 
         Detail_client::create([
+            'id_client' => $clientid,
+            'id_service' => $serviceid,
+            'start_date' => $tgl1,
+            'duration' => $dur,
+            'end_date' => $tgl2
+        ]);
+
+        Archive_service::create([
             'id_client' => $clientid,
             'id_service' => $serviceid,
             'start_date' => $tgl1,
@@ -80,7 +91,9 @@ class ClientController extends Controller
             'concord_poc' => $request->concord_poc,
             'end_user_poc' => $request->enduser_poc,
             'no_of_subs' => $request->no_of_subscribe,
-            'list_of_subs' => $request->list_of_subscribe
+            'list_of_subs' => $request->list_of_subscribe,
+            'contract_no' => $request->c_number,
+            'contract_value' => $request->c_value
 		]);
 
         return redirect('admin/clients')->with('alert-primary','Data berhasil diupdate');
@@ -102,7 +115,9 @@ class ClientController extends Controller
         ->where('log_service_clients.id_client', $id)
         ->get();
 
-        return view('admin.detailcli', compact(['detail','detail2']));
+        $detail3 = Client::find($id);
+
+        return view('admin.detailcli', compact(['detail','detail2','detail3']));
     }
 
     public function addsrvcli($id)
@@ -119,6 +134,14 @@ class ClientController extends Controller
         $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
 
         Detail_client::create([
+            'id_client' => $request->id_client,
+            'id_service' => $request->service_id,
+            'start_date' => $tgl1,
+            'duration' => $dur,
+            'end_date' => $tgl2
+        ]);
+
+        Archive_service::create([
             'id_client' => $request->id_client,
             'id_service' => $request->service_id,
             'start_date' => $tgl1,

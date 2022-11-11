@@ -4,6 +4,8 @@
 
 @section('content')
 
+<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+
 <x-alert></x-alert>
 <div class="card">
     <div class="card-header bg-white">
@@ -11,7 +13,7 @@
     </div>
     <div class="card-body">
     <div class="form-group row">
-        <a href="{{ url('admin/changepassword') }}" class="btn btn-primary">Change Password</a>
+        <a href="{{ url('admin/changepassword') }}" class="btn btn-primary" title="Change Password"><i class="fa fa-edit"></i></a>
     </div>
     <form action="{{ url('admin/profile') }}" method="POST">
         @csrf
@@ -29,7 +31,7 @@
         </div>
         <div class="form-group row">
             <div class="col-sm-10 offset-2">
-                <button type="submit" class="btn btn-primary">Save Change</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
     </form>

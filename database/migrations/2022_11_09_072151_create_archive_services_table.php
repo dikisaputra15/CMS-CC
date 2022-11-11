@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('archive_services', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_dclient');
-            $table->text('notes');
+            $table->integer('id_client');
+            $table->integer('id_service');
+            $table->date('start_date');
+            $table->integer('duration');
+            $table->date('end_date');
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('archive_services');
     }
 };

@@ -3,6 +3,9 @@
 @section('title','Add Clients')
 
 @section('content')
+
+<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -82,14 +85,28 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label text-md-end">No Of Subscribe</label>
+                            <label for="date" class="col-md-4 col-form-label text-md-end">No Of Subscriber</label>
                             <div class="col-md-6">
                                 <input id="no_of_subscribe" type="number" class="form-control" name="no_of_subscribe" required autocomplete="no_of_subscribe">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label text-md-end">List Of Subscribe</label>
+                            <label for="cn" class="col-md-4 col-form-label text-md-end">Contract Number</label>
+                            <div class="col-md-6">
+                                <input id="c_number" type="text" class="form-control" name="c_number" required autocomplete="c_number">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="cv" class="col-md-4 col-form-label text-md-end">Contract Value</label>
+                            <div class="col-md-6">
+                                <input id="c_value" type="number" class="form-control" name="c_value" required autocomplete="c_value">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="date" class="col-md-4 col-form-label text-md-end">List Of Subscriber</label>
                             <div class="col-md-6">
                                 <textarea name="list_of_subscribe" style="height:150px; width:500px;"></textarea>
                             </div>

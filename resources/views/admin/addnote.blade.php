@@ -3,6 +3,9 @@
 @section('title','Add Note')
 
 @section('content')
+
+<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">

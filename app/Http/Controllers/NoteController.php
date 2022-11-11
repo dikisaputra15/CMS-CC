@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Detail_client;
 use App\Models\Note;
+use App\Models\Log_note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,21 +23,26 @@ class NoteController extends Controller
             'notes' => $request->notes
         ]);
 
+        Log_note::create([
+            'id_dclient' => $request->id_detail,
+            'notes' => $request->notes
+        ]);
+
         return redirect('admin/dashboard')->with('alert-primary','Note berhasil dibuat');  
     }
 
-    public function editnote($id)
+    public function editnote(Request $request)
     {
-        $note = Note::find($id);
-        return view('admin.editnote', compact(['note']));
-    }
+        $id = $request->id_detail;
+        DB::table('notes')->where('id_dclient',$id)->update([
+            'notes' => $request->notes
+        ]);
 
-    public function updatenote($id, Request $request)
-    {
-        DB::table('notes')->where('id',$id)->update([
-			'notes' => $request->notes
-		]);
-
+        Log_note::create([
+            'id_dclient' => $id,
+            'notes' => $request->notes
+        ]);
+        
         return redirect('admin/dashboard')->with('alert-primary','Note berhasil diupdate');
     }
 

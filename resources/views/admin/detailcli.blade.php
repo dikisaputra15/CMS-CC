@@ -4,29 +4,41 @@
 
 @section('content')
 
-<?php
-
-    foreach($detail as $data)
-    {
-        $id = $data->id_client;
-        $name = $data->nama_client;
-        $client_poc = $data->client_poc;
-        $cc_poc = $data->concord_poc;
-        $address = $data->address;
-        $client_since = $data->client_since;
-        $enduser = $data->end_user_poc;
-        $noofsub = $data->no_of_subs;
-        $listofsub = $data->list_of_subs;
-    }
-
-?>
+<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
 
 <x-alert></x-alert>
 <div class="card">
     <div class="card-body">
-        <h1><b><?php echo $name; ?></b></h1>
-        <h4 align="center">Services</h4>
-        <a href="/admin/<?php echo $id; ?>/addsrvcli" class="btn btn-sm btn-primary">Add Services</a>
+        <a href="/admin/dashboard" title="home" class="btn btn-primary"><i class="fa fa-home"></i></a>
+        <br><br>
+        <h4 align="center"><b>Log History Client</b></h4>
+                <a href="/admin/{{ $detail3->id }}/addsumcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Remarks</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($detail2 as $dt2)
+                        <tr>
+                            <td>{{ $dt2->kode_services }}</td>
+                            <td>{{ $dt2->date }}</td>
+                            <td>{{ $dt2->remarks }}</td>
+                            <td>
+                                <a href="/admin/{{ $dt2->id }}/editsumcli" title="Edit"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <br><br>
+        <h1><b>{{ $detail3->nama_client }}</b></h1>
+        <h4 align="center"><b>Services</b></h4>
+        <a href="/admin/{{ $detail3->id }}/addsrvcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -48,7 +60,7 @@
                     <td>{{ $dt->duration }}</td>
                     <td>{{ $dt->end_date }}</td>
                     <td>
-                        <a href="/admin/{{ $dt->id }}/editsrvcli" class="btn btn-sm btn-success">Edit</a>
+                        <a href="/admin/{{ $dt->id }}/editsrvcli" title="Edit"><i class="fa fa-edit"></i></a>
                     </td>
                 </tr>
             @endforeach
@@ -59,63 +71,38 @@
                     <tr>
                         <td style="width:100px;">Address</td>
                         <td>:</td>
-                        <td><?php echo $address; ?></td>
+                        <td>{{ $detail3->address }}</td>
                     </tr>
                     <tr>
                         <td style="width:100px;">Client POC</td>
                         <td>:</td>
-                        <td><?php echo $client_poc; ?></td>
+                        <td>{{ $detail3->client_poc }}</td>
                     </tr>
                     <tr>
                         <td style="width:100px;">Concord POC</td>
                         <td>:</td>
-                        <td><?php echo $cc_poc; ?></td>
+                        <td>{{ $detail3->concord_poc }}</td>
                     </tr>
                     <tr>
                         <td style="width:100px;">End User POC</td>
                         <td>:</td>
-                        <td><?php echo $enduser; ?></td>
+                        <td>{{ $detail3->end_user_poc }}</td>
                     </tr>
                     <tr>
                         <td style="width:100px;">Client Since</td>
                         <td>:</td>
-                        <td><?php echo $client_since; ?></td>
+                        <td>{{ $detail3->client_since }}</td>
                     </tr>
                     <tr>
                         <td style="width:100px;">No Of Subs</td>
                         <td>:</td>
-                        <td><?php echo $noofsub; ?></td>
+                        <td>{{ $detail3->no_of_subs }}</td>
                     </tr>
                     <tr>
                         <td style="width:100px;">List Of Subs</td>
                         <td>:</td>
-                        <td><?php echo $listofsub; ?></td>
+                        <td>{{ $detail3->list_of_subs }}</td>
                     </tr>
-                </table>
-                <br><br>
-                <h4 align="center">Log History Client</h4>
-                <a href="/admin/<?php echo $id; ?>/addsumcli" class="btn btn-sm btn-primary">Add Summary</a>
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>Service</th>
-                            <th>Date</th>
-                            <th>Remarks</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($detail2 as $dt2)
-                        <tr>
-                            <td>{{ $dt2->kode_services }}</td>
-                            <td>{{ $dt2->date }}</td>
-                            <td>{{ $dt2->remarks }}</td>
-                            <td>
-                                <a href="/admin/{{ $dt2->id }}/editsumcli" class="btn btn-sm btn-success">Edit</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
                 </table>
     </div>
 </div>

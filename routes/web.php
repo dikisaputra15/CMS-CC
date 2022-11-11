@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth', 'user-access:Admin'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
     Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'index']);
     Route::post('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'changepassword']);
@@ -63,9 +64,11 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::put('/admin/updatesumcli/{id}', [App\Http\Controllers\ClientlogController::class, 'updatesumcli']);
     Route::get('/admin/{id}/addnote', [App\Http\Controllers\NoteController::class, 'addnote']);
     Route::post('/admin/storenote', [App\Http\Controllers\NoteController::class, 'storenote']);
-    Route::get('/admin/{id}/editnote', [App\Http\Controllers\NoteController::class, 'editnote']);
-    Route::put('/admin/updatenote/{id}', [App\Http\Controllers\NoteController::class, 'updatenote']);
+    Route::post('/admin/editnote', [App\Http\Controllers\NoteController::class, 'editnote']);
     Route::get('/admin/deldash/{id}', [App\Http\Controllers\NoteController::class, 'destroydash']);
+    Route::get('/admin/export', [App\Http\Controllers\ExportController::class, 'index']);
+    Route::get('/admin/exportxls', [App\Http\Controllers\ExportController::class, 'export']);
+    Route::get('/admin/invoice', [App\Http\Controllers\DocumentController::class, 'invoice']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {

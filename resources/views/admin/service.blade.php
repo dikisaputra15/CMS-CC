@@ -4,6 +4,8 @@
 
 @section('content')
 
+<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+
 <x-alert></x-alert>
 <div class="card">
     <div class="card-header bg-white">
@@ -11,7 +13,7 @@
     </div>
     <div class="card-body">
         <div class="form-group row">
-            <a href="{{ url('admin/addservice') }}" class="btn btn-primary">Add Service</a>
+            <a href="{{ url('admin/addservice') }}" class="btn btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         </div>
             <table id="example" class="table table-striped" style="width:100%">
                   <thead>
@@ -30,8 +32,8 @@
                         <td>{{ $srv->kode_services }}</td>
                         <td>{{ $srv->nama_services }}</td>
                         <td>
-                              <a href="/admin/{{$srv->id}}/editsrv" class="btn btn-sm btn-warning">Edit</a>
-                              <a href="/admin/delsrv/{{$srv->id}}" onclick="return confirm('Are you sure to delete this ?');" class="btn btn-sm btn-danger">Delete</a>
+                              <a href="/admin/{{$srv->id}}/editsrv" title="Edit"><i class="fa fa-edit"></i></a>
+                              <a href="/admin/delsrv/{{$srv->id}}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                     @endforeach
