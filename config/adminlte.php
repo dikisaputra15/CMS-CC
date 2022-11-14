@@ -340,7 +340,7 @@ return [
                 ],
                 [
                     'text' => 'Proposal',
-                    'url'  => 'admin/proposal',
+                    'url'  => 'admin/prop',
                 ],
             ],
         ],

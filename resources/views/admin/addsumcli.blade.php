@@ -39,7 +39,7 @@
                         <div class="row mb-3">
                             <label for="poc_cc" class="col-md-4 col-form-label text-md-end">Date</label>
                             <div class="col-md-6">
-                                <input id="date" type="date" class="form-control" name="date" required autocomplete="date">
+                                <input id="date" type="date" class="form-control" name="date" required autocomplete="date" value="{{ date('Y-m-d') }}">
                             </div>
                         </div>
 

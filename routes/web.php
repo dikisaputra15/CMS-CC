@@ -69,6 +69,17 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/admin/export', [App\Http\Controllers\ExportController::class, 'index']);
     Route::get('/admin/exportxls', [App\Http\Controllers\ExportController::class, 'export']);
     Route::get('/admin/invoice', [App\Http\Controllers\DocumentController::class, 'invoice']);
+    Route::get('/admin/addinvoice', [App\Http\Controllers\DocumentController::class, 'addinvoice']);
+    Route::post('/admin/storeinvoice', [App\Http\Controllers\DocumentController::class, 'storeinvoice']);
+    Route::get('/admin/contract', [App\Http\Controllers\DocumentController::class, 'contract']);
+    Route::get('/admin/addcontract', [App\Http\Controllers\DocumentController::class, 'addcontract']);
+    Route::post('/admin/storecontract', [App\Http\Controllers\DocumentController::class, 'storecontract']);
+    Route::get('/admin/prop', [App\Http\Controllers\DocumentController::class, 'prop']);
+    Route::get('/admin/addprop', [App\Http\Controllers\DocumentController::class, 'addprop']);
+    Route::post('/admin/storeprop', [App\Http\Controllers\DocumentController::class, 'storeprop']);
+    Route::get('/admin/delinv/{id}', [App\Http\Controllers\DocumentController::class, 'destroyinv']);
+    Route::get('/admin/delctr/{id}', [App\Http\Controllers\DocumentController::class, 'destroyctr']);
+    Route::get('/admin/delprp/{id}', [App\Http\Controllers\DocumentController::class, 'destroyprp']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {
