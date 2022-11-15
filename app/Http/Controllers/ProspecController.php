@@ -27,7 +27,11 @@ class ProspecController extends Controller
     public function storeprospec(Request $request)
     {
        $prospective = prospective_client::create([
-            'nama_client' => $request->client_name
+            'nama_client' => $request->client_name,
+            'date_pro' => $request->tgl,
+            'remarks_pro' => $request->remark,
+            'client_poc_pro' => $request->client_poc,
+            'poc_cc_pro' => $request->poc_cc
         ]);
 
         $prospectiveid = $prospective->id;
@@ -51,15 +55,24 @@ class ProspecController extends Controller
 
     public function updatepros(Request $request)
     {
+        $id = $request->id_prospective;
+        
         detail_propective_client::create([
-            'id_pros_client' => $request->id_prospective,
+            'id_pros_client' => $id,
             'date' => $request->tgl,
             'remarks' => $request->remark,
             'client_poc' => $request->client_poc,
             'poc_cc' => $request->poc_cc
         ]);
 
-        return redirect('admin/'."{$request->id_prospective}".'/detailpros')->with('alert-primary','Data berhasil diupdate');
+        DB::table('prospective_clients')->where('id',$id)->update([
+            'date_pro' => $request->tgl,
+            'remarks_pro' => $request->remark,
+            'client_poc_pro' => $request->client_poc,
+            'poc_cc_pro' => $request->poc_cc
+		]);
+
+        return redirect('admin/prospective')->with('alert-primary','update success');
     }
 
     public function detailpros($id)

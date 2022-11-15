@@ -41,8 +41,8 @@
                             <td><?php echo $no++ ?></td>
                             <td><a href="/admin/<?php echo $dt->id_client ?>/detailcli"><?php echo $dt->nama_client ?></a></td>
                             <td><?php echo $dt->kode_services ?></td>
-                            <td><?php echo $dt->start_date ?></td>
-                            <td><?php echo $dt->end_date ?></td>
+                            <td><?php echo date('d M Y', strtotime($dt->start_date)) ?></td>
+                            <td><?php echo date('d M Y', strtotime($dt->end_date)) ?></td>
                             <td>
                                 <?php 
                                     if($days > 90){ ?>

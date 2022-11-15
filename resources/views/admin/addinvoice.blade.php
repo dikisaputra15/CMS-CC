@@ -36,6 +36,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>
+                                <a href="invoice" class="btn btn-danger">Back</a>
                             </div>
                         </div>
                     </form>

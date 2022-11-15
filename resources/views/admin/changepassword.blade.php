@@ -35,6 +35,7 @@
         <div class="form-group row">
             <div class="col-sm-10 offset-2">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="profile" class="btn btn-danger">Back</a>
             </div>
         </div>
     </form>

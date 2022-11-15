@@ -30,7 +30,13 @@
                                 <select class="form-control" name="service_id">
                                     <option value="0">-Choose Service-</option>
                                 @foreach ($service as $srv)
-                                    <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
+                                    @if (empty($log))
+                                        <option value="{{ $srv->id }}">{{ $srv->kode_services }}</option>
+                                    @elseif ($log->id_service == $srv->id)
+                                        <option value="{{ $srv->id }}" selected>{{ $srv->kode_services }}</option>
+                                    @else
+                                        <option value="{{ $srv->id }}">{{ $srv->kode_services }}</option>
+                                    @endif
                                 @endforeach
                                 </select>
                             </div>
@@ -55,6 +61,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>
+                                <a href="detailcli" class="btn btn-danger">Back</a>
                             </div>
                         </div>
                     </form>

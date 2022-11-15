@@ -14,7 +14,8 @@ class ClientlogController extends Controller
     {
         $service = service::all();
         $dt = Client::find($id);
-        return view('admin.addsumcli', compact(['service','dt']));
+        $log = DB::table('log_service_clients')->where('id_client', $id)->get()->last();
+        return view('admin.addsumcli', compact(['service','dt','log']));
     }
 
     public function storesumcli(Request $request)
@@ -25,7 +26,7 @@ class ClientlogController extends Controller
             'date' => $request->date,
             'remarks' => $request->remarks
         ]);
-        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil ditambah');
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','data added successfully');
     }
 
     public function editsumcli($id)

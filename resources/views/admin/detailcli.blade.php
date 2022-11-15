@@ -11,7 +11,7 @@
     <div class="card-body">
         <a href="/admin/dashboard" title="home" class="btn btn-primary"><i class="fa fa-home"></i></a>
         <br><br>
-        <h4 align="center"><b>Log History Client</b></h4>
+        <h4 align="center">Log History Client</h4>
                 <a href="/admin/{{ $detail3->id }}/addsumcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
                 <table class="table table-sm">
                     <thead>
@@ -36,8 +36,8 @@
                     </tbody>
                 </table>
                 <br><br>
-        <h1><b>{{ $detail3->nama_client }}</b></h1>
-        <h4 align="center"><b>Services</b></h4>
+        <h3>{{ $detail3->nama_client }}</h3>
+        <h4 align="center">Services</h4>
         <a href="/admin/{{ $detail3->id }}/addsrvcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         <table class="table table-sm">
             <thead>

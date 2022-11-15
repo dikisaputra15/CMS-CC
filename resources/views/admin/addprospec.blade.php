@@ -27,7 +27,7 @@
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">Date</label>
                             <div class="col-md-6">
-                                <input id="date" type="date" class="form-control" name="tgl" required autocomplete="poc_cc">
+                                <input id="date" type="date" class="form-control" name="tgl" required autocomplete="poc_cc" value="{{ date('Y-m-d') }}">
                             </div>
                         </div>
 
@@ -57,6 +57,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>
+                                <a href="prospective" class="btn btn-danger">Back</a>
                             </div>
                         </div>
                     </form>

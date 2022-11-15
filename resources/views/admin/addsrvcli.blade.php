@@ -39,7 +39,7 @@
                         <div class="row mb-3">
                             <label for="poc_cc" class="col-md-4 col-form-label text-md-end">Start Date</label>
                             <div class="col-md-6">
-                                <input id="start_date" type="date" class="form-control" name="start_date" required autocomplete="start_date">
+                                <input id="start_date" type="date" class="form-control" name="start_date" required autocomplete="start_date" value="{{ date('Y-m-d') }}">
                             </div>
                         </div>
 
@@ -55,6 +55,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>
+                                <a href="detailcli" class="btn btn-danger">Back</a>
                             </div>
                         </div>
                     </form>

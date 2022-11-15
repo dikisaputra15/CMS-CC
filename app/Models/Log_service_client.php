@@ -9,6 +9,8 @@ class Log_service_client extends Model
 {
     use HasFactory;
 
+    // protected $primaryKey = 'id_client';
+
     public $timestamps = false;
 
     protected $fillable = [

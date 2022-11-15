@@ -22,10 +22,10 @@
 
 <div class="card">
     <div class="card-header bg-white">
-        <h3>List Prospective Client</h3>
+        <h3>History Prospective Client</h3>
     </div>
     <div class="card-body">
-        <a href="/admin/<?php echo $id; ?>/updatepros" class="btn btn-primary" title="Update"><i class="fa fa-edit"></i></a></br></br>
+    <a href="../prospective" class="btn btn-danger">Back</a></br></br>
             <table>
                 <tr>
                     <td style="width:170px"><h5>Prospective Client</h5></td>

@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label text-md-end">No Of Subscribe</label>
+                            <label for="date" class="col-md-4 col-form-label text-md-end">No Of Subscriber</label>
                             <div class="col-md-6">
                                 <input id="no_of_subscribe" type="number" class="form-control" name="no_of_subscribe" required autocomplete="no_of_subscribe" value="{{ $client->no_of_subs }}">
                             </div>
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label text-md-end">List Of Subscribe</label>
+                            <label for="date" class="col-md-4 col-form-label text-md-end">List Of Subscriber</label>
                             <div class="col-md-6">
                                 <textarea name="list_of_subscribe" style="height:150px; width:500px;">{{ $client->list_of_subs }}</textarea>
                             </div>
@@ -93,6 +93,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>
+                                <a href="../clients" class="btn btn-danger">Back</a>
                             </div>
                         </div>
                     </form>
