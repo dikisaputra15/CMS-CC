@@ -1,10 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
-@section('title','Detail Prospective Client')
+@section('title','Detail Prospective Clients')
 
-@section('content')
-
-<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+@section('conten')
 
 <x-alert></x-alert>
 
@@ -55,5 +53,5 @@
             </table>
     </div>
 </div>
-@stop
+@endsection
 

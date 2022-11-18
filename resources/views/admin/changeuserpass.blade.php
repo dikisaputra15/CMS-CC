@@ -1,10 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
-@section('title','Change Password')
+@section('title','Client Pass')
 
-@section('content')
-
-<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+@section('conten')
 
 <x-alert></x-alert>
 <div class="card">
@@ -46,4 +44,4 @@
     </form>
 </div>
 </div>
-@stop
+@endsection

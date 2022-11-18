@@ -1,10 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
 @section('title','Dashboard')
 
-@section('content')
-
-<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+@section('conten')
 
 <x-alert></x-alert>
 <div class="card">
@@ -12,17 +10,18 @@
         <h3>Client Summary</h3>
     </div>
     <div class="card-body">
-            <table class="table table-striped table-bordered" cellspacing="0" width="150%">
+            <table id="example" class="table table-striped table-bordered" width="100%">
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Client</th>
-                      <th>Service</th>
+                      <th>Clients</th>
+                      <th>Services</th>
                       <th>Contract </br> Start Date</th>
                       <th>Contract </br> End Date</th>
                       <th>Contract </br> Days Remaining </th>
                       <th>CCI </br> POC</th>
                       <th>Note</th>
+                      <th hidden>Ket</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -46,16 +45,16 @@
                             <td>
                                 <?php 
                                     if($days > 90){ ?>
-                                        <img src="{{url('/img/green.png')}}" style="width:30px; height:30px;" alt="Image"/>
+                                        <img src="{{url('/img/green.png')}}" style="width:20px; height:20px;" alt="Image"/>
                                 <?php
                                     }elseif($days <= 30){?>
-                                        <img src="{{url('/img/black.png')}}" style="width:30px; height:30px;" alt="Image"/>
+                                        <img src="{{url('/img/black.png')}}" style="width:20px; height:20px;" alt="Image"/>
                                 <?php 
                                     }elseif($days < 45 && $days >= 30){?>
-                                        <img src="{{url('/img/red.png')}}" style="width:30px; height:30px;" alt="Image"/>
+                                        <img src="{{url('/img/red.png')}}" style="width:20px; height:20px;" alt="Image"/>
                                 <?php 
                                     }else{?>
-                                        <img src="{{url('/img/yellow.png')}}" style="width:30px; height:30px;" alt="Image"/>
+                                        <img src="{{url('/img/yellow.png')}}" style="width:20px; height:20px;" alt="Image"/>
                                 <?php
                                     }
                                 ?>
@@ -63,6 +62,19 @@
                             </td>
                             <td><?php echo $dt->concord_poc ?></td>
                             <td><?php echo $dt->notes ?></td>
+                            <td hidden>
+                                <?php 
+                                    if($days > 90){
+                                        echo "green";
+                                    }elseif($days <= 30){
+                                        echo "blackk";
+                                    }elseif($days < 45 && $days >= 30){
+                                        echo "red";
+                                    }else{
+                                        echo "yellow";
+                                    }
+                                ?>
+                            </td>
                             <td>
                                 <?php 
                                     if(empty($dt->notes)){?>
@@ -124,7 +136,7 @@
             </table>
     </div>
 </div>
-@stop
+@endsection
 
 @section('js')
 <script type="text/javascript">

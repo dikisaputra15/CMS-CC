@@ -1,10 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
-@section('title','Update Prospective Clients')
+@section('title','Update Prospect Clients')
 
-@section('content')
-
-<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+@section('conten')
 
 <div class="container">
     <div class="row justify-content-center">
@@ -63,4 +61,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

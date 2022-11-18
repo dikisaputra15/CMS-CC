@@ -1,10 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
-@section('title','Clients List')
+@section('title','Client List')
 
-@section('content')
-
-<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+@section('conten')
 
 <x-alert></x-alert>
 <div class="card">
@@ -40,20 +38,4 @@
             </table>
     </div>
 </div>
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-@endsection
-
-@section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>
 @endsection

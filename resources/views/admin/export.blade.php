@@ -1,10 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
-@section('title','NPT FORM')
+@section('title','NPT Form')
 
-@section('content')
-
-<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+@section('conten')
 
 <x-alert></x-alert>
 <div class="card">
@@ -41,5 +39,5 @@
         <a href="{{ url('admin/exportxls') }}" class="btn btn-success" title="export excel"><i class="fa fa-file-excel"></i></a>
     </div>
 </div>
-@stop
+@endsection
 

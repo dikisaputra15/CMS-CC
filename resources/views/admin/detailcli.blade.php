@@ -1,16 +1,12 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
 @section('title','Detail Clients')
 
-@section('content')
-
-<link rel="icon" type="image/png" sizes="32x32" href="{{url('/vendor/adminlte/dist/img/cc.jpg')}}">
+@section('conten')
 
 <x-alert></x-alert>
 <div class="card">
     <div class="card-body">
-        <a href="/admin/dashboard" title="home" class="btn btn-primary"><i class="fa fa-home"></i></a>
-        <br><br>
         <h4 align="center">Log History Client</h4>
                 <a href="/admin/{{ $detail3->id }}/addsumcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
                 <table class="table table-sm">
@@ -107,5 +103,5 @@
     </div>
 </div>
 
-@stop
+@endsection
 
