@@ -76,13 +76,3 @@
     </div>
 </div>
 @endsection
-
-@section('js')
-<script type="text/javascript">
-    $(".passingID").click(function () {
-        var ids = $(this).attr('data-id');
-        $("#idkl").val( ids );
-        $('#myModal').modal('show');
-    });
-</script>
-@endsection

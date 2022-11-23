@@ -22,8 +22,6 @@
 <script src="{{asset('AdminLTE')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
 <script src="{{asset('AdminLTE')}}/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
 <script src="{{asset('AdminLTE')}}/plugins/jqvmap/jquery.vmap.min.js"></script>
 <script src="{{asset('AdminLTE')}}/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
@@ -47,6 +45,16 @@
 <script>
         $(document).ready(function () {
             $('#example').DataTable();
+        });
+
+        $(".passingID").click(function () {
+            var ids = $(this).attr('data-id');
+            $("#idkl").val( ids );
+        });
+
+        $(".updateid").click(function () {
+            var idupdate = $(this).attr('data-id');
+            $("#id_d").val( idupdate );
         });
 </script>
 </body>

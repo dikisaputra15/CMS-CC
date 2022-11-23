@@ -10,16 +10,16 @@
         <h3>Client Summary</h3>
     </div>
     <div class="card-body">
-            <table id="example" class="table table-striped table-bordered" width="100%">
+            <table id="example" class="table table-striped table-valign-middle" width="100%">
                   <thead>
                     <tr>
                       <th>#</th>
                       <th>Clients</th>
                       <th>Services</th>
-                      <th>Contract </br> Start Date</th>
-                      <th>Contract </br> End Date</th>
-                      <th>Contract </br> Days Remaining </th>
-                      <th>CCI </br> POC</th>
+                      <th>Contract Start Date</th>
+                      <th>Contract End Date</th>
+                      <th>Contract Days Remaining </th>
+                      <th>CCI POC</th>
                       <th>Note</th>
                       <th hidden>Ket</th>
                       <th>Action</th>
@@ -136,20 +136,4 @@
             </table>
     </div>
 </div>
-@endsection
-
-@section('js')
-<script type="text/javascript">
-    $(".passingID").click(function () {
-        var ids = $(this).attr('data-id');
-        $("#idkl").val( ids );
-        $('#myModal').modal('show');
-    });
-
-    $(".updateid").click(function () {
-        var idupdate = $(this).attr('data-id');
-        $("#id_d").val( idupdate );
-        $('#updatenote').modal('show');
-    });
-</script>
 @endsection

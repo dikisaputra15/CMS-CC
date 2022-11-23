@@ -173,6 +173,14 @@ class ClientController extends Controller
             'end_date' => $tgl2
 		]);
 
+        Archive_service::create([
+            'id_client' => $request->id_client,
+            'id_service' => $request->service_id,
+            'start_date' => $tgl1,
+            'duration' => $dur,
+            'end_date' => $tgl2
+        ]);
+
         return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil diupdate');
     }
 }
