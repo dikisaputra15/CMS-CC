@@ -16,16 +16,19 @@
             <table id="example" class="table table-striped" style="width:100%">
                   <thead>
                     <tr>
-                      <th>No</th>
-                      <th>Proposal Name</th>
+                      <th>Contract No</th>
+                      <th>Client Name</th>
+                      <th>Type Of Service</th>
+                      <th>File</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @php $no = 1 @endphp
                     @foreach($proposal as $prp)
                     <tr data-widget="expandable-table" aria-expanded="false">
-                        <td>{{ $no++ }}</td>
+                        <td>{{ $prp->contract_no }}</td>
+                        <td>{{ $prp->client_name }}</td>
+                        <td>{{ $prp->type_of_service }}</td>
                         <td><a href="{{ url('document/proposal/' . $prp->path) }}" target="__blank">{{ $prp->path }}</a></td>
                         <td><a href="/admin/delprp/{{$prp->id}}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a></td>
                     </tr>

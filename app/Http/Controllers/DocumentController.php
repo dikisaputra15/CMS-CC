@@ -25,16 +25,20 @@ class DocumentController extends Controller
     {   
         $extension = $request->file('file')->extension();
 
-        $name = $request->file_name;
+        $contract = $request->contract_no;
+        $client = str_replace(" ", "-", $request->client_name);
+        $type = str_replace(" ", "-", $request->type_service);
 
-        $filename = $name. '.' . $extension;
+        $filename = $contract.'_'.$client.'_'.$type.'.'.$extension;
 
         $request->file('file')->move(
             base_path() . '/public/document/invoice/', $filename
         );
 
         Invoice::create([
-            'invoice_name' => $name,
+            'contract_no' => $contract,
+            'client_name' => $request->client_name,
+            'type_of_service' => $request->type_service,
             'path' => $filename
         ]);
 
@@ -56,16 +60,20 @@ class DocumentController extends Controller
     {   
         $extension = $request->file('file')->extension();
 
-        $name = $request->file_name;
+        $contract = $request->contract_no;
+        $client = str_replace(" ", "-", $request->client_name);
+        $type = str_replace(" ", "-", $request->type_service);
 
-        $filename = $name. '.' . $extension;
+        $filename = $contract.'_'.$client.'_'.$type.'.'.$extension;
 
         $request->file('file')->move(
             base_path() . '/public/document/contract/', $filename
         );
 
         Contract::create([
-            'contract_name' => $name,
+            'contract_no' => $contract,
+            'client_name' => $request->client_name,
+            'type_of_service' => $request->type_service,
             'path' => $filename
         ]);
 
@@ -87,16 +95,20 @@ class DocumentController extends Controller
     {   
         $extension = $request->file('file')->extension();
 
-        $name = $request->file_name;
+        $contract = $request->contract_no;
+        $client = str_replace(" ", "-", $request->client_name);
+        $type = str_replace(" ", "-", $request->type_service);
 
-        $filename = $name. '.' . $extension;
+        $filename = $contract.'_'.$client.'_'.$type.'.'.$extension;
 
         $request->file('file')->move(
             base_path() . '/public/document/proposal/', $filename
         );
 
         Proposal::create([
-            'proposal_name' => $name,
+            'contract_no' => $contract,
+            'client_name' => $request->client_name,
+            'type_of_service' => $request->type_service,
             'path' => $filename
         ]);
 

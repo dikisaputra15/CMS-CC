@@ -15,7 +15,10 @@ class ProspecController extends Controller
 {
     public function index()
     {
-        $prospec = Prospective_client::all();
+        $prospec = DB::table('prospective_clients')
+        ->join('detail_propective_clients', 'prospective_clients.id', '=', 'detail_propective_clients.id_pros_client')
+        ->select('detail_propective_clients.*', 'prospective_clients.*')
+        ->get();
         return view('admin.prospective', compact(['prospec']));
     }
 

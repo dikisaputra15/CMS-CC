@@ -12,7 +12,9 @@ class Contract extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'contract_name',
+        'contract_no',
+        'client_name',
+        'type_of_service',
         'path',
     ];
 }

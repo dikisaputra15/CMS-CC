@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->string('contract_name');
+            $table->string('contract_no');
+            $table->string('client_name');
+            $table->string('type_of_service');
             $table->string('path');
         });
     }

@@ -12,7 +12,9 @@ class Proposal extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'proposal_name',
+        'contract_no',
+        'client_name',
+        'type_of_service',
         'path',
     ];
 }

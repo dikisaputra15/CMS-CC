@@ -28,13 +28,12 @@
                   @foreach($prospec as $pro)
                     <tr data-widget="expandable-table" aria-expanded="false">
                         <td>{{ $pro->nama_client }}</td>
-                        <td>{{ $pro->date_pro }}</td>
-                        <td>{{ $pro->remarks_pro }}</td>
-                        <td>{{ $pro->client_poc_pro }}</td>
-                        <td>{{ $pro->poc_cc_pro }}</td>
+                        <td>{{ $pro->date }}</td>
+                        <td>{{ $pro->remarks }}</td>
+                        <td>{{ $pro->client_poc }}</td>
+                        <td>{{ $pro->poc_cc }}</td>
                         <td>
-                            <a href="#" data-id="<?php echo $pro->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-comment"></i></a>
-                            <a href="/admin/{{$pro->id}}/detailpros" title="view"><i class="fa fa-eye"></i></a>
+                            <a href="#" data-id="<?php echo $pro->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-edit"></i></a>
                             <a href="/admin/delpros/{{$pro->id}}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

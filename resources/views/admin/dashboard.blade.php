@@ -78,10 +78,10 @@
                             <td>
                                 <?php 
                                     if(empty($dt->notes)){?>
-                                        <a href="#" data-id="<?php echo $dt->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-comment"></i></a>
+                                        <a href="#" data-id="<?php echo $dt->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-edit"></i></a>
                                 <?php
                                     }else{?>
-                                        <a href="#" data-id="<?php echo $dt->id ?>" data-toggle="modal" data-target="#updatenote" class="updateid" title="Update Notes"><i class="fa fa-comment"></i></a>
+                                        <a href="#" data-id="<?php echo $dt->id ?>" data-toggle="modal" data-target="#updatenote" class="updateid" title="Update Notes"><i class="fa fa-edit"></i></a>
                                 <?php
                                     }    
                                 ?>

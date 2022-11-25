@@ -16,16 +16,19 @@
             <table id="example" class="table table-striped" style="width:100%">
                   <thead>
                     <tr>
-                      <th>No</th>
-                      <th>Contract Name</th>
+                      <th>Contract No</th>
+                      <th>Client Name</th>
+                      <th>Type Of Service</th>
+                      <th>File</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @php $no = 1 @endphp
                     @foreach($contract as $ctr)
                     <tr data-widget="expandable-table" aria-expanded="false">
-                        <td>{{ $no++ }}</td>
+                        <td>{{ $ctr->contract_no }}</td>
+                        <td>{{ $ctr->client_name }}</td>
+                        <td>{{ $ctr->type_of_service }}</td>
                         <td><a href="{{ url('document/contract/' . $ctr->path) }}" target="__blank">{{ $ctr->path }}</a></td>
                         <td><a href="/admin/delctr/{{$ctr->id}}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a></td>
                     </tr>

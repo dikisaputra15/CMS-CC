@@ -16,9 +16,23 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="poc_cc" class="col-md-4 col-form-label text-md-end">File Name</label>
+                            <label for="contract_no" class="col-md-4 col-form-label text-md-end">Contract No</label>
                             <div class="col-md-6">
-                                <input id="file_name" type="text" class="form-control" name="file_name" required autocomplete="file_name">
+                                <input id="conractno" type="text" class="form-control" name="contract_no" required autocomplete="contract_no">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="client_name" class="col-md-4 col-form-label text-md-end">Client Name</label>
+                            <div class="col-md-6">
+                                <input id="client_name" type="text" class="form-control" name="client_name" required autocomplete="client_name">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="type" class="col-md-4 col-form-label text-md-end">Type Of Service</label>
+                            <div class="col-md-6">
+                                <input id="type" type="text" class="form-control" name="type_service" required autocomplete="type">
                             </div>
                         </div>
 
