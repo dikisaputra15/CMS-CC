@@ -9,13 +9,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Datatables;
 
 class ServiceController extends Controller
 {
     public function index()
     {
-        $service = service::all();
-        return view('admin.service', compact(['service']));
+        if(request()->ajax()) {
+            return datatables()->of(Service::select('*'))
+            ->addColumn('action', function($row){
+                 $updateButton = "<a href='/admin/$row->id/editsrv' title='Edit'><i class='fa fa-edit'></i></a>";
+                 $deleteButton = "<a href='' title='Delete'><i class='fa fa-trash'></i></a>";
+                 return $updateButton." ".$deleteButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.service');
     }
 
     public function addservice()

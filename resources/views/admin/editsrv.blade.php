@@ -34,6 +34,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <input type="submit" name="submit" value="Save" class="btn btn-primary">
+                                <a href="../services" class="btn btn-danger">Back</a>
                             </div>
                         </div>
                     </form>
