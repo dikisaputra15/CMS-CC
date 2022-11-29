@@ -31,7 +31,7 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::post('/admin/storeregister', [App\Http\Controllers\UserController::class, 'storeregister']);
     Route::get('/admin/{id}/edituser', [App\Http\Controllers\UserController::class, 'edituser']);
     Route::put('/admin/edituser/{id}', [App\Http\Controllers\UserController::class, 'updateuser']);
-    Route::get('/admin/hapususr/{id}', [App\Http\Controllers\UserController::class, 'destroyuser']);
+    Route::post('/admin/hapususr', [App\Http\Controllers\UserController::class, 'destroyuser']);
     Route::get('/admin/{id}/changeuserpass', [App\Http\Controllers\UserController::class, 'changeuserpass']);
     Route::post('/admin/updatepass', [App\Http\Controllers\UserController::class, 'updatepass']);
     Route::get('/admin/services', [App\Http\Controllers\ServiceController::class, 'index']);
@@ -39,7 +39,7 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::put('/admin/editsrv/{id}', [App\Http\Controllers\ServiceController::class, 'updatesrv']);
     Route::get('/admin/addservice', [App\Http\Controllers\ServiceController::class, 'addservice']);
     Route::post('/admin/storesrv', [App\Http\Controllers\ServiceController::class, 'storesrv']);
-    Route::get('/admin/delsrv/{id}', [App\Http\Controllers\ServiceController::class, 'destroysrv']);
+    Route::post('/admin/delsrv', [App\Http\Controllers\ServiceController::class, 'destroysrv']);
     Route::get('/admin/prospective', [App\Http\Controllers\ProspecController::class, 'index']);
     Route::get('/admin/addprospec', [App\Http\Controllers\ProspecController::class, 'addprospec']);
     Route::post('/admin/storeprospec', [App\Http\Controllers\ProspecController::class, 'storeprospec']);
@@ -50,7 +50,7 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/admin/clients', [App\Http\Controllers\ClientController::class, 'index']);
     Route::get('/admin/addclient', [App\Http\Controllers\ClientController::class, 'addclient']);
     Route::post('/admin/storeclient', [App\Http\Controllers\ClientController::class, 'storeclient']); 
-    Route::get('/admin/delcli/{id}', [App\Http\Controllers\ClientController::class, 'destroycli']); 
+    Route::post('/admin/delcli', [App\Http\Controllers\ClientController::class, 'destroycli']); 
     Route::get('/admin/{id}/editcli', [App\Http\Controllers\ClientController::class, 'editcli']);
     Route::put('/admin/updatecli/{id}', [App\Http\Controllers\ClientController::class, 'updatecli']);
     Route::get('/admin/{id}/detailcli', [App\Http\Controllers\ClientController::class, 'detailcli']);
@@ -77,9 +77,9 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/admin/prop', [App\Http\Controllers\DocumentController::class, 'prop']);
     Route::get('/admin/addprop', [App\Http\Controllers\DocumentController::class, 'addprop']);
     Route::post('/admin/storeprop', [App\Http\Controllers\DocumentController::class, 'storeprop']);
-    Route::get('/admin/delinv/{id}', [App\Http\Controllers\DocumentController::class, 'destroyinv']);
-    Route::get('/admin/delctr/{id}', [App\Http\Controllers\DocumentController::class, 'destroyctr']);
-    Route::get('/admin/delprp/{id}', [App\Http\Controllers\DocumentController::class, 'destroyprp']);
+    Route::post('/admin/delinv', [App\Http\Controllers\DocumentController::class, 'destroyinv']);
+    Route::post('/admin/delctr', [App\Http\Controllers\DocumentController::class, 'destroyctr']);
+    Route::post('/admin/delprp', [App\Http\Controllers\DocumentController::class, 'destroyprp']);
 });
 
 Route::middleware(['auth', 'user-access:Finance'])->group(function () {

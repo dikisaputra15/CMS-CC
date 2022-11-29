@@ -17,8 +17,19 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $client = Client::all()->sortDesc();
-        return view('admin.client', compact(['client']));
+        if(request()->ajax()) {
+            return datatables()->of(Client::select('*'))
+            ->addColumn('action', function($row){
+                 $updateButton = "<a href='/admin/$row->id/editcli' title='Edit'><i class='fa fa-edit'></i></a>";
+                 $deleteButton = "<a href='#' class='deleteClient' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
+                 $viewButton = "<a href='/admin/$row->id/detailcli' title='view'><i class='fa fa-eye'></i></a>";
+                 return $updateButton." ".$deleteButton." ".$viewButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.client');
     }
 
     public function addclient()
@@ -68,11 +79,22 @@ class ClientController extends Controller
         return redirect('admin/clients')->with('alert-primary','Data berhasil ditambah');
     }
 
-    public function destroycli($id)
+    public function destroycli(Request $request)
     {
-        DB::table('clients')->where('id',$id)->delete();
-        DB::table('detail_clients')->where('id_client',$id)->delete();
-        return redirect('admin/clients')->with('alert-danger','Data berhasil dihapus');
+        $id = $request->post('id');
+
+        $empdata = DB::table('clients')->where('id',$id)->delete();
+
+        if($empdata){
+            DB::table('detail_clients')->where('id_client',$id)->delete();
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+        return response()->json($response); 
     }
 
     public function editcli($id)

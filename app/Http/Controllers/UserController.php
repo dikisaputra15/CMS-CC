@@ -16,8 +16,18 @@ class UserController extends Controller
     
     public function index()
     {
-        $user = user::all();
-        return view('admin.manageuser', compact(['user']));
+        if(request()->ajax()) {
+            return datatables()->of(User::select('*'))
+            ->addColumn('action', function($row){
+                 $updateButton = "<a href='/admin/$row->id/edituser' title='Edit'><i class='fa fa-edit'></i></a>";
+                 $deleteButton = "<a href='#' class='deleteUser' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
+                 return $updateButton." ".$deleteButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.manageuser');
     }
 
     public function adduser()
@@ -52,10 +62,21 @@ class UserController extends Controller
         return redirect('admin/user')->with('alert-primary','selamat, user berhasil diupdate');
     }
 
-    public function destroyuser($id)
+    public function destroyuser(Request $request)
     {
-        DB::table('users')->where('id',$id)->delete();
-        return redirect('admin/user')->with('alert-danger','selamat, user berhasil dihapus');
+        $id = $request->post('id');
+
+        $empdata = User::find($id);
+
+        if($empdata->delete()){
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+        return response()->json($response); 
     }
 
     public function changeuserpass($id)

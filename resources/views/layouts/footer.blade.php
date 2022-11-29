@@ -42,33 +42,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script>
-  //show services
-   $(document).ready( function () {
-              $.ajaxSetup({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-              });
-              $('#ajax-datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ url('admin/services') }}",
-                columns: [
-                {data: null,"sortable": false, 
-                        render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                        }  
-                },
-                { data: 'kode_services', name: 'kode_services' },
-                { data: 'nama_services', name: 'nama_services' },
-                {data: 'action', name: 'action', orderable: false},
-                ],
-                order: [[0, 'desc']]
-         });
-    });
-    //end show services
-</script>
-<script>
         $(".passingID").click(function () {
             var ids = $(this).attr('data-id');
             $("#idkl").val( ids );
@@ -79,5 +52,6 @@
             $("#id_d").val( idupdate );
         });
 </script>
+@stack('service')
 </body>
 </html>

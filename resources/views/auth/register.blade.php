@@ -1,8 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
 @section('title','Register')
 
-@section('content')
+@section('conten')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -82,4 +82,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

@@ -19,7 +19,7 @@ class ServiceController extends Controller
             return datatables()->of(Service::select('*'))
             ->addColumn('action', function($row){
                  $updateButton = "<a href='/admin/$row->id/editsrv' title='Edit'><i class='fa fa-edit'></i></a>";
-                 $deleteButton = "<a href='' title='Delete'><i class='fa fa-trash'></i></a>";
+                 $deleteButton = "<a href='#' class='deleteService' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
                  return $updateButton." ".$deleteButton;
             })
             ->rawColumns(['action'])
@@ -42,7 +42,7 @@ class ServiceController extends Controller
             'nama_services' => $request->nama_services
         ]);
 
-        return redirect('admin/services')->with('alert-primary','selamat, Data berhasil ditambah');
+        return redirect('admin/services')->with('alert-primary','Data added successfully');
        
     }
 
@@ -59,12 +59,24 @@ class ServiceController extends Controller
 			'nama_services' => $request->nama_services
 		]);
 
-        return redirect('admin/services')->with('alert-primary','selamat, Data berhasil diupdate');
+        return redirect('admin/services')->with('alert-primary','Data updated successfully');
     }
 
-    public function destroysrv($id)
+    public function destroysrv(Request $request)
     {
-        DB::table('services')->where('id',$id)->delete();
-        return redirect('admin/services')->with('alert-danger','selamat, Data berhasil dihapus');
+        
+        $id = $request->post('id');
+
+        $empdata = Service::find($id);
+
+        if($empdata->delete()){
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+        return response()->json($response); 
     }
 }

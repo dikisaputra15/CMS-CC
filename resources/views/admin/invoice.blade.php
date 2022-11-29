@@ -13,7 +13,7 @@
         <div class="form-group row">
             <a href="/admin/addinvoice" class="btn btn-primary" title="Add Document"><i class="fa fa-plus"></i></a>
         </div>
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="ajaxInvoice" class="table table-striped" style="width:100%">
                   <thead>
                     <tr>
                       <th>Contract No</th>
@@ -23,19 +23,61 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    @foreach($invoice as $inv)
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                        <td>{{ $inv->contract_no }}</td>
-                        <td>{{ $inv->client_name }}</td>
-                        <td>{{ $inv->type_of_service }}</td>
-                        <td><a href="{{ url('document/invoice/' . $inv->path) }}" target="__blank">{{ $inv->path }}</a></td>
-                        <td><a href="/admin/delinv/{{$inv->id}}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a></td>
-                    </tr>
-                    @endforeach
-                  </tbody>
+                  
             </table>
     </div>
 </div>
 @endsection
+
+@push('service')
+<script>
+   $(document).ready( function () {
+              $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+              
+              $('#ajaxInvoice').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ url('admin/invoice') }}",
+                columns: [
+                { data: 'contract_no', name: 'contract_no' },
+                { data: 'client_name', name: 'client_name' },
+                { data: 'type_of_service', name: 'type_of_service' },
+                {data: 'path', name: 'path', render:function(data, type, row){
+                return "<a href='/document/invoice/"+ row.path +"' target='__blank'>" + row.path + "</a>"
+                }},
+                {data: 'action', name: 'action', orderable: false},
+                ],
+                order: [[0, 'desc']]
+         });
+
+         $('#ajaxInvoice').on('click','.deleteInvoice',function(){
+            var id = $(this).data('id');
+
+            var deleteConfirm = confirm("Are you sure?");
+            if (deleteConfirm == true) {
+                  // AJAX request
+                  $.ajax({
+                     url: "{{ url('admin/delinv') }}",
+                     type: 'post',
+                     data: { id: id },
+                     success: function(response){
+                          if(response.success == 1){
+                               alert("Record deleted.");
+                               var oTable = $('#ajaxInvoice').dataTable();
+                               oTable.fnDraw(false);
+                          }else{
+                                alert("Invalid ID.");
+                          }
+                     }
+                 });
+            }
+       });
+
+  });         
+</script>
+@endpush
 

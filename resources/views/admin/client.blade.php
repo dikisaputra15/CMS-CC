@@ -13,7 +13,7 @@
         <div class="form-group row">
             <a href="{{ url('admin/addclient') }}" class="btn btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         </div>
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="ajaxClient" class="table table-striped" style="width:100%">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -21,21 +21,62 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                  @php $no = 1 @endphp
-                    @foreach($client as $cli)
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                        <td>{{ $no++ }}</td>
-                        <td><a href="/admin/{{$cli->id}}/detailcli">{{ $cli->nama_client }}</a></td>
-                        <td>
-                              <a href="/admin/{{$cli->id}}/editcli" title="edit"><i class="fa fa-edit"></i></a>
-                              <a href="/admin/delcli/{{$cli->id}}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
-                              <a href="/admin/{{$cli->id}}/detailcli" title="view"><i class="fa fa-eye"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
+                  
             </table>
     </div>
 </div>
 @endsection
+
+@push('service')
+<script>
+   $(document).ready( function () {
+              $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+              
+              $('#ajaxClient').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ url('admin/clients') }}",
+                columns: [
+                {data: null,"sortable": false, 
+                        render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                        }  
+                },
+                { data: 'nama_client', name: 'nama_client', render:function(data, type, row){
+                return "<a href='/admin/"+ row.id +"/detailcli'>" + row.nama_client + "</a>"
+                }},
+                {data: 'action', name: 'action', orderable: false},
+                ],
+                order: [[0, 'desc']]
+         });
+
+         $('#ajaxClient').on('click','.deleteClient',function(){
+            var id = $(this).data('id');
+
+            var deleteConfirm = confirm("Are you sure?");
+            if (deleteConfirm == true) {
+                  // AJAX request
+                  $.ajax({
+                     url: "{{ url('admin/delcli') }}",
+                     type: 'post',
+                     data: { id: id },
+                     success: function(response){
+                          if(response.success == 1){
+                               alert("Record deleted.");
+                               var oTable = $('#ajaxClient').dataTable();
+                               oTable.fnDraw(false);
+                          }else{
+                                alert("Invalid ID.");
+                          }
+                     }
+                 });
+            }
+       });
+
+  });         
+</script>
+@endpush

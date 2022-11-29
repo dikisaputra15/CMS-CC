@@ -12,8 +12,17 @@ class DocumentController extends Controller
 {
     public function invoice()
     {
-        $invoice = Invoice::all()->sortDesc();
-        return view('admin.invoice', compact(['invoice']));
+        if(request()->ajax()) {
+            return datatables()->of(Invoice::select('*'))
+            ->addColumn('action', function($row){
+                 $deleteButton = "<a href='#' class='deleteInvoice' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
+                 return $deleteButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.invoice');
     }
 
     public function addinvoice()
@@ -47,8 +56,17 @@ class DocumentController extends Controller
 
     public function contract()
     {
-        $contract = Contract::all()->sortDesc();
-        return view('admin.contract', compact(['contract']));
+        if(request()->ajax()) {
+            return datatables()->of(Contract::select('*'))
+            ->addColumn('action', function($row){
+                 $deleteButton = "<a href='#' class='deleteContract' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
+                 return $deleteButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.contract');
     }
 
     public function addcontract()
@@ -82,8 +100,17 @@ class DocumentController extends Controller
 
     public function prop()
     {
-        $proposal = Proposal::all()->sortDesc();
-        return view('admin.proposal', compact(['proposal']));
+        if(request()->ajax()) {
+            return datatables()->of(Proposal::select('*'))
+            ->addColumn('action', function($row){
+                 $deleteButton = "<a href='#' class='deleteProposal' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
+                 return $deleteButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+        return view('admin.proposal');
     }
 
     public function addprop()
@@ -115,11 +142,13 @@ class DocumentController extends Controller
         return redirect('admin/prop')->with('alert-primary','upload succesfully');
     }
 
-    public function destroyinv($id)
+    public function destroyinv(Request $request)
     {
+        $id = $request->post('id');
+
         $invoice = Invoice::find($id);
-        
-        if($invoice) {
+
+        if($invoice){
             $file = public_path('document/invoice/' . $invoice->path);
 
             if(File::exists($file)) {
@@ -128,16 +157,24 @@ class DocumentController extends Controller
 
             $invoice->delete();
 
-            return redirect()->back()->with('alert-danger','Deleted succesfully');
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
         }
+
+        return response()->json($response); 
     
     }
 
-    public function destroyctr($id)
-    {
+    public function destroyctr(Request $request)
+    {   
+        $id = $request->post('id');
+
         $ctr = Contract::find($id);
-        
-        if($ctr) {
+
+        if($ctr){
             $file = public_path('document/contract/' . $ctr->path);
 
             if(File::exists($file)) {
@@ -146,16 +183,24 @@ class DocumentController extends Controller
 
             $ctr->delete();
 
-            return redirect()->back()->with('alert-danger','Deleted succesfully');
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
         }
+
+        return response()->json($response); 
     
     }
 
-    public function destroyprp($id)
+    public function destroyprp(Request $request)
     {
+        $id = $request->post('id');
+
         $prp = Proposal::find($id);
-        
-        if($prp) {
+
+        if($prp){
             $file = public_path('document/proposal/' . $prp->path);
 
             if(File::exists($file)) {
@@ -164,8 +209,14 @@ class DocumentController extends Controller
 
             $prp->delete();
 
-            return redirect()->back()->with('alert-danger','Deleted succesfully');
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
         }
+
+        return response()->json($response); 
     
     }
 }
