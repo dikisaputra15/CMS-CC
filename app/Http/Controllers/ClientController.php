@@ -76,7 +76,7 @@ class ClientController extends Controller
             'end_date' => $tgl2
         ]);
 
-        return redirect('admin/clients')->with('alert-primary','Data berhasil ditambah');
+        return redirect('admin/clients')->with('alert-primary','Data successfully added');
     }
 
     public function destroycli(Request $request)
@@ -118,7 +118,7 @@ class ClientController extends Controller
             'contract_value' => $request->c_value
 		]);
 
-        return redirect('admin/clients')->with('alert-primary','Data berhasil diupdate');
+        return redirect('admin/clients')->with('alert-primary','Data successfully updatede');
     }
 
     public function detailcli($id)
@@ -171,7 +171,7 @@ class ClientController extends Controller
             'end_date' => $tgl2
         ]);
 
-        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil ditambah');
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data successfully added');
     }
 
     public function editsrvcli($id)
@@ -203,6 +203,6 @@ class ClientController extends Controller
             'end_date' => $tgl2
         ]);
 
-        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil diupdate');
+        return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data successfully updatede');
     }
 }

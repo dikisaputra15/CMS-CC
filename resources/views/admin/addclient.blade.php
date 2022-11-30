@@ -85,7 +85,7 @@
                         <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">No Of Subscriber</label>
                             <div class="col-md-6">
-                                <input id="no_of_subscribe" type="number" class="form-control" name="no_of_subscribe" required autocomplete="no_of_subscribe">
+                                <input id="no_of_subscribe" type="number" class="form-control" name="no_of_subscribe">
                             </div>
                         </div>
 

@@ -12,6 +12,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $service = Service::all();
+
         $detail = DB::table('detail_clients')
         ->leftjoin('clients', 'detail_clients.id_client', '=', 'clients.id')
         ->leftjoin('services', 'detail_clients.id_service', '=', 'services.id')
@@ -19,6 +21,6 @@ class DashboardController extends Controller
         ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
         ->get();
 
-        return view('admin.dashboard', compact(['detail']));
+        return view('admin.dashboard', compact(['detail','service']));
     }
 }
