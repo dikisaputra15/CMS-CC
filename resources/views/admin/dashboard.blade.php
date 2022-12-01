@@ -10,13 +10,14 @@
         <h3>Client Summary</h3>
     </div>
     <div class="card-body">
-            <table id="example" class="table table-striped table-valign-middle" width="100%">
+            <table id="dashboardTable" class="table table-striped table-valign-middle" width="100%">
                   <thead>
                     <tr>
+                      <th>#</th>
                       <th>Clients</th>
                       <th>
-                            <select class="form-control">
-                                <option value="0">Service</option>
+                            <select name="service_filter" id="service_filter" class="form-control">
+                                <option value="">Service</option>
                                 @foreach ($service as $srv)
                                 <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
                                 @endforeach
@@ -30,57 +31,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                  <?php
-                    foreach ($detail as $dt) {
-                        $tglawal = date('Y-m-d');
-                        $tglakhir = $dt->end_date;
-                        $tgl1 = new DateTime($tglawal);
-                        $tgl2 = new DateTime($tglakhir);
-                        $interval = $tgl1->diff($tgl2);
-                        $days = $interval->format('%R%a');
-                  ?>       
-                        <tr data-widget="expandable-table" aria-expanded="false">
-                            <td><a href="/admin/<?php echo $dt->id_client ?>/detailcli"><?php echo $dt->nama_client ?></a></td>
-                            <td><?php echo $dt->kode_services ?></td>
-                            <td><?php echo date('d M Y', strtotime($dt->start_date)) ?></td>
-                            <td><?php echo date('d M Y', strtotime($dt->end_date)) ?></td>
-                            <td>
-                                <?php 
-                                    if($days > 90){ ?>
-                                        <img src="{{url('/img/green.png')}}" style="width:20px; height:20px;" alt="Image"/>
-                                <?php
-                                    }elseif($days <= 30){?>
-                                        <img src="{{url('/img/black.png')}}" style="width:20px; height:20px;" alt="Image"/>
-                                <?php 
-                                    }elseif($days < 45 && $days >= 30){?>
-                                        <img src="{{url('/img/red.png')}}" style="width:20px; height:20px;" alt="Image"/>
-                                <?php 
-                                    }else{?>
-                                        <img src="{{url('/img/yellow.png')}}" style="width:20px; height:20px;" alt="Image"/>
-                                <?php
-                                    }
-                                ?>
-                                <?php echo $days ?>
-                            </td>
-                            <td><?php echo $dt->concord_poc ?></td>
-                            <td><?php echo $dt->notes ?></td>
-                            <td>
-                                <?php 
-                                    if(empty($dt->notes)){?>
-                                        <a href="#" data-id="<?php echo $dt->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-edit"></i></a>
-                                <?php
-                                    }else{?>
-                                        <a href="#" data-id="<?php echo $dt->id ?>" data-toggle="modal" data-target="#updatenote" class="updateid" title="Update Notes"><i class="fa fa-edit"></i></a>
-                                <?php
-                                    }    
-                                ?>
-                                <a href="/admin/deldash/<?php echo $dt->id ?>" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    <?php } ?>
-
-                  </tbody>
+                  
             </table>
     </div>
 </div>
@@ -91,7 +42,7 @@
             <div class="modal-body">
                 <form method="post" action="{{ url('admin/storenote') }}">
                     @csrf
-                    <input type="text" class="form-control" name="id_detail" id="idkl" value="" hidden>
+                    <input type="text" class="form-control" name="id_detail" id="idkl" value="">
                     <label for="note" class="col-md-4 col-form-label text-md-end">Notes</label>
                     <textarea name="notes" style="height:150px; width:470px;" required></textarea>
                     <div class="modal-footer">
@@ -112,7 +63,7 @@
             <div class="modal-body">
                 <form method="post" action="{{ url('admin/editnote') }}">
                     @csrf
-                    <input type="text" class="form-control" name="id_detail" id="id_d" value="" hidden>
+                    <input type="text" class="form-control" name="id_detail" id="id_d" value="">
                     <label for="note" class="col-md-4 col-form-label text-md-end">Update Notes</label>
                     <textarea name="notes" style="height:150px; width:470px;" required></textarea>
                     <div class="modal-footer">
@@ -131,9 +82,113 @@
 @push('service')
 <script>
 $(document).ready(function(){
-    $('#example').DataTable({
-        "pageLength": 50
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
+
+    fetch_data();
+
+    function fetch_data(category = '')
+    {
+        $('#dashboardTable').DataTable({
+            "pageLength": 50,
+            "ordering": false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:"{{ url('admin/dashboard') }}",
+                data: {category:category}
+            },
+            columns: [
+                {data: null,"sortable": false, 
+                        render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                        }  
+                },
+                { data: 'nama_client', name: 'nama_client', render:function(data, type, row){
+                return "<a href='/admin/"+ row.id_client +"/detailcli'>" + row.nama_client + "</a>"
+                }},
+                { data: 'nama_services', name: 'nama_services' },
+                { data: 'start_date', name: 'start_date' },
+                { data: 'end_date', name: 'end_date' },
+                { data: '', render:function(data, type, row){
+                    function dateFormat(date) {
+                        const day = date.getDate();
+                        const month = date.getMonth() + 1;
+                        const year = date.getFullYear();
+                        return `${year}-${month}-${day}`;
+                    }
+                        $tglawal = dateFormat(new Date());
+                        $tglakhir = row.end_date;
+                        $tgl1 = new Date($tglawal);
+                        $tgl2 = new Date($tglakhir);
+                        $diff = $tgl2.getTime() - $tgl1.getTime();
+                        $days = $diff / (1000 * 3600 * 24);
+                    
+                        if ($days > 90) {
+                            var img = "<img src='/img/green.png' style='width:20px; height:20px;' alt='Image'/>";
+                        }
+                        else if ($days <= 30) {
+                            var img = "<img src='/img/black.png' style='width:20px; height:20px;' alt='Image'/>";
+                        }
+                        else if ($days < 45 && $days >= 30) {
+                            var img = "<img src='/img/red.png' style='width:20px; height:20px;' alt='Image'/>";
+                        } 
+                        else {
+                            var img = "<img src='/img/yellow.png' style='width:20px; height:20px;' alt='Image'/>";
+                        }
+                    return img+' '+$days;
+                }},
+                { data: 'concord_poc', name: 'concord_poc' },
+                { data: 'notes', name: 'notes' },
+                {data: 'action', name: 'action', orderable: false},
+                ],
+                order: [[0, 'desc']]
+        });
+    }
+
+    $('#service_filter').change(function(){
+        var category_id = $('#service_filter').val();
+
+        $('#dashboardTable').DataTable().destroy();
+
+        fetch_data(category_id);
+    });
+
+    $(".passingID").click(function () {
+        var ids = $(this).attr('data-id');
+            $("#idkl").val( ids );
+    });
+
+    $(".updateid").click(function () {
+        var idupdate = $(this).attr('data-id');
+            $("#id_d").val( idupdate );
+    });
+
+    $('#dashboardTable').on('click','.deleteDashboard',function(){
+            var id = $(this).data('id');
+
+            var deleteConfirm = confirm("Are you sure?");
+            if (deleteConfirm == true) {
+                  // AJAX request
+                  $.ajax({
+                     url: "{{ url('admin/deldash') }}",
+                     type: 'post',
+                     data: { id: id },
+                     success: function(response){
+                          if(response.success == 1){
+                               alert("Record deleted.");
+                               var oTable = $('#dashboardTable').dataTable();
+                               oTable.fnDraw(false);
+                          }else{
+                                alert("Invalid ID.");
+                          }
+                     }
+                 });
+            }
+       });
 });
 </script>
 @endpush

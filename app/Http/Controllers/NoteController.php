@@ -46,9 +46,20 @@ class NoteController extends Controller
         return redirect('admin/dashboard')->with('alert-primary','Note berhasil diupdate');
     }
 
-    public function destroydash($id)
+    public function destroydash(Request $request)
     {
-        DB::table('detail_clients')->where('id',$id)->delete();
-        return redirect('admin/dashboard')->with('alert-danger','Data berhasil dihapus');
+        $id = $request->post('id');
+
+        $empdata = DB::table('detail_clients')->where('id',$id)->delete();
+
+        if($empdata){
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+        return response()->json($response); 
     }
 }
