@@ -28,7 +28,7 @@ class NoteController extends Controller
             'notes' => $request->notes
         ]);
 
-        return redirect('admin/dashboard')->with('alert-primary','Note berhasil dibuat');  
+        return redirect('admin/dashboard')->with('alert-primary','Note added');  
     }
 
     public function editnote(Request $request)
@@ -43,7 +43,7 @@ class NoteController extends Controller
             'notes' => $request->notes
         ]);
         
-        return redirect('admin/dashboard')->with('alert-primary','Note berhasil diupdate');
+        return redirect('admin/dashboard')->with('alert-primary','Note diupdated');
     }
 
     public function destroydash(Request $request)

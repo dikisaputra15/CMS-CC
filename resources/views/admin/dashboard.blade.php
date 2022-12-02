@@ -17,7 +17,7 @@
                       <th>Clients</th>
                       <th>
                             <select name="service_filter" id="service_filter" class="form-control">
-                                <option value="">Service</option>
+                                <option value="">All Services</option>
                                 @foreach ($service as $srv)
                                 <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
                                 @endforeach
@@ -25,7 +25,15 @@
                       </th>
                       <th>Contract Start Date</th>
                       <th>Contract End Date</th>
-                      <th>Contract Days Remaining </th>
+                      <th>
+                            <select name="color_filter" id="color_filter" class="form-control">
+                                <option value="0">Contract Days Remaining</option>
+                                <option value="1" style="background-color:green; color:white;">Green</option>
+                                <option value="2" style="background-color:black; color:white;">Black</option>
+                                <option value="3" style="background-color:red; color:white;">Red</option>
+                                <option value="4" style="background-color:yellow; color:white;">Yellow</option>
+                            </select>
+                      </th>
                       <th>CCI POC</th>
                       <th>Note</th>
                       <th>Action</th>
@@ -42,7 +50,7 @@
             <div class="modal-body">
                 <form method="post" action="{{ url('admin/storenote') }}">
                     @csrf
-                    <input type="text" class="form-control" name="id_detail" id="idkl" value="">
+                    <input type="text" class="form-control" name="id_detail" id="idkl" value="" hidden>
                     <label for="note" class="col-md-4 col-form-label text-md-end">Notes</label>
                     <textarea name="notes" style="height:150px; width:470px;" required></textarea>
                     <div class="modal-footer">
@@ -63,7 +71,7 @@
             <div class="modal-body">
                 <form method="post" action="{{ url('admin/editnote') }}">
                     @csrf
-                    <input type="text" class="form-control" name="id_detail" id="id_d" value="">
+                    <input type="text" class="form-control" name="id_detail" id="id_d" value="" hidden>
                     <label for="note" class="col-md-4 col-form-label text-md-end">Update Notes</label>
                     <textarea name="notes" style="height:150px; width:470px;" required></textarea>
                     <div class="modal-footer">
@@ -130,7 +138,7 @@ $(document).ready(function(){
                         if ($days > 90) {
                             var img = "<img src='/img/green.png' style='width:20px; height:20px;' alt='Image'/>";
                         }
-                        else if ($days <= 30) {
+                        else if ($days < 30) {
                             var img = "<img src='/img/black.png' style='width:20px; height:20px;' alt='Image'/>";
                         }
                         else if ($days < 45 && $days >= 30) {
@@ -157,16 +165,6 @@ $(document).ready(function(){
         fetch_data(category_id);
     });
 
-    $(".passingID").click(function () {
-        var ids = $(this).attr('data-id');
-            $("#idkl").val( ids );
-    });
-
-    $(".updateid").click(function () {
-        var idupdate = $(this).attr('data-id');
-            $("#id_d").val( idupdate );
-    });
-
     $('#dashboardTable').on('click','.deleteDashboard',function(){
             var id = $(this).data('id');
 
@@ -189,6 +187,23 @@ $(document).ready(function(){
                  });
             }
        });
+
+       $('#dashboardTable').on('click','.passingID',function(){
+            var ids = $(this).data('id');
+            $("#idkl").val( ids );
+       });
+
+       $('#dashboardTable').on('click','.updateid',function(){
+            var idupdate = $(this).data('id');
+            $("#id_d").val( idupdate );
+       });
+
+       $('#color_filter').change(function(){
+            var color_id = $('#color_filter').val();
+            $('#dashboardTable').DataTable().destroy();
+            alert(color_id)
+        });
+
 });
 </script>
 @endpush
