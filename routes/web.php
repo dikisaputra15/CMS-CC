@@ -22,6 +22,7 @@ Auth::routes();
 Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
     Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/admin/note', [App\Http\Controllers\NoteController::class, 'index']);
     Route::get('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'index']);
     Route::post('/admin/changepassword', [App\Http\Controllers\ChangepassController::class, 'changepassword']);
     Route::get('/admin/profile', [App\Http\Controllers\ProfileController::class, 'index']);

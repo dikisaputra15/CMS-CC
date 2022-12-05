@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\Client;
 use App\Models\Detail_client;
+use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +23,48 @@ class DashboardController extends Controller
                 ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
                 ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
                 ->where('detail_clients.id_service', $request->category)
+                ->get();
+            }
+            elseif($request->color_id == 1)
+            {
+                $data = DB::table('detail_clients')
+                ->leftjoin('clients', 'detail_clients.id_client', '=', 'clients.id')
+                ->leftjoin('services', 'detail_clients.id_service', '=', 'services.id')
+                ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
+                ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) > 90')
+                ->get();
+            }
+            elseif($request->color_id == 2)
+            {
+                $data = DB::table('detail_clients')
+                ->leftjoin('clients', 'detail_clients.id_client', '=', 'clients.id')
+                ->leftjoin('services', 'detail_clients.id_service', '=', 'services.id')
+                ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
+                ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) < 30')
+                ->get();
+            }
+            elseif($request->color_id == 3)
+            {
+                $data = DB::table('detail_clients')
+                ->leftjoin('clients', 'detail_clients.id_client', '=', 'clients.id')
+                ->leftjoin('services', 'detail_clients.id_service', '=', 'services.id')
+                ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
+                ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) < 45')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) >= 30')
+                ->get();
+            }
+            elseif($request->color_id == 4)
+            {
+                $data = DB::table('detail_clients')
+                ->leftjoin('clients', 'detail_clients.id_client', '=', 'clients.id')
+                ->leftjoin('services', 'detail_clients.id_service', '=', 'services.id')
+                ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
+                ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) >= 45')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) <= 90')
                 ->get();
             }
             else

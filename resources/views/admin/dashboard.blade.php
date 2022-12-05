@@ -98,7 +98,7 @@ $(document).ready(function(){
 
     fetch_data();
 
-    function fetch_data(category = '')
+    function fetch_data(category = '', color_id= '')
     {
         $('#dashboardTable').DataTable({
             "pageLength": 50,
@@ -107,7 +107,10 @@ $(document).ready(function(){
             serverSide: true,
             ajax: {
                 url:"{{ url('admin/dashboard') }}",
-                data: {category:category}
+                data: {
+                    category:category,
+                    color_id:$('#color_filter').val()
+                }
             },
             columns: [
                 {data: null,"sortable": false, 
@@ -199,9 +202,8 @@ $(document).ready(function(){
        });
 
        $('#color_filter').change(function(){
-            var color_id = $('#color_filter').val();
             $('#dashboardTable').DataTable().destroy();
-            alert(color_id)
+            fetch_data();
         });
 
 });
