@@ -25,19 +25,49 @@
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach($prospec as $pro)
+                    <?php 
+                         $client = "";
+                    ?>
+                  <?php foreach($prospec as $pro) { 
+                        $nama_client = $pro->nama_client;
+                        $date = $pro->date;
+                        $remarks = $pro->remarks;
+                        $client_poc = $pro->client_poc;
+                        $poc_cc = $pro->poc_cc;
+                    ?>
+
+                <?php 
+                    if($client!=$nama_client){
+                        $client = $nama_client;
+                        
+                ?>
+
                     <tr data-widget="expandable-table" aria-expanded="false">
-                        <td>{{ $pro->nama_client }}</td>
-                        <td>{{ $pro->date }}</td>
-                        <td>{{ $pro->remarks }}</td>
-                        <td>{{ $pro->client_poc }}</td>
-                        <td>{{ $pro->poc_cc }}</td>
+                        <td><?php echo $client ?></td>
+                        <td><?php echo $date ?></td>
+                        <td><?php echo $remarks ?></td>
+                        <td><?php echo $client_poc ?></td>
+                        <td><?php echo $poc_cc ?></td>
                         <td>
                             <a href="#" data-id="<?php echo $pro->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-edit"></i></a>
-                            <a href="/admin/delpros/{{$pro->id}}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
+                            <a href="/admin/delpros/<?php echo $pro->id ?>" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
-                    @endforeach
+
+                    <?php }else{ ?>
+                        <tr data-widget="expandable-table" aria-expanded="false">
+                        <td></td>
+                        <td><?php echo $pro->date ?></td>
+                        <td><?php echo $pro->remarks ?></td>
+                        <td><?php echo $pro->client_poc ?></td>
+                        <td><?php echo $pro->poc_cc ?></td>
+                        <td>
+                            <a href="#" data-id="<?php echo $pro->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-edit"></i></a>
+                            <a href="/admin/delpros/<?php echo $pro->id ?>" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <?php } ?>
 
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">

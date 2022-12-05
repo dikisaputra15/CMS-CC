@@ -8,6 +8,7 @@ use App\Models\Detail_client;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -87,7 +88,15 @@ class DashboardController extends Controller
                 $deleteButton = "<a href='#' class='deleteDashboard' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
                 return $updateButton." ".$deleteButton;
            })
-           ->rawColumns(['action'])
+           ->addColumn('start_date', function($row){
+                $data = date("Y-M-d", strtotime($row->start_date));
+                return $data;
+           })
+           ->addColumn('end_date', function($row){
+                $data = date("Y-M-d", strtotime($row->end_date));
+                return $data;
+            })
+           ->rawColumns(['action','start_date','end_date'])
            ->addIndexColumn()
            ->make(true);
         }

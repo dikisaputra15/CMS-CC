@@ -28,10 +28,10 @@
                       <th>
                             <select name="color_filter" id="color_filter" class="form-control">
                                 <option value="0">Contract Days Remaining</option>
-                                <option value="1" style="background-color:green; color:white;">Green</option>
-                                <option value="2" style="background-color:black; color:white;">Black</option>
-                                <option value="3" style="background-color:red; color:white;">Red</option>
-                                <option value="4" style="background-color:yellow; color:white;">Yellow</option>
+                                <option value="1" style="background-color:green">Green</option>
+                                <option value="2" style="background-color:black">Black</option>
+                                <option value="3" style="background-color:red">Red</option>
+                                <option value="4" style="background-color:yellow">Yellow</option>
                             </select>
                       </th>
                       <th>CCI POC</th>
@@ -150,7 +150,7 @@ $(document).ready(function(){
                         else {
                             var img = "<img src='/img/yellow.png' style='width:20px; height:20px;' alt='Image'/>";
                         }
-                    return img+' '+$days;
+                    return img+' '+Math.round($days);
                 }},
                 { data: 'concord_poc', name: 'concord_poc' },
                 { data: 'notes', name: 'notes' },
