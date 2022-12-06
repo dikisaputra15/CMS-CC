@@ -10,7 +10,7 @@
         <h3>Client Summary</h3>
     </div>
     <div class="card-body">
-            <table id="dashboardTable" class="table table-striped table-valign-middle" width="100%">
+            <table id="dashboardTable" class="table table-valign-middle" width="100%">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -123,7 +123,7 @@ $(document).ready(function(){
                 }},
                 { data: 'nama_services', name: 'nama_services' },
                 { data: 'start_date', name: 'start_date' },
-                { data: 'end_date', name: 'end_date' },
+                { data: 'end_dates', name: 'end_dates' },
                 { data: '', render:function(data, type, row){
                     function dateFormat(date) {
                         const day = date.getDate();

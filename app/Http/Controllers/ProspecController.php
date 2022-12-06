@@ -18,6 +18,7 @@ class ProspecController extends Controller
         $prospec = DB::table('prospective_clients')
         ->join('detail_propective_clients', 'prospective_clients.id', '=', 'detail_propective_clients.id_pros_client')
         ->select('detail_propective_clients.*', 'prospective_clients.*')
+        ->orderBy('detail_propective_clients.id_pros_client', 'desc')
         ->get();
         return view('admin.prospective', compact(['prospec']));
     }
@@ -30,11 +31,7 @@ class ProspecController extends Controller
     public function storeprospec(Request $request)
     {
        $prospective = prospective_client::create([
-            'nama_client' => $request->client_name,
-            'date_pro' => $request->tgl,
-            'remarks_pro' => $request->remark,
-            'client_poc_pro' => $request->client_poc,
-            'poc_cc_pro' => $request->poc_cc
+            'nama_client' => $request->client_name
         ]);
 
         $prospectiveid = $prospective->id;
@@ -47,7 +44,7 @@ class ProspecController extends Controller
             'poc_cc' => $request->poc_cc
         ]);
 
-        return redirect('admin/prospective')->with('alert-primary','Data berhasil ditambah');
+        return redirect('admin/prospective')->with('alert-primary','Data added successfully');
     }
 
     public function addupdate($id)
@@ -68,13 +65,6 @@ class ProspecController extends Controller
             'poc_cc' => $request->poc_cc
         ]);
 
-        DB::table('prospective_clients')->where('id',$id)->update([
-            'date_pro' => $request->tgl,
-            'remarks_pro' => $request->remark,
-            'client_poc_pro' => $request->client_poc,
-            'poc_cc_pro' => $request->poc_cc
-		]);
-
         return redirect('admin/prospective')->with('alert-primary','update success');
     }
 
@@ -92,7 +82,7 @@ class ProspecController extends Controller
     {
         DB::table('prospective_clients')->where('id',$id)->delete();
         DB::table('detail_propective_clients')->where('id_pros_client',$id)->delete();
-        return redirect('admin/prospective')->with('alert-danger','selamat, Data berhasil dihapus');
+        return redirect('admin/prospective')->with('alert-danger','Data Deleted');
     }
 
 }

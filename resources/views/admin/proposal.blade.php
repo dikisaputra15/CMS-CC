@@ -13,7 +13,7 @@
         <div class="form-group row">
             <a href="/admin/addprop" class="btn btn-primary" title="Add Document"><i class="fa fa-plus"></i></a>
         </div>
-            <table id="ajaxProposal" class="table table-striped" style="width:100%">
+            <table id="ajaxProposal" class="table" style="width:100%">
                   <thead>
                     <tr>
                       <th>Contract No</th>

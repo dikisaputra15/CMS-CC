@@ -41,11 +41,11 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->new_password),
+            'password' => Hash::make($request->password),
             'type' => $request->role
         ]);
 
-        return redirect('admin/user')->with('alert-primary','selamat, user berhasil dibuat');
+        return redirect('admin/user')->with('alert-primary','user created successfully');
        
     }
 
@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->update($request->except(['_token','submit']));
-        return redirect('admin/user')->with('alert-primary','selamat, user berhasil diupdate');
+        return redirect('admin/user')->with('alert-primary','User Updated');
     }
 
     public function destroyuser(Request $request)
@@ -100,7 +100,7 @@ class UserController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
 
-        return redirect('admin/user')->with('alert-primary','selamat, password anda berhasil diubah');
+        return redirect('admin/user')->with('alert-primary','password updated');
 
     }
 

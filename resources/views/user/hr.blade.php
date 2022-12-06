@@ -1,11 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.master')
 
-@section('title','Dashboard')
+@section('title','Client List')
 
-@section('content_header')
-    <h1>Dashboard</h1>
-@stop
+@section('conten')
+    <h1>welcome</h1>
+@endsection
 
-@section('content')
-    <p>welcome to HR panel</p>
-@stop

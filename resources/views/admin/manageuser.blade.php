@@ -13,7 +13,7 @@
         <div class="form-group row">
             <a href="{{ url('admin/adduser') }}" class="btn btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         </div>
-            <table id="ajaxuser" class="table table-striped" style="width:100%">
+            <table id="ajaxuser" class="table" style="width:100%">
                   <thead>
                     <tr>
                       <th>No</th>

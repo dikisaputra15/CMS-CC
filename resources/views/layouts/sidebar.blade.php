@@ -31,6 +31,7 @@
               </p>
             </a>
           </li>
+        @if (auth()->user()->type == 'Admin')
           <li class="nav-item">
             <a href="/admin/user" class="nav-link">
               <i class="nav-icon far fa-user"></i>
@@ -39,6 +40,7 @@
               </p>
             </a>
           </li>
+        @endif
           <li class="nav-item">
             <a href="/admin/services" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
@@ -57,12 +59,15 @@
               <p>Clients</p>
             </a>
           </li>
+        @if (auth()->user()->type == 'Admin' or auth()->user()->type == 'HR')
           <li class="nav-item">
             <a href="/admin/export" class="nav-link">
               <i class="nav-icon fas fa-print"></i>
               <p>Export CSV NPT</p>
             </a>
           </li>
+        @endif
+        @if (auth()->user()->type == 'Admin' or auth()->user()->type == 'HR')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-folder"></i>
@@ -92,6 +97,7 @@
               </li>
             </ul>
           </li>
+        @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

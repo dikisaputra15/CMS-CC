@@ -13,7 +13,7 @@
         <div class="form-group row">
             <a href="{{ url('admin/addprospec') }}" class="btn btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         </div>
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="example" class="table" style="width:100%">
                   <thead>
                     <tr>
                       <th>Prospective Client</th>
@@ -62,8 +62,7 @@
                         <td><?php echo $pro->client_poc ?></td>
                         <td><?php echo $pro->poc_cc ?></td>
                         <td>
-                            <a href="#" data-id="<?php echo $pro->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-edit"></i></a>
-                            <a href="/admin/delpros/<?php echo $pro->id ?>" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
+                            
                         </td>
                     </tr>
                     <?php } ?>
@@ -105,3 +104,19 @@
     </div>
 </div>
 @endsection
+
+@push('service')
+<script>
+$(document).ready(function(){
+    $('#example').DataTable({
+        "pageLength": 25,
+        "ordering": false,
+    })
+
+    $('#example').on('click','.passingID',function(){
+        var ids = $(this).data('id');
+        $("#idkl").val( ids );
+    });
+});
+</script>
+@endpush

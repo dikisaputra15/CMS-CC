@@ -13,11 +13,7 @@ class ChangepassController extends Controller
     public function index()
     {
         $user = User::find(Auth::user()->id);
-        if($user->type == 'Admin'){
-            return view('admin.changepassword');
-        }else{
-            return view('user.changepassword');
-        }
+        return view('admin.changepassword');
     }
 
     public function changepassword(Request $request)
@@ -37,11 +33,7 @@ class ChangepassController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
 
-        if($user->type == 'admin'){
-            return redirect('admin/changepassword')->with('alert-primary','selamat, password anda berhasil diubah');
-        }else{
-            return redirect('user/changepassword')->with('alert-primary','selamat, password anda berhasil diubah');
-        }
-
+        return redirect('admin/changepassword')->with('alert-primary','password changed successfully');
+        
     }
 }

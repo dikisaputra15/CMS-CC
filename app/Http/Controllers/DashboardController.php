@@ -92,11 +92,11 @@ class DashboardController extends Controller
                 $data = date("Y-M-d", strtotime($row->start_date));
                 return $data;
            })
-           ->addColumn('end_date', function($row){
+           ->addColumn('end_dates', function($row){
                 $data = date("Y-M-d", strtotime($row->end_date));
                 return $data;
             })
-           ->rawColumns(['action','start_date','end_date'])
+           ->rawColumns(['action','start_date','end_dates'])
            ->addIndexColumn()
            ->make(true);
         }

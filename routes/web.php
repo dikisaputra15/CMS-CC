@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware(['auth', 'user-access:Admin'])->group(function () {
+Route::group(['middleware' => ['auth']], function(){
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index']);
     Route::get('/admin/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::post('/admin/note', [App\Http\Controllers\NoteController::class, 'index']);
@@ -83,17 +83,17 @@ Route::middleware(['auth', 'user-access:Admin'])->group(function () {
     Route::post('/admin/delprp', [App\Http\Controllers\DocumentController::class, 'destroyprp']);
 });
 
-Route::middleware(['auth', 'user-access:Finance'])->group(function () {
-    Route::get('/user/finance', [App\Http\Controllers\HomeController::class, 'index'])->name('finance');
-});
+// Route::middleware(['auth', 'user-access:Finance'])->group(function () {
+//     Route::get('/user/finance', [App\Http\Controllers\HomeController::class, 'index'])->name('finance');
+// });
 
-Route::middleware(['auth', 'user-access:HR'])->group(function () {
-    Route::get('/user/hr', [App\Http\Controllers\HomeController::class, 'hr'])->name('hr');
-});
+// Route::middleware(['auth', 'user-access:HR'])->group(function () {
+//     Route::get('/user/hr', [App\Http\Controllers\HomeController::class, 'hr'])->name('hr');
+// });
 
-Route::middleware(['auth', 'user-access:Data Entry'])->group(function () {
-    Route::get('/user/dataentry', [App\Http\Controllers\HomeController::class, 'dataentry'])->name('dataentry');
-});
+// Route::middleware(['auth', 'user-access:Data Entry'])->group(function () {
+//     Route::get('/user/dataentry', [App\Http\Controllers\HomeController::class, 'dataentry'])->name('dataentry');
+// });
 
 // Route::group(['middleware' => ['role:user']], function(){
 //     Route::get('/user/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -13,7 +13,7 @@
         <div class="form-group row">
             <a href="/admin/addinvoice" class="btn btn-primary" title="Add Document"><i class="fa fa-plus"></i></a>
         </div>
-            <table id="ajaxInvoice" class="table table-striped" style="width:100%">
+            <table id="ajaxInvoice" class="table" style="width:100%">
                   <thead>
                     <tr>
                       <th>Contract No</th>
