@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('client_name');
             $table->string('type_of_service');
             $table->string('path');
+            $table->date('tgl_contract');
         });
     }
 

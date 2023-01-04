@@ -12,5 +12,6 @@ class Prospective_client extends Model
 
     protected $fillable = [
         'nama_client',
+        'poc_cc',
     ];
 }

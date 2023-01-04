@@ -16,6 +16,13 @@
                         @csrf
 
                         <div class="row mb-3">
+                            <label for="contract_no" class="col-md-4 col-form-label text-md-end">Proposal Date</label>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" name="tgl_proposal" value="<?php echo date('Y-m-d') ?>">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
                             <label for="contract_no" class="col-md-4 col-form-label text-md-end">Contract No</label>
                             <div class="col-md-6">
                                 <input id="conractno" type="text" class="form-control" name="contract_no" required autocomplete="contract_no">
@@ -23,16 +30,33 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="client_name" class="col-md-4 col-form-label text-md-end">Client Name</label>
+                            <label for="client" class="col-md-4 col-form-label text-md-end">Client Name</label>
                             <div class="col-md-6">
-                                <input id="client_name" type="text" class="form-control" name="client_name" required autocomplete="client_name">
+                                <select class="form-control" name="client_name">
+                                    <option value="0">-Choose Client Name-</option>
+                                @foreach ($client as $cli)
+                                    <option value="{{ $cli->id }}">{{ $cli->nama_client }}</option>
+                                @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="type" class="col-md-4 col-form-label text-md-end">Type Of Service</label>
+                            <label for="client" class="col-md-4 col-form-label text-md-end">Type Of Service</label>
                             <div class="col-md-6">
-                                <input id="type" type="text" class="form-control" name="type_service" required autocomplete="type">
+                                <select class="form-control" name="type_service">
+                                    <option value="0">-Choose Service-</option>
+                                @foreach ($service as $srv)
+                                    <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="contract_no" class="col-md-4 col-form-label text-md-end">File Name</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="file_name">
                             </div>
                         </div>
 

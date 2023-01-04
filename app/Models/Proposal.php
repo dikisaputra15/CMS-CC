@@ -16,5 +16,6 @@ class Proposal extends Model
         'client_name',
         'type_of_service',
         'path',
+        'tgl_proposal',
     ];
 }

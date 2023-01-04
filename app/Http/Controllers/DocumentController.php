@@ -5,15 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Models\Contract;
 use App\Models\Proposal;
+use App\Models\Service;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
     public function invoice()
     {
+        $data = DB::table('invoices')
+                ->join('clients', 'invoices.client_name', '=', 'clients.id')
+                ->join('services', 'invoices.type_of_service', '=', 'services.id')
+                ->select('clients.*', 'services.*', 'invoices.*')
+                ->get();
+
         if(request()->ajax()) {
-            return datatables()->of(Invoice::select('*'))
+            return datatables()->of($data)
             ->addColumn('action', function($row){
                  $deleteButton = "<a href='#' class='deleteInvoice' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
                  return $deleteButton;
@@ -27,28 +36,30 @@ class DocumentController extends Controller
 
     public function addinvoice()
     {
-        return view('admin.addinvoice');
+        $service = service::all();
+        $client = Client::all();
+        return view('admin.addinvoice', compact(['service','client']));
     }
 
     public function storeinvoice(Request $request)
     {   
         $extension = $request->file('file')->extension();
 
-        $contract = $request->contract_no;
-        $client = str_replace(" ", "-", $request->client_name);
-        $type = str_replace(" ", "-", $request->type_service);
+        $nama_file = str_replace(" ", "-", $request->file_name);
+        $num = hexdec(uniqid());
 
-        $filename = $contract.'_'.$client.'_'.$type.'.'.$extension;
+        $filename = $nama_file.'_'.$num.'.'.$extension;
 
         $request->file('file')->move(
             base_path() . '/public/document/invoice/', $filename
         );
 
         Invoice::create([
-            'contract_no' => $contract,
+            'contract_no' => $request->contract_no,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service,
-            'path' => $filename
+            'path' => $filename,
+            'tgl_invoice' => $request->tgl_invoice
         ]);
 
         return redirect('admin/invoice')->with('alert-primary','upload succesfully');
@@ -56,8 +67,14 @@ class DocumentController extends Controller
 
     public function contract()
     {
+        $data = DB::table('contracts')
+                ->join('clients', 'contracts.client_name', '=', 'clients.id')
+                ->join('services', 'contracts.type_of_service', '=', 'services.id')
+                ->select('clients.*', 'services.*', 'contracts.*')
+                ->get();
+
         if(request()->ajax()) {
-            return datatables()->of(Contract::select('*'))
+            return datatables()->of($data)
             ->addColumn('action', function($row){
                  $deleteButton = "<a href='#' class='deleteContract' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
                  return $deleteButton;
@@ -71,28 +88,30 @@ class DocumentController extends Controller
 
     public function addcontract()
     {
-        return view('admin.addcontract');
+        $service = service::all();
+        $client = Client::all();
+        return view('admin.addcontract', compact(['service','client']));
     }
 
     public function storecontract(Request $request)
     {   
         $extension = $request->file('file')->extension();
 
-        $contract = $request->contract_no;
-        $client = str_replace(" ", "-", $request->client_name);
-        $type = str_replace(" ", "-", $request->type_service);
+        $nama_file = str_replace(" ", "-", $request->file_name);
+        $num = hexdec(uniqid());
 
-        $filename = $contract.'_'.$client.'_'.$type.'.'.$extension;
+        $filename = $nama_file.'_'.$num.'.'.$extension;
 
         $request->file('file')->move(
             base_path() . '/public/document/contract/', $filename
         );
 
         Contract::create([
-            'contract_no' => $contract,
+            'contract_no' => $request->contract_no,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service,
-            'path' => $filename
+            'path' => $filename,
+            'tgl_contract' => $request->tgl_contract
         ]);
 
         return redirect('admin/contract')->with('alert-primary','upload succesfully');
@@ -100,8 +119,14 @@ class DocumentController extends Controller
 
     public function prop()
     {
+        $data = DB::table('proposals')
+        ->join('clients', 'proposals.client_name', '=', 'clients.id')
+        ->join('services', 'proposals.type_of_service', '=', 'services.id')
+        ->select('clients.*', 'services.*', 'proposals.*')
+        ->get();
+
         if(request()->ajax()) {
-            return datatables()->of(Proposal::select('*'))
+            return datatables()->of($data)
             ->addColumn('action', function($row){
                  $deleteButton = "<a href='#' class='deleteProposal' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
                  return $deleteButton;
@@ -115,28 +140,30 @@ class DocumentController extends Controller
 
     public function addprop()
     {
-        return view('admin.addprop');
+        $service = service::all();
+        $client = Client::all();
+        return view('admin.addprop', compact(['service','client']));
     }
 
     public function storeprop(Request $request)
     {   
         $extension = $request->file('file')->extension();
 
-        $contract = $request->contract_no;
-        $client = str_replace(" ", "-", $request->client_name);
-        $type = str_replace(" ", "-", $request->type_service);
+        $nama_file = str_replace(" ", "-", $request->file_name);
+        $num = hexdec(uniqid());
 
-        $filename = $contract.'_'.$client.'_'.$type.'.'.$extension;
+        $filename = $nama_file.'_'.$num.'.'.$extension;
 
         $request->file('file')->move(
             base_path() . '/public/document/proposal/', $filename
         );
 
         Proposal::create([
-            'contract_no' => $contract,
+            'contract_no' => $request->contract_no,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service,
-            'path' => $filename
+            'path' => $filename,
+            'tgl_proposal' => $request->tgl_proposal
         ]);
 
         return redirect('admin/prop')->with('alert-primary','upload succesfully');

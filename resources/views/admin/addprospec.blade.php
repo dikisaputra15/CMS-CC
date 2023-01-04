@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="poc_cc" class="col-md-4 col-form-label text-md-end">POC</label>
+                            <label for="poc_cc" class="col-md-4 col-form-label text-md-end">POC CC</label>
                             <div class="col-md-6">
                                 <input id="poc_cc" type="text" class="form-control" name="poc_cc" required autocomplete="poc_cc">
                             </div>

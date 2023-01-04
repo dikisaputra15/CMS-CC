@@ -15,6 +15,5 @@ class Detail_propective_client extends Model
         'date',
         'remarks',
         'client_poc',
-        'poc_cc',
     ];
 }

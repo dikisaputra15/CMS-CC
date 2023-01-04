@@ -27,6 +27,7 @@
                   <tbody>
                     <?php 
                          $client = "";
+                         $cc = "";
                     ?>
                   <?php foreach($prospec as $pro) { 
                         $nama_client = $pro->nama_client;
@@ -37,7 +38,7 @@
                     ?>
 
                 <?php 
-                    if($client!=$nama_client){
+                    if($client!=$nama_client and $cc!=$poc_cc){
                         $client = $nama_client;
                         
                 ?>
@@ -60,7 +61,7 @@
                         <td><?php echo $pro->date ?></td>
                         <td><?php echo $pro->remarks ?></td>
                         <td><?php echo $pro->client_poc ?></td>
-                        <td><?php echo $pro->poc_cc ?></td>
+                        <td></td>
                         <td>
                             
                         </td>
@@ -85,9 +86,6 @@
 
                                     <label for="client_poc" class="col-md-4 col-form-label text-md-end">Client POC</label>
                                     <input id="client_poc" type="text" class="form-control" name="client_poc" required autocomplete="client_poc">
-
-                                    <label for="poc_cc" class="col-md-4 col-form-label text-md-end">POC</label>
-                                    <input id="poc_cc" type="text" class="form-control" name="poc_cc" required autocomplete="poc_cc">
 
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Save</button>

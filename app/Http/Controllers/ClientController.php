@@ -43,7 +43,8 @@ class ClientController extends Controller
         $tgl1 = $request->start_date;
         $dur = $request->duration;
         $serviceid = $request->service_id;
-        $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+        $end = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end))); 
 
         $client = Client::create([
             'nama_client' => $request->nama_client,
@@ -153,7 +154,8 @@ class ClientController extends Controller
     {
         $tgl1 = $request->start_date;
         $dur = $request->duration;
-        $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+        $end = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end))); 
 
         Detail_client::create([
             'id_client' => $request->id_client,
@@ -185,7 +187,8 @@ class ClientController extends Controller
     {
         $tgl1 = $request->start_date;
         $dur = $request->duration;
-        $tgl2 = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+        $end = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
+        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end))); 
 
         DB::table('detail_clients')->where('id',$id)->update([
             'id_client' => $request->id_client,

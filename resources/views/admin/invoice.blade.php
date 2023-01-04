@@ -17,6 +17,7 @@
                   <thead>
                     <tr>
                       <th>Contract No</th>
+                      <th>Invoice Date</th>
                       <th>Client Name</th>
                       <th>Type Of Service</th>
                       <th>File</th>
@@ -44,8 +45,9 @@
                 ajax: "{{ url('admin/invoice') }}",
                 columns: [
                 { data: 'contract_no', name: 'contract_no' },
-                { data: 'client_name', name: 'client_name' },
-                { data: 'type_of_service', name: 'type_of_service' },
+                { data: 'tgl_invoice', name: 'tgl_invoice' },
+                { data: 'nama_client', name: 'nama_client' },
+                { data: 'nama_services', name: 'nama_services' },
                 {data: 'path', name: 'path', render:function(data, type, row){
                 return "<a href='/document/invoice/"+ row.path +"' target='__blank'>" + row.path + "</a>"
                 }},

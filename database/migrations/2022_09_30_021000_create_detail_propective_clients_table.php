@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('date');
             $table->text('remarks');
             $table->string('client_poc');
-            $table->string('poc_cc');
         });
     }
 

@@ -14,6 +14,14 @@
                 <div class="card-body">
                     <form method="POST" action="{{ url('admin/storeclient') }}">
                         @csrf
+
+                        <div class="row mb-3">
+                            <label for="nama_client" class="col-md-4 col-form-label text-md-end">Nama Client</label>
+                            <div class="col-md-6">
+                                <input id="nama_client" type="text" class="form-control" name="nama_client" required autocomplete="nama_client">
+                            </div>
+                        </div>
+                        
                         <div class="row mb-3">
                             <label for="client" class="col-md-4 col-form-label text-md-end">Services</label>
                             <div class="col-md-6">
@@ -23,13 +31,6 @@
                                     <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
                                 @endforeach
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="nama_client" class="col-md-4 col-form-label text-md-end">Nama Client</label>
-                            <div class="col-md-6">
-                                <input id="nama_client" type="text" class="form-control" name="nama_client" required autocomplete="nama_client">
                             </div>
                         </div>
 
