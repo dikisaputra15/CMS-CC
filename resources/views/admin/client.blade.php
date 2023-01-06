@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','Client List')
+@section('title','Client')
 
 @section('conten')
 

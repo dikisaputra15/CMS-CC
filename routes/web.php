@@ -81,6 +81,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/admin/delinv', [App\Http\Controllers\DocumentController::class, 'destroyinv']);
     Route::post('/admin/delctr', [App\Http\Controllers\DocumentController::class, 'destroyctr']);
     Route::post('/admin/delprp', [App\Http\Controllers\DocumentController::class, 'destroyprp']);
+    Route::get('/admin/alldoc', [App\Http\Controllers\DocumentController::class, 'alldoc']);
+    Route::get('/admin/adddoc', [App\Http\Controllers\DocumentController::class, 'adddoc']);
+    Route::post('/admin/storedoc', [App\Http\Controllers\DocumentController::class, 'storedoc']);
 });
 
 // Route::middleware(['auth', 'user-access:Finance'])->group(function () {

@@ -95,6 +95,12 @@
                   <p>Proposal</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/alldoc" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Documents</p>
+                </a>
+              </li>
             </ul>
           </li>
         @endif

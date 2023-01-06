@@ -10,7 +10,7 @@
         <h3 align="center">NPT FORM</h3>
     </div>
     <div class="card-body">
-    <table class="table">
+    <table id="ajaxExport" class="table" style="width:100%">
         <thead class="bg-primary">
             <tr>
                 <th scope="col">Contract Number</th>
@@ -23,21 +23,39 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
-            @foreach($view as $vw)
-                <tr>
-                    <td>{{ $vw->contract_no }}</td>
-                    <td>{{ $vw->nama_services }}</td>
-                    <td>{{ $vw->start_date }}</td>
-                    <td>{{ $vw->end_date }}</td>
-                    <td>{{ $vw->contract_value }}</td>
-                </tr>
-            @endforeach
-        </tbody>
+        
         </table>
         <br>
         <a href="{{ url('admin/exportxls') }}" class="btn btn-success" title="export excel"><i class="fa fa-file-excel"></i></a>
     </div>
 </div>
 @endsection
+
+@push('service')
+<script>
+   $(document).ready( function () {
+              $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+              
+              $('#ajaxExport').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ url('admin/export') }}",
+                columns: [
+                { data: 'contract_no', name: 'contract_no' },
+                { data: 'nama_services', name: 'nama_services' },
+                { data: 'start_date', name: 'start_date' },
+                { data: 'end_date', name: 'end_date' },
+                { data: 'contract_value', name: 'contract_value' },
+                ],
+                order: [[0, 'desc']]
+         });
+
+  });         
+</script>
+@endpush
+
 

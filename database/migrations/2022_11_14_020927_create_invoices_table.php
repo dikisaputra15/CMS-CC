@@ -15,11 +15,8 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('contract_no');
-            $table->integer('client_name');
-            $table->integer('type_of_service');
-            $table->string('path');
-            $table->date('tgl_invoice');
+            $table->integer('id_doci');
+            $table->string('path_invoice');
         });
     }
 

@@ -1,26 +1,28 @@
 @extends('layouts.master')
 
-@section('title','Invoice')
+@section('title','Document')
 
 @section('conten')
 
 <x-alert></x-alert>
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Invoice Document</h3>
+        <h3>Documents</h3>
     </div>
+   
     <div class="card-body">
         <div class="form-group row">
-            <a href="/admin/addinvoice" class="btn btn-primary" title="Add Document"><i class="fa fa-plus"></i></a>
+            <a href="/admin/adddoc" class="btn btn-primary" title="Add Document"><i class="fa fa-plus"></i></a>
         </div>
-            <table id="ajaxInvoice" class="table" style="width:100%">
+            <table id="ajaxalldoc" class="table" style="width:100%">
                   <thead>
                     <tr>
-                      <th>Contract No</th>
-                      <th>Invoice Date</th>
+                      <th>Date</th>
                       <th>Client Name</th>
-                      <th>Type Of Service</th>
-                      <th>File</th>
+                      <th>Type Of Services</th>
+                      <th>Invoice</th>
+                      <th>Contract</th>
+                      <th>Proposal</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -39,17 +41,22 @@
                 }
               });
               
-              $('#ajaxInvoice').DataTable({
+              $('#ajaxalldoc').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('admin/invoice') }}",
+                ajax: "{{ url('admin/alldoc') }}",
                 columns: [
-                { data: 'contract_no', name: 'contract_no' },
-                { data: 'tgl_invoice', name: 'tgl_invoice' },
+                { data: 'tgl_doc', name: 'tgl_doc' },
                 { data: 'nama_client', name: 'nama_client' },
                 { data: 'nama_services', name: 'nama_services' },
-                {data: 'path', name: 'path', render:function(data, type, row){
+                {data: 'path_invoice', name: 'path_invoice', render:function(data, type, row){
                 return "<a href='/document/invoice/"+ row.path_invoice +"' target='__blank'>" + row.path_invoice + "</a>"
+                }},
+                {data: 'path_contract', name: 'path_contract', render:function(data, type, row){
+                return "<a href='/document/contract/"+ row.path_contract +"' target='__blank'>" + row.path_contract + "</a>"
+                }},
+                {data: 'path_proposal', name: 'path_proposal', render:function(data, type, row){
+                return "<a href='/document/proposal/"+ row.path_proposal +"' target='__blank'>" + row.path_proposal + "</a>"
                 }},
                 {data: 'action', name: 'action', orderable: false},
                 ],

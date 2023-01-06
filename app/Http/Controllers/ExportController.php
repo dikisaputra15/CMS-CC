@@ -19,7 +19,14 @@ class ExportController extends Controller
         ->join('services', 'archive_services.id_service', '=', 'services.id')
         ->select('clients.*', 'archive_services.*', 'services.*')
         ->get();
-        return view('admin.export', compact(['view']));
+
+        if(request()->ajax()) {
+            return datatables()->of($view)
+            ->addIndexColumn()
+            ->make(true);
+        }
+
+        return view('admin.export');
     }
 
     public function export() 

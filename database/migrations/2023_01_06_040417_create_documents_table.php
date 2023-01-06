@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('proposals', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_docp');
-            $table->string('path_proposal');
+            $table->string('contract_no');
+            $table->date('tgl_doc');
+            $table->integer('client_name');
+            $table->integer('type_of_service');
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proposals');
+        Schema::dropIfExists('documents');
     }
 };

@@ -140,7 +140,15 @@ class ClientController extends Controller
 
         $detail3 = Client::find($id);
 
-        return view('admin.detailcli', compact(['detail','detail2','detail3']));
+        $detail4 = DB::table('clients')
+        ->leftjoin('invoices', 'invoices.client_name', '=', 'clients.id')
+        ->leftjoin('contracts', 'contracts.client_name', '=', 'clients.id')
+        ->leftjoin('proposals', 'proposals.client_name', '=', 'clients.id')
+        ->select('clients.*', 'invoices.*', 'proposals.*', 'contracts.*')
+        ->where('clients.id', $id)
+        ->get();
+
+        return view('admin.detailcli', compact(['detail','detail2','detail3','detail4']));
     }
 
     public function addsrvcli($id)

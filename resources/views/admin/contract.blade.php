@@ -49,7 +49,7 @@
                 { data: 'nama_client', name: 'nama_client' },
                 { data: 'nama_services', name: 'nama_services' },
                 {data: 'path', name: 'path', render:function(data, type, row){
-                return "<a href='/document/contract/"+ row.path +"' target='__blank'>" + row.path + "</a>"
+                return "<a href='/document/contract/"+ row.path_contract +"' target='__blank'>" + row.path_contract + "</a>"
                 }},
                 {data: 'action', name: 'action', orderable: false},
                 ],

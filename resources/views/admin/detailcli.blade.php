@@ -7,6 +7,8 @@
 <x-alert></x-alert>
 <div class="card">
     <div class="card-body">
+        <h3>{{ $detail3->nama_client }}</h3>
+        <br><br>
         <h4 align="center">Log History Client</h4>
                 <a href="/admin/{{ $detail3->id }}/addsumcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
                 <table class="table table-sm">
@@ -32,7 +34,7 @@
                     </tbody>
                 </table>
                 <br><br>
-        <h3>{{ $detail3->nama_client }}</h3>
+        
         <h4 align="center">Services</h4>
         <a href="/admin/{{ $detail3->id }}/addsrvcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         <table class="table table-sm">
@@ -100,6 +102,27 @@
                         <td>{{ $detail3->list_of_subs }}</td>
                     </tr>
                 </table>
+
+        <br><br><br>
+         <h4 align="center">Document</h4>
+         <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Invoice</th>
+                    <th>Contract</th>
+                    <th>Proposal</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($detail4 as $dt4)
+                <tr>
+                    <td><a href='/document/invoice/{{$dt4->path_invoice}}' target='__blank'>{{ $dt4->path_invoice }}</a></td>
+                    <td><a href='/document/contract/{{$dt4->path_contract}}' target='__blank'>{{ $dt4->path_contract }}</a></td>
+                    <td><a href='/document/proposal/{{$dt4->path_proposal}}' target='__blank'>{{ $dt4->path_proposal }}</a></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 

@@ -7,6 +7,7 @@ use App\Models\Contract;
 use App\Models\Proposal;
 use App\Models\Service;
 use App\Models\Client;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
@@ -58,7 +59,7 @@ class DocumentController extends Controller
             'contract_no' => $request->contract_no,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service,
-            'path' => $filename,
+            'path_invoice' => $filename,
             'tgl_invoice' => $request->tgl_invoice
         ]);
 
@@ -110,7 +111,7 @@ class DocumentController extends Controller
             'contract_no' => $request->contract_no,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service,
-            'path' => $filename,
+            'path_contract' => $filename,
             'tgl_contract' => $request->tgl_contract
         ]);
 
@@ -162,7 +163,7 @@ class DocumentController extends Controller
             'contract_no' => $request->contract_no,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service,
-            'path' => $filename,
+            'path_proposal' => $filename,
             'tgl_proposal' => $request->tgl_proposal
         ]);
 
@@ -245,5 +246,50 @@ class DocumentController extends Controller
 
         return response()->json($response); 
     
+    }
+
+    public function alldoc()
+    {
+        $data = DB::table('documents')
+        ->leftjoin('clients', 'clients.id', '=', 'documents.client_name')
+        ->leftjoin('services', 'services.id', '=', 'documents.type_of_service')
+        ->leftjoin('contracts', 'contracts.id_docc', '=', 'documents.id')
+        ->leftjoin('proposals', 'proposals.id_docp', '=', 'documents.id')
+        ->leftjoin('invoices', 'invoices.id_doci', '=', 'documents.id')
+        ->select('invoices.*', 'proposals.*', 'contracts.*','clients.*','services.*','documents.*')
+        ->get();
+
+        if(request()->ajax()) {
+            return datatables()->of($data)
+            ->addColumn('action', function($row){
+                 $deleteButton = "<a href='#' class='deleteDoc' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
+                 $docButton = "<a href='/admin/$row->id/addfile' title='Add File'><i class='fa fa-folder'></i></a>";
+                 return $docButton." ".$deleteButton;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+
+        return view('admin.alldoc');
+    }
+
+    public function adddoc()
+    {
+        $service = service::all();
+        $client = Client::all();
+        return view('admin.adddoc', compact(['service','client']));
+    }
+
+    public function storedoc(Request $request)
+    {
+         Document::create([
+            'contract_no' => $request->contract_no,
+            'tgl_doc' => $request->tgl_doc,
+            'client_name' => $request->client_name,
+            'type_of_service' => $request->type_service
+        ]);
+
+        return redirect('admin/alldoc')->with('alert-primary','added succesfully');
     }
 }
