@@ -266,7 +266,31 @@ class DocumentController extends Controller
                  $docButton = "<a href='/admin/$row->id/addfile' title='Add File'><i class='fa fa-folder'></i></a>";
                  return $docButton." ".$deleteButton;
             })
-            ->rawColumns(['action'])
+            ->addColumn('invoice', function($row){
+                if($row->path_invoice == null){
+                    $invoice = "no document";
+                }else{
+                    $invoice = "<a href='/document/invoice/$row->path_invoice' target='__blank'>$row->path_invoice</a>";
+                }
+                return $invoice;
+           })
+           ->addColumn('contract', function($row){
+                if($row->path_contract == null){
+                    $contract = "no document";
+                }else{
+                    $contract = "<a href='/document/contract/$row->path_contract' target='__blank'>$row->path_contract</a>";
+                }
+                return $contract;
+            })
+            ->addColumn('proposal', function($row){
+                if($row->path_proposal == null){
+                    $proposal = "no document";
+                }else{
+                    $proposal = "<a href='/document/proposal/$row->path_proposal' target='__blank'>$row->path_proposal</a>";
+                }
+                return $proposal;
+            })
+            ->rawColumns(['action','invoice','contract','proposal'])
             ->addIndexColumn()
             ->make(true);
         }
@@ -291,5 +315,25 @@ class DocumentController extends Controller
         ]);
 
         return redirect('admin/alldoc')->with('alert-primary','added succesfully');
+    }
+
+    public function addfile($id)
+    {
+        $doc = Document::find($id);
+        return view('admin.addfile', compact(['doc']));
+    }
+
+    public function storefile(Request $request)
+    {
+        $type = $request->file_type;
+        if($type == 1){
+
+        }elseif($type == 2){
+
+        }elseif($type == 3){
+
+        }else{
+            return redirect('admin/alldoc')->with('alert-danger','please choose file type');
+        }
     }
 }

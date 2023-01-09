@@ -84,11 +84,13 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/admin/alldoc', [App\Http\Controllers\DocumentController::class, 'alldoc']);
     Route::get('/admin/adddoc', [App\Http\Controllers\DocumentController::class, 'adddoc']);
     Route::post('/admin/storedoc', [App\Http\Controllers\DocumentController::class, 'storedoc']);
+    Route::get('/admin/{id}/addfile', [App\Http\Controllers\DocumentController::class, 'addfile']);
+    Route::post('/admin/storefile', [App\Http\Controllers\DocumentController::class, 'storefile']);
 });
 
 // Route::middleware(['auth', 'user-access:Finance'])->group(function () {
 //     Route::get('/user/finance', [App\Http\Controllers\HomeController::class, 'index'])->name('finance');
-// });
+// }); 
 
 // Route::middleware(['auth', 'user-access:HR'])->group(function () {
 //     Route::get('/user/hr', [App\Http\Controllers\HomeController::class, 'hr'])->name('hr');

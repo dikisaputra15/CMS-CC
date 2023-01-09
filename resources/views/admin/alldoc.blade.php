@@ -18,6 +18,7 @@
                   <thead>
                     <tr>
                       <th>Date</th>
+                      <th>Contract No</th>
                       <th>Client Name</th>
                       <th>Type Of Services</th>
                       <th>Invoice</th>
@@ -47,17 +48,12 @@
                 ajax: "{{ url('admin/alldoc') }}",
                 columns: [
                 { data: 'tgl_doc', name: 'tgl_doc' },
+                { data: 'contract_no', name: 'contract_no' },
                 { data: 'nama_client', name: 'nama_client' },
                 { data: 'nama_services', name: 'nama_services' },
-                {data: 'path_invoice', name: 'path_invoice', render:function(data, type, row){
-                return "<a href='/document/invoice/"+ row.path_invoice +"' target='__blank'>" + row.path_invoice + "</a>"
-                }},
-                {data: 'path_contract', name: 'path_contract', render:function(data, type, row){
-                return "<a href='/document/contract/"+ row.path_contract +"' target='__blank'>" + row.path_contract + "</a>"
-                }},
-                {data: 'path_proposal', name: 'path_proposal', render:function(data, type, row){
-                return "<a href='/document/proposal/"+ row.path_proposal +"' target='__blank'>" + row.path_proposal + "</a>"
-                }},
+                { data: 'invoice', name: 'invoice' },
+                { data: 'contract', name: 'contract' },
+                { data: 'proposal', name: 'proposal' },
                 {data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'desc']]
