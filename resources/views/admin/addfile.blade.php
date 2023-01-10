@@ -1,16 +1,14 @@
 @extends('layouts.master')
 
-@section('title','Add Document')
+@section('title','Document')
 
 @section('conten')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-white">
-                    <h3>Add Document</h3>
-                </div>
+<x-alert></x-alert>
+<div class="card">
+    <div class="card-header bg-white">
+        <h5>Add Document</h5>
+    </div>
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="{{ url('admin/storefile') }}">
                         @csrf
@@ -37,7 +35,7 @@
                         <div class="row mb-3">
                             <label for="contract_no" class="col-md-4 col-form-label text-md-end">File Name</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="filename" required>
+                                <input type="text" class="form-control" name="file_name" required>
                             </div>
                         </div>
 
@@ -59,7 +57,39 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5>{{ $cli->nama_client }}</h5>
+                    <h5>Documents</h5>
+                </div>
+                <div class="card-body">
+                <table class="table" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>Invoice</th>
+                      <th>Contract</th>
+                      <th>Proposal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        @foreach($invs as $inv)
+                            <tr><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->path_invoice }}</a></tr>
+                        @endforeach
+
+                        @foreach($ctrs as $ctr)
+                            <tr><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></tr>
+                        @endforeach
+
+                        @foreach($props as $prop)
+                            <tr><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->path_proposal }}</a></tr>
+                        @endforeach
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+            </div>
+
 </div>
 @endsection

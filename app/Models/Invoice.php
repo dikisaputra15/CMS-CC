@@ -12,10 +12,7 @@ class Invoice extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'contract_no',
-        'client_name',
-        'type_of_service',
-        'path',
-        'tgl_invoice',
+        'id_doci',
+        'path_invoice',
     ];
 }

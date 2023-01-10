@@ -12,10 +12,7 @@ class Proposal extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'contract_no',
-        'client_name',
-        'type_of_service',
-        'path',
-        'tgl_proposal',
+        'id_docp',
+        'path_proposal',
     ];
 }

@@ -102,27 +102,6 @@
                         <td>{{ $detail3->list_of_subs }}</td>
                     </tr>
                 </table>
-
-        <br><br><br>
-         <h4 align="center">Document</h4>
-         <table class="table table-sm">
-            <thead>
-                <tr>
-                    <th>Invoice</th>
-                    <th>Contract</th>
-                    <th>Proposal</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($detail4 as $dt4)
-                <tr>
-                    <td><a href='/document/invoice/{{$dt4->path_invoice}}' target='__blank'>{{ $dt4->path_invoice }}</a></td>
-                    <td><a href='/document/contract/{{$dt4->path_contract}}' target='__blank'>{{ $dt4->path_contract }}</a></td>
-                    <td><a href='/document/proposal/{{$dt4->path_proposal}}' target='__blank'>{{ $dt4->path_proposal }}</a></td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
     </div>
 </div>
 

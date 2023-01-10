@@ -21,9 +21,6 @@
                       <th>Contract No</th>
                       <th>Client Name</th>
                       <th>Type Of Services</th>
-                      <th>Invoice</th>
-                      <th>Contract</th>
-                      <th>Proposal</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -47,13 +44,10 @@
                 serverSide: true,
                 ajax: "{{ url('admin/alldoc') }}",
                 columns: [
-                { data: 'tgl_doc', name: 'tgl_doc' },
+                { data: 'tgl', name: 'tgl' },
                 { data: 'contract_no', name: 'contract_no' },
-                { data: 'nama_client', name: 'nama_client' },
-                { data: 'nama_services', name: 'nama_services' },
-                { data: 'invoice', name: 'invoice' },
-                { data: 'contract', name: 'contract' },
-                { data: 'proposal', name: 'proposal' },
+                { data: 'name', name: 'name' },
+                { data: 'service', name: 'service' },
                 {data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'desc']]

@@ -251,46 +251,36 @@ class DocumentController extends Controller
     public function alldoc()
     {
         $data = DB::table('documents')
-        ->leftjoin('clients', 'clients.id', '=', 'documents.client_name')
-        ->leftjoin('services', 'services.id', '=', 'documents.type_of_service')
-        ->leftjoin('contracts', 'contracts.id_docc', '=', 'documents.id')
-        ->leftjoin('proposals', 'proposals.id_docp', '=', 'documents.id')
-        ->leftjoin('invoices', 'invoices.id_doci', '=', 'documents.id')
-        ->select('invoices.*', 'proposals.*', 'contracts.*','clients.*','services.*','documents.*')
+        ->join('clients', 'clients.id', '=', 'documents.client_name')
+        ->join('services', 'services.id', '=', 'documents.type_of_service')
+        ->select('clients.*','services.*','documents.*')
+        ->orderBy('documents.id', 'desc')
         ->get();
 
         if(request()->ajax()) {
             return datatables()->of($data)
             ->addColumn('action', function($row){
                  $deleteButton = "<a href='#' class='deleteDoc' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
-                 $docButton = "<a href='/admin/$row->id/addfile' title='Add File'><i class='fa fa-folder'></i></a>";
+                 $docButton = "<a href='/admin/$row->id/addfile' title='Open Documents'><i class='fa fa-folder'></i></a>";
                  return $docButton." ".$deleteButton;
             })
-            ->addColumn('invoice', function($row){
-                if($row->path_invoice == null){
-                    $invoice = "no document";
-                }else{
-                    $invoice = "<a href='/document/invoice/$row->path_invoice' target='__blank'>$row->path_invoice</a>";
-                }
-                return $invoice;
-           })
-           ->addColumn('contract', function($row){
-                if($row->path_contract == null){
-                    $contract = "no document";
-                }else{
-                    $contract = "<a href='/document/contract/$row->path_contract' target='__blank'>$row->path_contract</a>";
-                }
-                return $contract;
+            ->addColumn('tgl', function($row){
+                $tgl = $row->tgl_doc;
+                return $tgl;
             })
-            ->addColumn('proposal', function($row){
-                if($row->path_proposal == null){
-                    $proposal = "no document";
-                }else{
-                    $proposal = "<a href='/document/proposal/$row->path_proposal' target='__blank'>$row->path_proposal</a>";
-                }
-                return $proposal;
+            ->addColumn('contract_no', function($row){
+                $contract_no = $row->contract_no;
+                return $contract_no;
             })
-            ->rawColumns(['action','invoice','contract','proposal'])
+            ->addColumn('name', function($row){
+                $name = $row->nama_client;
+                return $name;
+            })
+            ->addColumn('service', function($row){
+                $service = $row->nama_services;
+                return $service;
+            })
+            ->rawColumns(['action','tgl','contract_no','name','service'])
             ->addIndexColumn()
             ->make(true);
         }
@@ -320,7 +310,13 @@ class DocumentController extends Controller
     public function addfile($id)
     {
         $doc = Document::find($id);
-        return view('admin.addfile', compact(['doc']));
+        $id_cli = $doc->client_name;
+        $cli = Client::find($id_cli);
+        $invs = DB::table('invoices')->where('id_doci', $id);
+        $ctrs = DB::table('contracts')->where('id_docc', $id);
+        $props = DB::table('proposals')->where('id_docp', $id);
+        
+        return view('admin.addfile', compact(['doc','cli','invs','ctrs','props']));
     }
 
     public function storefile(Request $request)
@@ -328,9 +324,62 @@ class DocumentController extends Controller
         $type = $request->file_type;
         if($type == 1){
 
+            $extension = $request->file('file')->extension();
+
+            $nama_file = str_replace(" ", "-", $request->file_name);
+            $num = hexdec(uniqid());
+
+            $filename = $nama_file.'_'.$num.'.'.$extension;
+
+            $request->file('file')->move(
+                base_path() . '/public/document/invoice/', $filename
+            );
+
+            Invoice::create([
+                'id_doci' => $request->id_doc,
+                'path_invoice' => $filename
+            ]);
+
+            return redirect('admin/alldoc')->with('alert-primary','upload succesfully');
+
         }elseif($type == 2){
+            $extension = $request->file('file')->extension();
+
+            $nama_file = str_replace(" ", "-", $request->file_name);
+            $num = hexdec(uniqid());
+
+            $filename = $nama_file.'_'.$num.'.'.$extension;
+
+            $request->file('file')->move(
+                base_path() . '/public/document/contract/', $filename
+            );
+
+            Contract::create([
+                'id_docc' => $request->id_doc,
+                'path_contract' => $filename
+            ]);
+
+            return redirect('admin/alldoc')->with('alert-primary','upload succesfully');
 
         }elseif($type == 3){
+
+            $extension = $request->file('file')->extension();
+
+            $nama_file = str_replace(" ", "-", $request->file_name);
+            $num = hexdec(uniqid());
+
+            $filename = $nama_file.'_'.$num.'.'.$extension;
+
+            $request->file('file')->move(
+                base_path() . '/public/document/proposal/', $filename
+            );
+
+            Proposal::create([
+                'id_docp' => $request->id_doc,
+                'path_proposal' => $filename
+            ]);
+
+            return redirect('admin/alldoc')->with('alert-primary','upload succesfully');
 
         }else{
             return redirect('admin/alldoc')->with('alert-danger','please choose file type');
