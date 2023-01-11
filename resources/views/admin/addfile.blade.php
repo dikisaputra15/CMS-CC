@@ -64,30 +64,46 @@
                     <h5>Documents</h5>
                 </div>
                 <div class="card-body">
-                <table class="table" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>Invoice</th>
-                      <th>Contract</th>
-                      <th>Proposal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                        @foreach($invs as $inv)
-                            <tr><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->path_invoice }}</a></tr>
-                        @endforeach
+                <div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <h5>Invoice</h5>
+                        <?php foreach ($invs as $inv) { ?>
+                            <ul>
+                                <li><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->path_invoice }}</a></li>
+                            </ul>
+                        <?php } ?>
+                    </div>
+                    </div>
+                </div>
 
-                        @foreach($ctrs as $ctr)
-                            <tr><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></tr>
-                        @endforeach
+                <div class="col-sm-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <h5>Contract</h5>
+                        <?php foreach ($ctrs as $ctr) { ?>
+                            <ul>
+                                <li><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></li>
+                            </ul>
+                        <?php } ?>
+                    </div>
+                    </div>
+                </div>
 
-                        @foreach($props as $prop)
-                            <tr><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->path_proposal }}</a></tr>
-                        @endforeach
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="col-sm-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <h5>Proposal</h5>
+                        <?php foreach ($props as $prop) { ?>
+                            <ul>
+                                <li><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->path_proposal }}</a></li>
+                            </ul>
+                        <?php } ?>
+                    </div>
+                    </div>
+                </div>
+                </div>
                 </div>
             </div>
 

@@ -20,7 +20,14 @@
                       <th>Date</th>
                       <th>Contract No</th>
                       <th>Client Name</th>
-                      <th>Type Of Services</th>
+                      <th>
+                            <select name="service_filter" id="service_filter" class="form-control" style="width:200px;">
+                                <option value="">Type Of Services</option>
+                                @foreach ($service as $srv)
+                                <option value="{{ $srv->id }}">{{ $srv->nama_services }}</option>
+                                @endforeach
+                            </select>
+                      </th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -38,35 +45,53 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
               });
-              
+
+        fetch_data();
+          
+        function fetch_data(category = '')
+        {
               $('#ajaxalldoc').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('admin/alldoc') }}",
+                ajax: {
+                  url:"{{ url('admin/alldoc') }}",
+                  data: {
+                    category:category
+                  }
+                },
                 columns: [
-                { data: 'tgl', name: 'tgl' },
+                { data: 'tgl_doc', name: 'tgl_doc' },
                 { data: 'contract_no', name: 'contract_no' },
-                { data: 'name', name: 'name' },
-                { data: 'service', name: 'service' },
+                { data: 'nama_client', name: 'nama_client' },
+                { data: 'nama_services', name: 'nama_services' },
                 {data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'desc']]
-         });
+            });
+        }
 
-         $('#ajaxInvoice').on('click','.deleteInvoice',function(){
+        $('#service_filter').change(function(){
+          var category_id = $('#service_filter').val();
+
+          $('#ajaxalldoc').DataTable().destroy();
+
+          fetch_data(category_id);
+        });
+
+         $('#ajaxalldoc').on('click','.deleteDoc',function(){
             var id = $(this).data('id');
 
             var deleteConfirm = confirm("Are you sure?");
             if (deleteConfirm == true) {
                   // AJAX request
                   $.ajax({
-                     url: "{{ url('admin/delinv') }}",
+                     url: "{{ url('admin/deldoc') }}",
                      type: 'post',
                      data: { id: id },
                      success: function(response){
                           if(response.success == 1){
                                alert("Record deleted.");
-                               var oTable = $('#ajaxInvoice').dataTable();
+                               var oTable = $('#ajaxalldoc').dataTable();
                                oTable.fnDraw(false);
                           }else{
                                 alert("Invalid ID.");

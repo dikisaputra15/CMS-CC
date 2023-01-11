@@ -69,39 +69,12 @@
         @endif
         @if (auth()->user()->type == 'Admin' or auth()->user()->type == 'HR')
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/admin/alldoc" class="nav-link">
               <i class="nav-icon fas fa-folder"></i>
               <p>
                 Document
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/admin/invoice" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Invoice</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/admin/contract" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Contract</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/admin/prop" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Proposal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/admin/alldoc" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Documents</p>
-                </a>
-              </li>
-            </ul>
           </li>
         @endif
         </ul>

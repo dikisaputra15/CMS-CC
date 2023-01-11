@@ -248,44 +248,36 @@ class DocumentController extends Controller
     
     }
 
-    public function alldoc()
+    public function alldoc(Request $request)
     {
-        $data = DB::table('documents')
-        ->join('clients', 'clients.id', '=', 'documents.client_name')
-        ->join('services', 'services.id', '=', 'documents.type_of_service')
-        ->select('clients.*','services.*','documents.*')
-        ->orderBy('documents.id', 'desc')
-        ->get();
-
         if(request()->ajax()) {
+            if($request->category)
+            {
+                $data = DB::table('documents')
+                ->join('clients', 'clients.id', '=', 'documents.client_name')
+                ->join('services', 'services.id', '=', 'documents.type_of_service')
+                ->select('clients.*','services.*','documents.*')
+                ->where('documents.type_of_service', $request->category)
+                ->get();
+            }else{
+                $data = DB::table('documents')
+                ->join('clients', 'clients.id', '=', 'documents.client_name')
+                ->join('services', 'services.id', '=', 'documents.type_of_service')
+                ->select('clients.*','services.*','documents.*')
+                ->get();
+            }
             return datatables()->of($data)
             ->addColumn('action', function($row){
                  $deleteButton = "<a href='#' class='deleteDoc' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
                  $docButton = "<a href='/admin/$row->id/addfile' title='Open Documents'><i class='fa fa-folder'></i></a>";
                  return $docButton." ".$deleteButton;
             })
-            ->addColumn('tgl', function($row){
-                $tgl = $row->tgl_doc;
-                return $tgl;
-            })
-            ->addColumn('contract_no', function($row){
-                $contract_no = $row->contract_no;
-                return $contract_no;
-            })
-            ->addColumn('name', function($row){
-                $name = $row->nama_client;
-                return $name;
-            })
-            ->addColumn('service', function($row){
-                $service = $row->nama_services;
-                return $service;
-            })
-            ->rawColumns(['action','tgl','contract_no','name','service'])
+            ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-
-        return view('admin.alldoc');
+        $service = Service::all();
+        return view('admin.alldoc', compact(['service']));
     }
 
     public function adddoc()
@@ -312,9 +304,15 @@ class DocumentController extends Controller
         $doc = Document::find($id);
         $id_cli = $doc->client_name;
         $cli = Client::find($id_cli);
-        $invs = DB::table('invoices')->where('id_doci', $id);
-        $ctrs = DB::table('contracts')->where('id_docc', $id);
-        $props = DB::table('proposals')->where('id_docp', $id);
+        $invs = DB::table('invoices')
+                ->where('id_doci', $id)
+                ->get();
+        $ctrs = DB::table('contracts')
+                ->where('id_docc', $id)
+                ->get();
+        $props = DB::table('proposals')
+                ->where('id_docp', $id)
+                ->get();
         
         return view('admin.addfile', compact(['doc','cli','invs','ctrs','props']));
     }
@@ -340,7 +338,7 @@ class DocumentController extends Controller
                 'path_invoice' => $filename
             ]);
 
-            return redirect('admin/alldoc')->with('alert-primary','upload succesfully');
+            return redirect("admin/$request->id_doc/addfile")->with('alert-primary','upload succesfully');
 
         }elseif($type == 2){
             $extension = $request->file('file')->extension();
@@ -359,7 +357,7 @@ class DocumentController extends Controller
                 'path_contract' => $filename
             ]);
 
-            return redirect('admin/alldoc')->with('alert-primary','upload succesfully');
+            return redirect("admin/$request->id_doc/addfile")->with('alert-primary','upload succesfully');
 
         }elseif($type == 3){
 
@@ -379,10 +377,29 @@ class DocumentController extends Controller
                 'path_proposal' => $filename
             ]);
 
-            return redirect('admin/alldoc')->with('alert-primary','upload succesfully');
+            return redirect("admin/$request->id_doc/addfile")->with('alert-primary','upload succesfully');
 
         }else{
-            return redirect('admin/alldoc')->with('alert-danger','please choose file type');
+            return redirect("admin/$request->id_doc/addfile")->with('alert-danger','please choose file type');
         }
+    }
+
+    public function destroydoc(Request $request)
+    {
+        $id = $request->post('id');
+
+        $doc = Document::find($id);
+
+        if($doc){
+            $doc->delete();
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+        return response()->json($response); 
+    
     }
 }

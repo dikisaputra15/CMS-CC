@@ -86,6 +86,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/admin/storedoc', [App\Http\Controllers\DocumentController::class, 'storedoc']);
     Route::get('/admin/{id}/addfile', [App\Http\Controllers\DocumentController::class, 'addfile']);
     Route::post('/admin/storefile', [App\Http\Controllers\DocumentController::class, 'storefile']);
+    Route::post('/admin/deldoc', [App\Http\Controllers\DocumentController::class, 'destroydoc']);
 });
 
 // Route::middleware(['auth', 'user-access:Finance'])->group(function () {
