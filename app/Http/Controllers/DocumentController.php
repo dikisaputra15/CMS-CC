@@ -251,7 +251,17 @@ class DocumentController extends Controller
     public function alldoc(Request $request)
     {
         if(request()->ajax()) {
-            if($request->category)
+            
+            if($request->from_date)
+            {
+                $data = DB::table('documents')
+                ->join('clients', 'clients.id', '=', 'documents.client_name')
+                ->join('services', 'services.id', '=', 'documents.type_of_service')
+                ->select('clients.*','services.*','documents.*')
+                ->whereBetween('documents.tgl_doc', array($request->from_date, $request->to_date))
+                ->get();
+            }
+            elseif($request->category)
             {
                 $data = DB::table('documents')
                 ->join('clients', 'clients.id', '=', 'documents.client_name')
@@ -259,13 +269,16 @@ class DocumentController extends Controller
                 ->select('clients.*','services.*','documents.*')
                 ->where('documents.type_of_service', $request->category)
                 ->get();
-            }else{
+            }
+             else
+            {
                 $data = DB::table('documents')
                 ->join('clients', 'clients.id', '=', 'documents.client_name')
                 ->join('services', 'services.id', '=', 'documents.type_of_service')
                 ->select('clients.*','services.*','documents.*')
                 ->get();
             }
+
             return datatables()->of($data)
             ->addColumn('action', function($row){
                  $deleteButton = "<a href='#' class='deleteDoc' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";

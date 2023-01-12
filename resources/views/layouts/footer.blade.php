@@ -29,7 +29,7 @@
 <script src="{{asset('AdminLTE')}}/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="{{asset('AdminLTE')}}/plugins/moment/moment.min.js"></script>
-<script src="{{asset('AdminLTE')}}/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{asset('AdminLTE')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
