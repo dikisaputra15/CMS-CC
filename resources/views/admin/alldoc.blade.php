@@ -11,16 +11,20 @@
     </div>
    
     <div class="card-body"><br>
-      <div class="row input-daterange" style="margin-left:150px;">
-          <div class="col-md-4">
-              <input type="text" name="from_date" id="from_date" class="form-control" placeholder="From Date" readonly />
+      <div class="row input-daterange">
+          <div class="col-md-2" style="margin-left:180px;">
+              <label>Filter By Date</label>
           </div>
 
-          <div class="col-md-4">
-              <input type="text" name="to_date" id="to_date" class="form-control" placeholder="To Date" readonly />
+          <div class="col-md-2">
+              <input type="text" name="from_date" id="from_date" class="form-control" placeholder="Select Start Date">
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-2">
+              <input type="text" name="to_date" id="to_date" class="form-control" placeholder="Select End Date">
+          </div>
+
+          <div class="col-md-3">
               <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
               <button type="button" name="refresh" id="refresh" class="btn btn-primary">Refresh</button>
           </div>
