@@ -9,7 +9,8 @@
     <div class="card-header bg-white">
         <h5>Add Document</h5>
     </div>
-                <div class="card-body">
+        <div class="card-body">
+                    
                     <form method="POST" enctype="multipart/form-data" action="{{ url('admin/storefile') }}">
                         @csrf
 
@@ -55,57 +56,91 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
+        </div>
+</div>
 
-            <div class="card">
+    <div class="card">
                 <div class="card-header bg-white">
                     <h5>{{ $cli->nama_client }}</h5>
                     <h5>Documents</h5>
                 </div>
                 <div class="card-body">
                 <div class="row">
-                <div class="col-sm-4">
+                    
+               <div class="col-sm-12">
                     <div class="card">
                     <div class="card-body">
-                        <h5>Invoice</h5>
-                        <?php foreach ($invs as $inv) { ?>
-                            <ul>
-                                <li><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->path_invoice }}</a></li>
-                            </ul>
-                        <?php } ?>
+                        <table class="table">
+                            <tr>
+                                <td style="width:1%;">No</td>
+                                <td style="width:20%;">Invoices</td>
+                                <td style="width:20%;">Action</td>
+                            </tr>
+                            <body>
+                                <?php $no = 1; ?>
+                                <?php foreach ($invs as $inv) { ?>
+                                    <tr>
+                                        <td style="width:1%;"><?php echo $no++; ?></td>
+                                        <td style="width:20%;"><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->path_invoice }}</a></td>
+                                        <td style="width:20%;"><a href="{{ url('admin/delinv/'.$inv->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
+                                    </tr>
+                                <?php } ?>
+                            </body>
+                        </table>
                     </div>
                     </div>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="card">
                     <div class="card-body">
-                        <h5>Contract</h5>
-                        <?php foreach ($ctrs as $ctr) { ?>
-                            <ul>
-                                <li><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></li>
-                            </ul>
-                        <?php } ?>
+                        <table class="table">
+                                <tr>
+                                    <td style="width:1%;">No</td>
+                                    <td style="width:20%;">Contract</td>
+                                    <td style="width:20%;">Action</td>
+                                </tr>
+                                <body>
+                                    <?php $no = 1; ?>
+                                    <?php foreach ($ctrs as $ctr) { ?>
+                                        <tr>
+                                            <td style="width:1%;"><?php echo $no++; ?></td>
+                                            <td style="width:20%;"><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></td>
+                                            <td style="width:20%;"><a href="{{ url('admin/delctr/'.$ctr->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
+                                        </tr>
+                                    <?php } ?>
+                                </body>
+                        </table>
                     </div>
                     </div>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="card">
                     <div class="card-body">
-                        <h5>Proposal</h5>
-                        <?php foreach ($props as $prop) { ?>
-                            <ul>
-                                <li><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->path_proposal }}</a></li>
-                            </ul>
-                        <?php } ?>
+                        <table class="table">
+                                <tr>
+                                    <td style="width:1%;">No</td>
+                                    <td style="width:20%;">Proposal</td>
+                                    <td style="width:20%;">Action</td>
+                                </tr>
+                                <body>
+                                    <?php $no = 1; ?>
+                                    <?php foreach ($props as $prop) { ?>
+                                        <tr>
+                                            <td style="width:1%;"><?php echo $no++; ?></td>
+                                            <td style="width:20%;"><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->path_proposal }}</a></td>
+                                            <td style="width:20%;"><a href="{{ url('admin/delprp/'.$prop->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
+                                        </tr>
+                                    <?php } ?>
+                                </body>
+                        </table>
                     </div>
                     </div>
                 </div>
-                </div>
-                </div>
-            </div>
 
-</div>
+                </div>
+                </div>
+    </div>
+
 @endsection
