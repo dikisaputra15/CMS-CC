@@ -10,7 +10,7 @@
         <h5>Add Document</h5>
     </div>
         <div class="card-body">
-                    
+
                     <form method="POST" enctype="multipart/form-data" action="{{ url('admin/storefile') }}">
                         @csrf
 
@@ -66,17 +66,19 @@
                 </div>
                 <div class="card-body">
                 <div class="row">
-                    
+
                <div class="col-sm-12">
                     <div class="card">
                     <div class="card-body">
-                        <table class="table">
-                            <tr>
-                                <td style="width:1%;">No</td>
-                                <td style="width:20%;">Invoices</td>
-                                <td style="width:20%;">Action</td>
-                            </tr>
-                            <body>
+                        <table id="example" class="table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:1%;">No</th>
+                                    <th style="width:20%;">Invoices</th>
+                                    <th style="width:20%;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <?php $no = 1; ?>
                                 <?php foreach ($invs as $inv) { ?>
                                     <tr>
@@ -85,22 +87,24 @@
                                         <td style="width:20%;"><a href="{{ url('admin/delinv/'.$inv->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 <?php } ?>
-                            </body>
+                            </tbody>
                         </table>
                     </div>
                     </div>
-                </div>
+                </div></br></br>
 
                 <div class="col-sm-12">
                     <div class="card">
                     <div class="card-body">
-                        <table class="table">
+                        <table id="example2" class="table" style="width:100%">
+                            <thead>
                                 <tr>
-                                    <td style="width:1%;">No</td>
-                                    <td style="width:20%;">Contract</td>
-                                    <td style="width:20%;">Action</td>
+                                    <th style="width:1%;">No</th>
+                                    <th style="width:20%;">Contract</th>
+                                    <th style="width:20%;">Action</th>
                                 </tr>
-                                <body>
+                            </thead>
+                                <tbody>
                                     <?php $no = 1; ?>
                                     <?php foreach ($ctrs as $ctr) { ?>
                                         <tr>
@@ -109,22 +113,24 @@
                                             <td style="width:20%;"><a href="{{ url('admin/delctr/'.$ctr->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
                                         </tr>
                                     <?php } ?>
-                                </body>
+                                </tbody>
                         </table>
                     </div>
                     </div>
-                </div>
+                </div></br></br>
 
                 <div class="col-sm-12">
                     <div class="card">
                     <div class="card-body">
-                        <table class="table">
+                        <table id="example3" class="table" style="width:100%">
+                            <thead>
                                 <tr>
-                                    <td style="width:1%;">No</td>
-                                    <td style="width:20%;">Proposal</td>
-                                    <td style="width:20%;">Action</td>
+                                    <th style="width:1%;">No</th>
+                                    <th style="width:20%;">Proposal</th>
+                                    <th style="width:20%;">Action</th>
                                 </tr>
-                                <body>
+                            </thead>
+                                <tbody>
                                     <?php $no = 1; ?>
                                     <?php foreach ($props as $prop) { ?>
                                         <tr>
@@ -133,7 +139,7 @@
                                             <td style="width:20%;"><a href="{{ url('admin/delprp/'.$prop->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
                                         </tr>
                                     <?php } ?>
-                                </body>
+                                </tbody>
                         </table>
                     </div>
                     </div>
@@ -144,3 +150,24 @@
     </div>
 
 @endsection
+
+@push('service')
+<script>
+$(document).ready(function(){
+    $('#example').DataTable({
+        "pageLength": 10,
+        "ordering": false,
+    })
+
+    $('#example2').DataTable({
+        "pageLength": 10,
+        "ordering": false,
+    })
+
+    $('#example3').DataTable({
+        "pageLength": 10,
+        "ordering": false,
+    })
+});
+</script>
+@endpush
