@@ -43,7 +43,7 @@ class DocumentController extends Controller
     }
 
     public function storeinvoice(Request $request)
-    {   
+    {
         $extension = $request->file('file')->extension();
 
         $nama_file = str_replace(" ", "-", $request->file_name);
@@ -95,7 +95,7 @@ class DocumentController extends Controller
     }
 
     public function storecontract(Request $request)
-    {   
+    {
         $extension = $request->file('file')->extension();
 
         $nama_file = str_replace(" ", "-", $request->file_name);
@@ -147,7 +147,7 @@ class DocumentController extends Controller
     }
 
     public function storeprop(Request $request)
-    {   
+    {
         $extension = $request->file('file')->extension();
 
         $nama_file = str_replace(" ", "-", $request->file_name);
@@ -187,11 +187,11 @@ class DocumentController extends Controller
         }
 
         return redirect("admin/$invoice->id_doci/addfile")->with('alert-danger','Deleted succesfully');
-    
+
     }
 
     public function destroyctr($id)
-    {   
+    {
 
         $ctr = Contract::find($id);
 
@@ -207,7 +207,7 @@ class DocumentController extends Controller
         }
 
         return redirect("admin/$ctr->id_docc/addfile")->with('alert-danger','Deleted succesfully');
-    
+
     }
 
     public function destroyprp($id)
@@ -227,13 +227,13 @@ class DocumentController extends Controller
         }
 
         return redirect("admin/$prp->id_docp/addfile")->with('alert-danger','Deleted succesfully');
-    
+
     }
 
     public function alldoc(Request $request)
     {
         if(request()->ajax()) {
-            
+
             if($request->from_date)
             {
                 $data = DB::table('documents')
@@ -265,7 +265,8 @@ class DocumentController extends Controller
             ->addColumn('action', function($row){
                  $deleteButton = "<a href='#' class='deleteDoc' data-id='".$row->id."'><i class='fa fa-trash'></i></a>";
                  $docButton = "<a href='/admin/$row->id/addfile' title='Open Documents'><i class='fa fa-folder'></i></a>";
-                 return $docButton." ".$deleteButton;
+                 $editButton = "<a href='/admin/$row->id/editfile' title='Edit Documents'><i class='fa fa-edit'></i></a>";
+                 return $docButton." ".$deleteButton." ".$editButton;
             })
             ->rawColumns(['action'])
             ->addIndexColumn()
@@ -308,8 +309,16 @@ class DocumentController extends Controller
         $props = DB::table('proposals')
                 ->where('id_docp', $id)
                 ->get();
-        
+
         return view('admin.addfile', compact(['doc','cli','invs','ctrs','props']));
+    }
+
+    public function editfile($id)
+    {
+        $service = service::all();
+        $client = Client::all();
+        $doc = Document::find($id);
+        return view('admin.editdoc', compact(['service','client','doc']));
     }
 
     public function storefile(Request $request)
@@ -388,13 +397,27 @@ class DocumentController extends Controller
         if($doc){
             $doc->delete();
             $response['success'] = 1;
-            $response['msg'] = 'Delete successfully'; 
+            $response['msg'] = 'Delete successfully';
         }else{
             $response['success'] = 0;
             $response['msg'] = 'Invalid ID.';
         }
 
-        return response()->json($response); 
-    
+        return response()->json($response);
+
+    }
+
+    public function updatedocident(Request $request)
+    {
+        $id = $request->id_doc;
+
+        DB::table('documents')->where('id',$id)->update([
+			'contract_no' => $request->contract_no,
+			'tgl_doc' => $request->tgl_doc,
+            'client_name' => $request->client_name,
+            'type_of_service' => $request->type_service
+		]);
+
+        return redirect('admin/alldoc')->with('alert-primary','Data updated successfully');
     }
 }

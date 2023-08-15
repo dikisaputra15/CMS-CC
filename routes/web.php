@@ -50,8 +50,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/admin/delpros/{id}', [App\Http\Controllers\ProspecController::class, 'destroypros']);
     Route::get('/admin/clients', [App\Http\Controllers\ClientController::class, 'index']);
     Route::get('/admin/addclient', [App\Http\Controllers\ClientController::class, 'addclient']);
-    Route::post('/admin/storeclient', [App\Http\Controllers\ClientController::class, 'storeclient']); 
-    Route::post('/admin/delcli', [App\Http\Controllers\ClientController::class, 'destroycli']); 
+    Route::post('/admin/storeclient', [App\Http\Controllers\ClientController::class, 'storeclient']);
+    Route::post('/admin/delcli', [App\Http\Controllers\ClientController::class, 'destroycli']);
     Route::get('/admin/{id}/editcli', [App\Http\Controllers\ClientController::class, 'editcli']);
     Route::put('/admin/updatecli/{id}', [App\Http\Controllers\ClientController::class, 'updatecli']);
     Route::get('/admin/{id}/detailcli', [App\Http\Controllers\ClientController::class, 'detailcli']);
@@ -85,13 +85,15 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/admin/adddoc', [App\Http\Controllers\DocumentController::class, 'adddoc']);
     Route::post('/admin/storedoc', [App\Http\Controllers\DocumentController::class, 'storedoc']);
     Route::get('/admin/{id}/addfile', [App\Http\Controllers\DocumentController::class, 'addfile']);
+    Route::get('/admin/{id}/editfile', [App\Http\Controllers\DocumentController::class, 'editfile']);
     Route::post('/admin/storefile', [App\Http\Controllers\DocumentController::class, 'storefile']);
     Route::post('/admin/deldoc', [App\Http\Controllers\DocumentController::class, 'destroydoc']);
+    Route::post('/admin/updatedocident', [App\Http\Controllers\DocumentController::class, 'updatedocident']);
 });
 
 // Route::middleware(['auth', 'user-access:Finance'])->group(function () {
 //     Route::get('/user/finance', [App\Http\Controllers\HomeController::class, 'index'])->name('finance');
-// }); 
+// });
 
 // Route::middleware(['auth', 'user-access:HR'])->group(function () {
 //     Route::get('/user/hr', [App\Http\Controllers\HomeController::class, 'hr'])->name('hr');
