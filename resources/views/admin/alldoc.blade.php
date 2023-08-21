@@ -37,8 +37,6 @@
             <table id="ajaxalldoc" class="table" style="width:100%">
                   <thead>
                     <tr>
-                      <th>Date</th>
-                      <th>Contract No</th>
                       <th>Client Name</th>
                       <th>
                            <select name="service_filter" id="service_filter" class="form-control" style="width:180px;">
@@ -88,8 +86,6 @@
                   }
                 },
                 columns: [
-                { data: 'tgl_doc', name: 'tgl_doc' },
-                { data: 'contract_no', name: 'contract_no' },
                 { data: 'nama_client', name: 'nama_client' },
                 { data: 'nama_services', name: 'nama_services' },
                 {data: 'action', name: 'action', orderable: false}
