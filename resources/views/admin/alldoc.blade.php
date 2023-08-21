@@ -9,7 +9,7 @@
     <div class="card-header bg-white">
         <h3>Documents</h3>
     </div>
-   
+
     <div class="card-body"><br>
       <div class="row input-daterange">
           <div class="col-md-2" style="margin-left:180px;">
@@ -51,7 +51,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  
+
             </table>
     </div>
 </div>
@@ -78,6 +78,7 @@
               $('#ajaxalldoc').DataTable({
                 processing: true,
                 serverSide: true,
+                "ordering": false,
                 ajax: {
                   url:"{{ url('admin/alldoc') }}",
                   data: {
@@ -115,7 +116,7 @@
             $('#to_date').val('');
             $('#ajaxalldoc').DataTable().destroy();
             load_data();
-        }); 
+        });
 
         $('#service_filter').change(function(){
             $('#ajaxalldoc').DataTable().destroy();
@@ -145,7 +146,7 @@
             }
        });
 
-  });         
+  });
 </script>
 @endpush
 

@@ -84,7 +84,9 @@
                                     <tr>
                                         <td style="width:1%;"><?php echo $no++; ?></td>
                                         <td style="width:20%;"><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->path_invoice }}</a></td>
-                                        <td style="width:20%;"><a href="{{ url('admin/delinv/'.$inv->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
+                                        <td style="width:20%;">
+                                            <a href="{{ url('admin/delinv/'.$inv->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a>
+                                        </td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -110,7 +112,9 @@
                                         <tr>
                                             <td style="width:1%;"><?php echo $no++; ?></td>
                                             <td style="width:20%;"><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></td>
-                                            <td style="width:20%;"><a href="{{ url('admin/delctr/'.$ctr->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
+                                            <td style="width:20%;">
+                                                <a href="{{ url('admin/delctr/'.$ctr->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -136,7 +140,9 @@
                                         <tr>
                                             <td style="width:1%;"><?php echo $no++; ?></td>
                                             <td style="width:20%;"><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->path_proposal }}</a></td>
-                                            <td style="width:20%;"><a href="{{ url('admin/delprp/'.$prop->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a></td>
+                                            <td style="width:20%;">
+                                                <a href="{{ url('admin/delprp/'.$prop->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

@@ -258,6 +258,7 @@ class DocumentController extends Controller
                 ->join('clients', 'clients.id', '=', 'documents.client_name')
                 ->join('services', 'services.id', '=', 'documents.type_of_service')
                 ->select('clients.*','services.*','documents.*')
+                ->orderBy('documents.id', 'desc')
                 ->get();
             }
 
@@ -302,12 +303,15 @@ class DocumentController extends Controller
         $cli = Client::find($id_cli);
         $invs = DB::table('invoices')
                 ->where('id_doci', $id)
+                ->orderBy('id', 'desc')
                 ->get();
         $ctrs = DB::table('contracts')
                 ->where('id_docc', $id)
+                ->orderBy('id', 'desc')
                 ->get();
         $props = DB::table('proposals')
                 ->where('id_docp', $id)
+                ->orderBy('id', 'desc')
                 ->get();
 
         return view('admin.addfile', compact(['doc','cli','invs','ctrs','props']));

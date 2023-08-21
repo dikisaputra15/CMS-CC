@@ -66,7 +66,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>
-                                <a href="alldoc" class="btn btn-danger">Back</a>
+                                <a href="/admin/alldoc" class="btn btn-danger">Back</a>
                             </div>
                         </div>
                     </form>
