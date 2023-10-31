@@ -34,7 +34,7 @@
                     </tbody>
                 </table>
                 <br><br>
-        
+
         <h4 align="center">Services</h4>
         <a href="/admin/{{ $detail3->id }}/addsrvcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
         <table class="table table-sm">
@@ -53,7 +53,7 @@
             @foreach($detail as $dt)
                 <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $dt->kode_services }}</td>
+                    <td><a href="/admin/{{ $dt->id_client }}/logservices">{{ $dt->kode_services }}</a></td>
                     <td>{{ $dt->start_date }}</td>
                     <td>{{ $dt->duration }}</td>
                     <td>{{ $dt->end_date }}</td>

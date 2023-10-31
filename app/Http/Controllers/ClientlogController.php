@@ -47,4 +47,19 @@ class ClientlogController extends Controller
 
         return redirect('admin/'."{$request->id_client}".'/detailcli')->with('alert-primary','Data berhasil diupdate');
     }
+
+    public function logservices($id)
+    {
+        $log = DB::table('archive_services')
+        ->join('clients', 'archive_services.id_client', '=', 'clients.id')
+        ->join('services', 'archive_services.id_service', '=', 'services.id')
+        ->select('clients.*', 'archive_services.start_date', 'archive_services.duration', 'archive_services.end_date', 'archive_services.id_client', 'archive_services.id', 'services.kode_services', 'services.nama_services')
+        ->where('archive_services.id_client', $id)
+        ->orderBy('archive_services.id', 'desc')
+        ->get();
+
+        $client = Client::find($id);
+
+        return view('admin.logservices', compact(['log','client']));
+    }
 }

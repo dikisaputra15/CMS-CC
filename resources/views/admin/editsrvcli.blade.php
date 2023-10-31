@@ -47,12 +47,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label text-md-end">Duration</label>
+                            <label for="date" class="col-md-4 col-form-label text-md-end">Duration <small>(Month)</small></label>
                             <div class="col-md-6">
                                 <input id="duration" type="number" class="form-control" name="duration" required autocomplete="duration" value="{{ $dt->duration }}">
                             </div>
                         </div>
- 
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
