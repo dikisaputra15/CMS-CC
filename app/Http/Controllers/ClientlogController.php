@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Archive_service;
 use App\Models\Client;
+use App\Models\Detail_client;
 use App\Models\Log_service_client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,5 +63,26 @@ class ClientlogController extends Controller
         $client = Client::find($id);
 
         return view('admin.logservices', compact(['log','client']));
+    }
+
+    public function delloghis($id)
+    {
+        $log = log_service_client::find($id);
+        DB::table('log_service_clients')->where('id',$id)->delete();
+        return redirect("admin/$log->id_client/detailcli")->with('alert-danger','Data Deleted');
+    }
+
+    public function deldetailser($id)
+    {
+        $log = Detail_client::find($id);
+        DB::table('detail_clients')->where('id',$id)->delete();
+        return redirect("admin/$log->id_client/detailcli")->with('alert-danger','Data Deleted');
+    }
+
+    public function delloghisser($id)
+    {
+        $log = Archive_service::find($id);
+        DB::table('archive_services')->where('id',$id)->delete();
+        return redirect("admin/$log->id_client/logservices")->with('alert-danger','Data Deleted');
     }
 }

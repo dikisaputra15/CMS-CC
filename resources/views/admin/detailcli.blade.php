@@ -10,7 +10,7 @@
         <h3>{{ $detail3->nama_client }}</h3>
         <br><br>
         <h4 align="center">Log History Client</h4>
-                <a href="/admin/{{ $detail3->id }}/addsumcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
+                <a href="/admin/{{ $detail3->id }}/addsumcli" class="btn btn-sm btn-primary" title="Add New Log History Client"><i class="fa fa-plus"></i></a>(Add New Log History Client)
                 <table class="table table-sm">
                     <thead>
                         <tr>
@@ -28,6 +28,7 @@
                             <td>{{ $dt2->remarks }}</td>
                             <td>
                                 <a href="/admin/{{ $dt2->id }}/editsumcli" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a href="/admin/delloghis/{{ $dt2->id }}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -36,7 +37,7 @@
                 <br><br>
 
         <h4 align="center">Services</h4>
-        <a href="/admin/{{ $detail3->id }}/addsrvcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
+        <a href="/admin/{{ $detail3->id }}/addsrvcli" class="btn btn-sm btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>(Add New Service)
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -58,7 +59,8 @@
                     <td>{{ $dt->duration }}</td>
                     <td>{{ $dt->end_date }}</td>
                     <td>
-                        <a href="/admin/{{ $dt->id }}/editsrvcli" title="Edit"><i class="fa fa-edit"></i></a>
+                        <a href="/admin/{{ $dt->id }}/editsrvcli" title="Update Services"><i class="fa fa-edit"></i></a>
+                        <a href="/admin/deldetailser/{{ $dt->id }}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach

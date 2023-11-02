@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
         <div class="form-group row">
-            <a href="{{ url('admin/addprospec') }}" class="btn btn-primary" title="Add Data"><i class="fa fa-plus"></i></a>
+            <a href="{{ url('admin/addprospec') }}" class="btn btn-primary" title="Add Data"><i class="fa fa-plus"></i></a><h5>(Add New Prospective Client)</h5>
         </div>
             <table id="example" class="table" style="width:100%">
                   <thead>
@@ -25,11 +25,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php 
+                    <?php
                          $client = "";
                          $cc = "";
                     ?>
-                  <?php foreach($prospec as $pro) { 
+                  <?php foreach($prospec as $pro) {
                         $nama_client = $pro->nama_client;
                         $date = $pro->date;
                         $remarks = $pro->remarks;
@@ -37,10 +37,10 @@
                         $poc_cc = $pro->poc_cc;
                     ?>
 
-                <?php 
+                <?php
                     if($client!=$nama_client and $cc!=$poc_cc){
                         $client = $nama_client;
-                        
+
                 ?>
 
                     <tr data-widget="expandable-table" aria-expanded="false">
@@ -50,8 +50,9 @@
                         <td><?php echo $client_poc ?></td>
                         <td><?php echo $poc_cc ?></td>
                         <td>
-                            <a href="#" data-id="<?php echo $pro->id ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Notes"><i class="fa fa-edit"></i></a>
+                            <a href="#" data-id="<?php echo $pro->id_pros_client ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Add Notes"><i class="fa fa-plus"></i></a>
                             <a href="/admin/delpros/<?php echo $pro->id ?>" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
+                            <a href="/admin/<?php echo $pro->id ?>/editpros" title="Edit Prospective Client"><i class="fa fa-edit"></i></a>
                         </td>
                     </tr>
 
@@ -63,7 +64,9 @@
                         <td><?php echo $pro->client_poc ?></td>
                         <td></td>
                         <td>
-                            
+                            <a href="#" data-id="<?php echo $pro->id_pros_client ?>" data-toggle="modal" data-target="#myModal" class="passingID" title="Add Notes"><i class="fa fa-plus"></i></a>
+                            <a href="/admin/delpros/<?php echo $pro->id ?>" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
+                            <a href="/admin/<?php echo $pro->id ?>/editpros" title="Edit Prospective Client"><i class="fa fa-edit"></i></a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -77,7 +80,7 @@
                                 <form method="post" action="{{ url('admin/saveupdatepros') }}">
                                     @csrf
                                     <input type="text" class="form-control" name="id_prospective" id="idkl" value="" hidden>
-                                    
+
                                     <label for="date" class="col-md-4 col-form-label text-md-end">Date</label>
                                     <input id="date" type="date" class="form-control" name="tgl" required autocomplete="poc_cc" value="{{ date('Y-m-d') }}">
 

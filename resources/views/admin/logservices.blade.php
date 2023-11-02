@@ -18,6 +18,7 @@
                     <th>Start Date</th>
                     <th>Duration <small>(Month)</small></th>
                     <th>End Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,9 @@
                     <td>{{ $dt->start_date }}</td>
                     <td>{{ $dt->duration }}</td>
                     <td>{{ $dt->end_date }}</td>
+                    <td>
+                        <a href="/admin/delloghisser/{{ $dt->id }}" onclick="return confirm('Are you sure to delete this ?');" title="Delete"><i class="fa fa-trash"></i></a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

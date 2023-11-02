@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/admin/saveupdatepros', [App\Http\Controllers\ProspecController::class, 'updatepros']);
     Route::get('/admin/{id}/detailpros', [App\Http\Controllers\ProspecController::class, 'detailpros']);
     Route::get('/admin/delpros/{id}', [App\Http\Controllers\ProspecController::class, 'destroypros']);
+    Route::get('/admin/{id}/editpros', [App\Http\Controllers\ProspecController::class, 'editpros']);
+    Route::put('/admin/prosesupdatepros/{id}', [App\Http\Controllers\ProspecController::class, 'prosesupdatepros']);
     Route::get('/admin/clients', [App\Http\Controllers\ClientController::class, 'index']);
     Route::get('/admin/addclient', [App\Http\Controllers\ClientController::class, 'addclient']);
     Route::post('/admin/storeclient', [App\Http\Controllers\ClientController::class, 'storeclient']);
@@ -64,6 +66,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/admin/{id}/editsumcli', [App\Http\Controllers\ClientlogController::class, 'editsumcli']);
     Route::put('/admin/updatesumcli/{id}', [App\Http\Controllers\ClientlogController::class, 'updatesumcli']);
     Route::get('/admin/{id}/logservices',[App\Http\Controllers\ClientlogController::class, 'logservices']);
+    Route::get('/admin/delloghis/{id}', [App\Http\Controllers\ClientlogController::class, 'delloghis']);
+    Route::get('/admin/deldetailser/{id}', [App\Http\Controllers\ClientlogController::class, 'deldetailser']);
+    Route::get('/admin/delloghisser/{id}', [App\Http\Controllers\ClientlogController::class, 'delloghisser']);
     Route::get('/admin/{id}/addnote', [App\Http\Controllers\NoteController::class, 'addnote']);
     Route::post('/admin/storenote', [App\Http\Controllers\NoteController::class, 'storenote']);
     Route::post('/admin/editnote', [App\Http\Controllers\NoteController::class, 'editnote']);
