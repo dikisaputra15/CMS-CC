@@ -29,9 +29,10 @@
                             <select name="color_filter" id="color_filter" class="form-control">
                                 <option value="0">Contract Days Remaining</option>
                                 <option value="1" style="background-color:green">Green</option>
-                                <option value="2" style="background-color:black">Black</option>
+                                <option value="2" style="background-color:gray">Gray</option>
                                 <option value="3" style="background-color:red">Red</option>
                                 <option value="4" style="background-color:yellow">Yellow</option>
+                                <option value="5" style="background-color:black">Black</option>
                             </select>
                       </th>
                       <th>CCI POC</th>
@@ -39,7 +40,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  
+
             </table>
     </div>
 </div>
@@ -113,10 +114,10 @@ $(document).ready(function(){
                 }
             },
             columns: [
-                {data: null,"sortable": false, 
+                {data: null,"sortable": false,
                         render: function (data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
-                        }  
+                        }
                 },
                 { data: 'nama_client', name: 'nama_client', render:function(data, type, row){
                 return "<a href='/admin/"+ row.id_client +"/detailcli'>" + row.nama_client + "</a>"
@@ -137,18 +138,21 @@ $(document).ready(function(){
                         $tgl2 = new Date($tglakhir);
                         $diff = $tgl2.getTime() - $tgl1.getTime();
                         $days = $diff / (1000 * 3600 * 24);
-                    
+
                         if ($days > 90) {
                             var img = "<img src='/img/green.png' style='width:20px; height:20px;' alt='Image'/>";
                         }
-                        else if ($days < 30) {
-                            var img = "<img src='/img/black.png' style='width:20px; height:20px;' alt='Image'/>";
+                        else if ($days < 30 && $days >= -90) {
+                            var img = "<img src='/img/gray.png' style='width:20px; height:20px;' alt='Image'/>";
                         }
                         else if ($days < 45 && $days >= 30) {
                             var img = "<img src='/img/red.png' style='width:20px; height:20px;' alt='Image'/>";
-                        } 
-                        else {
+                        }
+                        else if ($days <= 90 && $days >= 45) {
                             var img = "<img src='/img/yellow.png' style='width:20px; height:20px;' alt='Image'/>";
+                        }
+                        else {
+                            var img = "<img src='/img/black.png' style='width:20px; height:20px;' alt='Image'/>";
                         }
                     return img+' '+Math.round($days);
                 }},

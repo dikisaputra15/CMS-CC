@@ -44,6 +44,7 @@ class DashboardController extends Controller
                 ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
                 ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
                 ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) < 30')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) >= -90')
                 ->get();
             }
             elseif($request->color_id == 3)
@@ -66,6 +67,16 @@ class DashboardController extends Controller
                 ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
                 ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) >= 45')
                 ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) <= 90')
+                ->get();
+            }
+            elseif($request->color_id == 5)
+            {
+                $data = DB::table('detail_clients')
+                ->leftjoin('clients', 'detail_clients.id_client', '=', 'clients.id')
+                ->leftjoin('services', 'detail_clients.id_service', '=', 'services.id')
+                ->leftjoin('notes', 'detail_clients.id', '=', 'notes.id_dclient')
+                ->select('clients.*', 'notes.*', 'services.*', 'detail_clients.*')
+                ->whereRaw('DATEDIFF(detail_clients.end_date, current_date()) < -90')
                 ->get();
             }
             else
