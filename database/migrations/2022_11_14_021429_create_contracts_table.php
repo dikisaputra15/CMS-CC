@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->integer('id_docc');
+            $table->string('contract_filename');
             $table->string('path_contract');
         });
     }

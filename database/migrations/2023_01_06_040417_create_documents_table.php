@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('contract_no');
+            $table->double('contract_value');
             $table->date('tgl_doc');
             $table->integer('client_name');
             $table->integer('type_of_service');

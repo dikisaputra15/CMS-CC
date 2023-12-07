@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
             $table->integer('id_docp');
+            $table->string('proposal_filename');
             $table->string('path_proposal');
         });
     }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->integer('id_doci');
+            $table->string('invoice_filename');
             $table->string('path_invoice');
         });
     }

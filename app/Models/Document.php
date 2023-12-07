@@ -13,6 +13,7 @@ class Document extends Model
 
     protected $fillable = [
         'contract_no',
+        'contract_value',
         'tgl_doc',
         'client_name',
         'type_of_service',

@@ -23,7 +23,7 @@
                 </th>
             </tr>
         </thead>
-        
+
         </table>
         <br>
         <a href="{{ url('admin/exportxls') }}" class="btn btn-success" title="export excel"><i class="fa fa-file-excel"></i></a>
@@ -39,10 +39,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
               });
-              
+
               $('#ajaxExport').DataTable({
                 processing: true,
                 serverSide: true,
+                "ordering": false,
                 ajax: "{{ url('admin/export') }}",
                 columns: [
                 { data: 'contract_no', name: 'contract_no' },
@@ -54,8 +55,7 @@
                 order: [[0, 'desc']]
          });
 
-  });         
+  });
 </script>
+
 @endpush
-
-

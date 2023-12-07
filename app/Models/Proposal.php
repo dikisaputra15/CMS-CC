@@ -13,6 +13,7 @@ class Proposal extends Model
 
     protected $fillable = [
         'id_docp',
+        'proposal_filename',
         'path_proposal',
     ];
 }

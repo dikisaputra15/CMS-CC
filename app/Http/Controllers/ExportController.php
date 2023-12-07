@@ -14,10 +14,12 @@ class ExportController extends Controller
 {
     public function index()
     {
-        $view = DB::table('archive_services')
-        ->join('clients', 'archive_services.id_client', '=', 'clients.id')
-        ->join('services', 'archive_services.id_service', '=', 'services.id')
-        ->select('clients.*', 'archive_services.*', 'services.*')
+        $view = DB::table('documents')
+        ->join('clients', 'documents.client_name', '=', 'clients.id')
+        ->join('detail_clients', 'detail_clients.id_client', '=', 'clients.id')
+        ->join('services', 'documents.type_of_service', '=', 'services.id')
+        ->select('clients.*', 'documents.*', 'services.*', 'detail_clients.*')
+        ->orderBy('documents.id', 'desc')
         ->get();
 
         if(request()->ajax()) {
@@ -29,7 +31,7 @@ class ExportController extends Controller
         return view('admin.export');
     }
 
-    public function export() 
+    public function export()
     {
         return Excel::download(new NptExport, 'NptExport.xlsx');
     }

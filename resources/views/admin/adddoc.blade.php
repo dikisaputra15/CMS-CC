@@ -23,9 +23,16 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="contract_no" class="col-md-4 col-form-label text-md-end">Contract No</label>
+                            <label for="contract_no" class="col-md-4 col-form-label text-md-end">Contract Number</label>
                             <div class="col-md-6">
                                 <input id="conractno" type="text" class="form-control" name="contract_no" required autocomplete="contract_no">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="contract_no" class="col-md-4 col-form-label text-md-end">Contract Value</label>
+                            <div class="col-md-6">
+                                <input id="conract_value" type="text" class="form-control" name="contract_value" required autocomplete="contract_value">
                             </div>
                         </div>
 

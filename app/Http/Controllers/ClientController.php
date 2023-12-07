@@ -44,7 +44,7 @@ class ClientController extends Controller
         $dur = $request->duration;
         $serviceid = $request->service_id;
         $end = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
-        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end))); 
+        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end)));
 
         $client = Client::create([
             'nama_client' => $request->nama_client,
@@ -54,9 +54,7 @@ class ClientController extends Controller
             'concord_poc' => $request->concord_poc,
             'end_user_poc' => $request->enduser_poc,
             'no_of_subs' => $request->no_of_subscribe,
-            'list_of_subs' => $request->list_of_subscribe,
-            'contract_no' => $request->c_number,
-            'contract_value' => $request->c_value
+            'list_of_subs' => $request->list_of_subscribe
         ]);
 
         $clientid = $client->id;
@@ -89,13 +87,13 @@ class ClientController extends Controller
         if($empdata){
             DB::table('detail_clients')->where('id_client',$id)->delete();
             $response['success'] = 1;
-            $response['msg'] = 'Delete successfully'; 
+            $response['msg'] = 'Delete successfully';
         }else{
             $response['success'] = 0;
             $response['msg'] = 'Invalid ID.';
         }
 
-        return response()->json($response); 
+        return response()->json($response);
     }
 
     public function editcli($id)
@@ -114,9 +112,7 @@ class ClientController extends Controller
             'concord_poc' => $request->concord_poc,
             'end_user_poc' => $request->enduser_poc,
             'no_of_subs' => $request->no_of_subscribe,
-            'list_of_subs' => $request->list_of_subscribe,
-            'contract_no' => $request->c_number,
-            'contract_value' => $request->c_value
+            'list_of_subs' => $request->list_of_subscribe
 		]);
 
         return redirect('admin/clients')->with('alert-primary','Data successfully updatede');
@@ -155,7 +151,7 @@ class ClientController extends Controller
         $tgl1 = $request->start_date;
         $dur = $request->duration;
         $end = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
-        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end))); 
+        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end)));
 
         Detail_client::create([
             'id_client' => $request->id_client,
@@ -188,7 +184,7 @@ class ClientController extends Controller
         $tgl1 = $request->start_date;
         $dur = $request->duration;
         $end = date('Y-m-d', strtotime(''.+$dur.' month', strtotime($tgl1)));
-        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end))); 
+        $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($end)));
 
         DB::table('detail_clients')->where('id',$id)->update([
             'id_client' => $request->id_client,

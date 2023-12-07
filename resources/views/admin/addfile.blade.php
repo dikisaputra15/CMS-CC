@@ -83,9 +83,10 @@
                                 <?php foreach ($invs as $inv) { ?>
                                     <tr>
                                         <td style="width:1%;"><?php echo $no++; ?></td>
-                                        <td style="width:20%;"><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->path_invoice }}</a></td>
+                                        <td style="width:20%;"><a href="/document/invoice/{{ $inv->path_invoice }}" target="__blank">{{ $inv->invoice_filename }}</a></td>
                                         <td style="width:20%;">
                                             <a href="{{ url('admin/delinv/'.$inv->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a>
+                                            <a href="/admin/<?php echo $inv->id ?>/editinv" title="Edit Invoices Document"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -111,9 +112,10 @@
                                     <?php foreach ($ctrs as $ctr) { ?>
                                         <tr>
                                             <td style="width:1%;"><?php echo $no++; ?></td>
-                                            <td style="width:20%;"><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></td>
+                                            <td style="width:20%;"><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->contract_filename }}</a></td>
                                             <td style="width:20%;">
                                                 <a href="{{ url('admin/delctr/'.$ctr->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a>
+                                                <a href="/admin/<?php echo $ctr->id ?>/editctr" title="Edit Contract Document"><i class="fa fa-edit"></i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -139,9 +141,10 @@
                                     <?php foreach ($props as $prop) { ?>
                                         <tr>
                                             <td style="width:1%;"><?php echo $no++; ?></td>
-                                            <td style="width:20%;"><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->path_proposal }}</a></td>
+                                            <td style="width:20%;"><a href="/document/proposal/{{ $prop->path_proposal }}" target="__blank">{{ $prop->proposal_filename }}</a></td>
                                             <td style="width:20%;">
                                                 <a href="{{ url('admin/delprp/'.$prop->id) }}" onclick="return confirm('Are You Sure Want to Delete')"><i class="fa fa-trash"></i></a>
+                                                <a href="/admin/<?php echo $prop->id ?>/editprop" title="Edit Proposal Document"><i class="fa fa-edit"></i></a>
                                             </td>
                                         </tr>
                                     <?php } ?>

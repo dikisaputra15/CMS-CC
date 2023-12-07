@@ -13,6 +13,7 @@ class Contract extends Model
 
     protected $fillable = [
         'id_docc',
+        'contract_filename',
         'path_contract',
     ];
 }

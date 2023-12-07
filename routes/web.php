@@ -95,6 +95,12 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/admin/storefile', [App\Http\Controllers\DocumentController::class, 'storefile']);
     Route::post('/admin/deldoc', [App\Http\Controllers\DocumentController::class, 'destroydoc']);
     Route::post('/admin/updatedocident', [App\Http\Controllers\DocumentController::class, 'updatedocident']);
+    Route::get('/admin/{id}/editinv', [App\Http\Controllers\DocumentController::class, 'editinv']);
+    Route::get('/admin/{id}/editctr', [App\Http\Controllers\DocumentController::class, 'editctr']);
+    Route::get('/admin/{id}/editprop', [App\Http\Controllers\DocumentController::class, 'editprop']);
+    Route::post('/admin/updateinvfile', [App\Http\Controllers\DocumentController::class, 'updateinvfile']);
+    Route::post('/admin/updatectrfile', [App\Http\Controllers\DocumentController::class, 'updatectrfile']);
+    Route::post('/admin/updatepropfile', [App\Http\Controllers\DocumentController::class, 'updatepropfile']);
 });
 
 // Route::middleware(['auth', 'user-access:Finance'])->group(function () {

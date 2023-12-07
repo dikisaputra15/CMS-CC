@@ -32,6 +32,13 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="contract_no" class="col-md-4 col-form-label text-md-end">Contract Value</label>
+                            <div class="col-md-6">
+                                <input id="conractvalue" type="text" class="form-control" name="contract_value" required autocomplete="contract_value" value="{{ $doc->contract_value }}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="client" class="col-md-4 col-form-label text-md-end">Client Name</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="client_name">

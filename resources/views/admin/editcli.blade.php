@@ -66,26 +66,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="cn" class="col-md-4 col-form-label text-md-end">Contract Number</label>
-                            <div class="col-md-6">
-                                <input id="c_number" type="text" class="form-control" name="c_number" required autocomplete="c_number" value="{{ $client->contract_no }}">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="cv" class="col-md-4 col-form-label text-md-end">Contract Value</label>
-                            <div class="col-md-6">
-                                <input id="c_value" type="number" class="form-control" name="c_value" required autocomplete="c_value" value="{{ $client->contract_value }}">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
                             <label for="date" class="col-md-4 col-form-label text-md-end">List Of Subscriber</label>
                             <div class="col-md-6">
                                 <textarea name="list_of_subscribe" style="height:150px; width:500px;">{{ $client->list_of_subs }}</textarea>
                             </div>
                         </div>
- 
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

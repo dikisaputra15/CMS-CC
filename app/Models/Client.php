@@ -20,7 +20,5 @@ class Client extends Model
         'end_user_poc',
         'no_of_subs',
         'list_of_subs',
-        'contract_no',
-        'contract_value',
     ];
 }

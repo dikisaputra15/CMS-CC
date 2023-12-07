@@ -288,6 +288,7 @@ class DocumentController extends Controller
     {
          Document::create([
             'contract_no' => $request->contract_no,
+            'contract_value' => $request->contract_value,
             'tgl_doc' => $request->tgl_doc,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service
@@ -303,15 +304,15 @@ class DocumentController extends Controller
         $cli = Client::find($id_cli);
         $invs = DB::table('invoices')
                 ->where('id_doci', $id)
-                ->orderBy('id', 'desc')
+                ->orderBy('invoices.id', 'desc')
                 ->get();
         $ctrs = DB::table('contracts')
                 ->where('id_docc', $id)
-                ->orderBy('id', 'desc')
+                ->orderBy('contracts.id', 'desc')
                 ->get();
         $props = DB::table('proposals')
                 ->where('id_docp', $id)
-                ->orderBy('id', 'desc')
+                ->orderBy('proposals.id', 'desc')
                 ->get();
 
         return view('admin.addfile', compact(['doc','cli','invs','ctrs','props']));
@@ -343,6 +344,7 @@ class DocumentController extends Controller
 
             Invoice::create([
                 'id_doci' => $request->id_doc,
+                'invoice_filename' => $request->file_name,
                 'path_invoice' => $filename
             ]);
 
@@ -362,6 +364,7 @@ class DocumentController extends Controller
 
             Contract::create([
                 'id_docc' => $request->id_doc,
+                'contract_filename' => $request->file_name,
                 'path_contract' => $filename
             ]);
 
@@ -382,6 +385,7 @@ class DocumentController extends Controller
 
             Proposal::create([
                 'id_docp' => $request->id_doc,
+                'proposal_filename' => $request->file_name,
                 'path_proposal' => $filename
             ]);
 
@@ -417,11 +421,147 @@ class DocumentController extends Controller
 
         DB::table('documents')->where('id',$id)->update([
 			'contract_no' => $request->contract_no,
+            'contract_value' => $request->contract_value,
 			'tgl_doc' => $request->tgl_doc,
             'client_name' => $request->client_name,
             'type_of_service' => $request->type_service
 		]);
 
         return redirect('admin/alldoc')->with('alert-primary','Data updated successfully');
+    }
+
+    public function editinv($id)
+    {
+        $inv = Invoice::find($id);
+        return view('admin.editinv', compact(['inv']));
+    }
+
+    public function editctr($id)
+    {
+        $ctr = Contract::find($id);
+        return view('admin.editctr', compact(['ctr']));
+    }
+
+    public function editprop($id)
+    {
+        $prop = Proposal::find($id);
+        return view('admin.editprop', compact(['prop']));
+    }
+
+    public function updateinvfile(Request $request)
+    {
+        $cekfile = $request->file_name;
+        $id_inv = $request->id_inv;
+        $id_doci = $request->id_doci;
+        $old_invfile = $request->old_invfile;
+
+        if($cekfile != ""){
+            $file = public_path('document/invoice/' . $old_invfile);
+
+            if(File::exists($file)) {
+                File::delete($file);
+            }
+
+            $extension = $request->file('file_name')->extension();
+
+            $nama_file = str_replace(" ", "-", $request->invoice_filename);
+            $num = hexdec(uniqid());
+
+            $filename = $nama_file.'_'.$num.'.'.$extension;
+
+            $request->file('file_name')->move(
+                base_path() . '/public/document/invoice/', $filename
+            );
+
+            DB::table('invoices')->where('id',$id_inv)->update([
+                'invoice_filename' => $request->invoice_filename,
+                'path_invoice' => $filename
+            ]);
+
+        }else{
+            DB::table('invoices')->where('id',$id_inv)->update([
+                'invoice_filename' => $request->invoice_filename
+            ]);
+        }
+
+        return redirect("admin/$request->id_doci/addfile")->with('alert-primary','updated succesfully');
+    }
+
+    public function updatectrfile(Request $request)
+    {
+        $cekfile = $request->file_name;
+        $id_ctr = $request->id_ctr;
+        $id_docc = $request->id_docc;
+        $old_ctrfile = $request->old_ctrfile;
+
+        if($cekfile != ""){
+            $file = public_path('document/contract/' . $old_ctrfile);
+
+            if(File::exists($file)) {
+                File::delete($file);
+            }
+
+            $extension = $request->file('file_name')->extension();
+
+            $nama_file = str_replace(" ", "-", $request->contract_filename);
+            $num = hexdec(uniqid());
+
+            $filename = $nama_file.'_'.$num.'.'.$extension;
+
+            $request->file('file_name')->move(
+                base_path() . '/public/document/contract/', $filename
+            );
+
+            DB::table('contracts')->where('id',$id_ctr)->update([
+                'contract_filename' => $request->contract_filename,
+                'path_contract' => $filename
+            ]);
+
+        }else{
+            DB::table('contracts')->where('id',$id_inv)->update([
+                'contract_filename' => $request->contract_filename
+            ]);
+        }
+
+        return redirect("admin/$request->id_docc /addfile")->with('alert-primary','updated succesfully');
+    }
+
+    public function updatepropfile(Request $request)
+    {
+        $cekfile = $request->file_name;
+        $id_prop = $request->id_prop;
+        $id_docp = $request->id_docp;
+        $old_propfile = $request->old_propfile;
+
+        if($cekfile != ""){
+            $file = public_path('document/proposal/' . $old_propfile);
+
+            if(File::exists($file)) {
+                File::delete($file);
+            }
+
+            $extension = $request->file('file_name')->extension();
+
+            $nama_file = str_replace(" ", "-", $request->proposal_filename);
+            $num = hexdec(uniqid());
+
+            $filename = $nama_file.'_'.$num.'.'.$extension;
+
+            $request->file('file_name')->move(
+                base_path() . '/public/document/proposal/', $filename
+            );
+
+            DB::table('proposals')->where('id',$id_prop)->update([
+                'proposal_filename' => $request->proposal_filename,
+                'path_proposal' => $filename
+            ]);
+
+        }else{
+            DB::table('proposals')->where('id',$id_prop)->update([
+                'proposal_filename' => $request->proposal_filename
+            ]);
+        }
+
+        return redirect("admin/$request->id_docc /addfile")->with('alert-primary','updated succesfully');
     }
 }
