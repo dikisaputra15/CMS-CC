@@ -518,12 +518,12 @@ class DocumentController extends Controller
             ]);
 
         }else{
-            DB::table('contracts')->where('id',$id_inv)->update([
+            DB::table('contracts')->where('id',$id_ctr)->update([
                 'contract_filename' => $request->contract_filename
             ]);
         }
 
-        return redirect("admin/$request->id_docc /addfile")->with('alert-primary','updated succesfully');
+        return redirect("admin/$id_docc/addfile")->with('alert-primary','updated succesfully');
     }
 
     public function updatepropfile(Request $request)
@@ -562,6 +562,6 @@ class DocumentController extends Controller
             ]);
         }
 
-        return redirect("admin/$request->id_docc /addfile")->with('alert-primary','updated succesfully');
+        return redirect("admin/$id_docp/addfile")->with('alert-primary','updated succesfully');
     }
 }
