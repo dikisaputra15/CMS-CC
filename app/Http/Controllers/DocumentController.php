@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Models\Client;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
@@ -176,7 +177,7 @@ class DocumentController extends Controller
         $invoice = Invoice::find($id);
 
         if($invoice){
-            $file = public_path('document/invoice/' . $invoice->path_invoice);
+            $file = Storage::url('document/invoice/'.$invoice->path_invoice);
 
             if(File::exists($file)) {
                 File::delete($file);
@@ -196,7 +197,7 @@ class DocumentController extends Controller
         $ctr = Contract::find($id);
 
         if($ctr){
-            $file = public_path('document/contract/' . $ctr->path_contract);
+            $file = Storage::url('document/contract/'.$ctr->path_contract);
 
             if(File::exists($file)) {
                 File::delete($file);
@@ -216,7 +217,7 @@ class DocumentController extends Controller
         $prp = Proposal::find($id);
 
         if($prp){
-            $file = public_path('document/proposal/' . $prp->path_proposal);
+            $file = Storage::url('document/proposal/'.$prp->path_proposal);
 
             if(File::exists($file)) {
                 File::delete($file);
@@ -329,18 +330,20 @@ class DocumentController extends Controller
     public function storefile(Request $request)
     {
         $type = $request->file_type;
+        $file = $request->file('file');
         if($type == 1){
 
-            $extension = $request->file('file')->extension();
+            $extension = $file->getClientOriginalExtension();
 
             $nama_file = str_replace(" ", "-", $request->file_name);
             $num = hexdec(uniqid());
 
             $filename = $nama_file.'_'.$num.'.'.$extension;
 
-            $request->file('file')->move(
-                base_path() . '/public/document/invoice/', $filename
-            );
+            // $request->file('file')->move(
+            //     base_path() . '/public/document/invoice/', $filename
+            // );
+            Storage::putFileAs('public/document/invoice', $file, $filename);
 
             Invoice::create([
                 'id_doci' => $request->id_doc,
@@ -351,16 +354,18 @@ class DocumentController extends Controller
             return redirect("admin/$request->id_doc/addfile")->with('alert-primary','upload succesfully');
 
         }elseif($type == 2){
-            $extension = $request->file('file')->extension();
+            $extension = $file->getClientOriginalExtension();
 
             $nama_file = str_replace(" ", "-", $request->file_name);
             $num = hexdec(uniqid());
 
             $filename = $nama_file.'_'.$num.'.'.$extension;
 
-            $request->file('file')->move(
-                base_path() . '/public/document/contract/', $filename
-            );
+            // $request->file('file')->move(
+            //     base_path() . '/public/document/contract/', $filename
+            // );
+
+            Storage::putFileAs('public/document/contract', $file, $filename);
 
             Contract::create([
                 'id_docc' => $request->id_doc,
@@ -372,16 +377,18 @@ class DocumentController extends Controller
 
         }elseif($type == 3){
 
-            $extension = $request->file('file')->extension();
+            $extension = $file->getClientOriginalExtension();
 
             $nama_file = str_replace(" ", "-", $request->file_name);
             $num = hexdec(uniqid());
 
             $filename = $nama_file.'_'.$num.'.'.$extension;
 
-            $request->file('file')->move(
-                base_path() . '/public/document/proposal/', $filename
-            );
+            // $request->file('file')->move(
+            //     base_path() . '/public/document/proposal/', $filename
+            // );
+
+            Storage::putFileAs('public/document/proposal', $file, $filename);
 
             Proposal::create([
                 'id_docp' => $request->id_doc,
@@ -454,24 +461,29 @@ class DocumentController extends Controller
         $id_inv = $request->id_inv;
         $id_doci = $request->id_doci;
         $old_invfile = $request->old_invfile;
+        $file = $request->file('file');
 
         if($cekfile != ""){
-            $file = public_path('document/invoice/' . $old_invfile);
+            // $file = public_path('document/invoice/' . $old_invfile);
+            $fileinv = Storage::url('document/invoice/'. $old_invfile);
 
-            if(File::exists($file)) {
-                File::delete($file);
+            if(File::exists($fileinv)) {
+                File::delete($fileinv);
             }
 
-            $extension = $request->file('file_name')->extension();
+            $extension = $file->getClientOriginalExtension();
 
-            $nama_file = str_replace(" ", "-", $request->invoice_filename);
+            $nama_file = str_replace(" ", "-", $request->file_name);
             $num = hexdec(uniqid());
 
             $filename = $nama_file.'_'.$num.'.'.$extension;
 
-            $request->file('file_name')->move(
-                base_path() . '/public/document/invoice/', $filename
-            );
+            // $request->file('file_name')->move(
+            //     base_path() . '/public/document/invoice/', $filename
+            // );
+
+            Storage::putFileAs('public/document/invoice', $file, $filename);
+
 
             DB::table('invoices')->where('id',$id_inv)->update([
                 'invoice_filename' => $request->invoice_filename,
@@ -493,24 +505,28 @@ class DocumentController extends Controller
         $id_ctr = $request->id_ctr;
         $id_docc = $request->id_docc;
         $old_ctrfile = $request->old_ctrfile;
+        $file = $request->file('file');
 
         if($cekfile != ""){
-            $file = public_path('document/contract/' . $old_ctrfile);
+            // $file = public_path('document/contract/' . $old_ctrfile);
+            $filectr = Storage::url('document/contract/'. $old_ctrfile);
 
             if(File::exists($file)) {
                 File::delete($file);
             }
 
-            $extension = $request->file('file_name')->extension();
+            $extension = $file->getClientOriginalExtension();
 
-            $nama_file = str_replace(" ", "-", $request->contract_filename);
+            $nama_file = str_replace(" ", "-", $request->file_name);
             $num = hexdec(uniqid());
 
             $filename = $nama_file.'_'.$num.'.'.$extension;
 
-            $request->file('file_name')->move(
-                base_path() . '/public/document/contract/', $filename
-            );
+            // $request->file('file_name')->move(
+            //     base_path() . '/public/document/contract/', $filename
+            // );
+
+            Storage::putFileAs('public/document/contract', $file, $filename);
 
             DB::table('contracts')->where('id',$id_ctr)->update([
                 'contract_filename' => $request->contract_filename,
@@ -532,24 +548,28 @@ class DocumentController extends Controller
         $id_prop = $request->id_prop;
         $id_docp = $request->id_docp;
         $old_propfile = $request->old_propfile;
+        $file = $request->file('file');
 
         if($cekfile != ""){
-            $file = public_path('document/proposal/' . $old_propfile);
+            // $file = public_path('document/proposal/' . $old_propfile);
+            $filectr = Storage::url('document/proposal/'. $old_propfile);
 
             if(File::exists($file)) {
                 File::delete($file);
             }
 
-            $extension = $request->file('file_name')->extension();
+            $extension = $file->getClientOriginalExtension();
 
-            $nama_file = str_replace(" ", "-", $request->proposal_filename);
+            $nama_file = str_replace(" ", "-", $request->file_name);
             $num = hexdec(uniqid());
 
             $filename = $nama_file.'_'.$num.'.'.$extension;
 
-            $request->file('file_name')->move(
-                base_path() . '/public/document/proposal/', $filename
-            );
+            // $request->file('file_name')->move(
+            //     base_path() . '/public/document/proposal/', $filename
+            // );
+
+            Storage::putFileAs('public/document/proposal', $file, $filename);
 
             DB::table('proposals')->where('id',$id_prop)->update([
                 'proposal_filename' => $request->proposal_filename,

@@ -38,7 +38,7 @@
                         <div class="row mb-3">
                             <label for="contract_no" class="col-md-4 col-form-label text-md-end">File upload</label>
                             <div class="col-md-6">
-                                <label><a href="/document/contract/{{ $ctr->path_contract }}" target="__blank">{{ $ctr->path_contract }}</a></label>
+                                <label><a href="{{ Storage::url('document/contract/'.$ctr->path_contract) }}" target="__blank">{{ $ctr->path_contract }}</a></label>
                                 <input type="file" class="form-control" name="file_name">
                                 <input type="text" class="form-control" name="old_ctrfile" value="{{ $ctr->path_contract }}" hidden>
                             </div>
